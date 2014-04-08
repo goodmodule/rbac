@@ -19,7 +19,7 @@
 		"hierarchical",
 		"privacy"
 	],
-	"private": true,
+	"private": false,
 	"licenses": [
 		{
 			"type": "MIT",
