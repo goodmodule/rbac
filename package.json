@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -31,7 +31,7 @@
 		"node": "0.10.x",
 		"npm": "1.3.x"
 	},	
-	"dependencies": {
+	"devDependencies": {
 		"jasmine-node": "~1.14.2"
 	}
 }
