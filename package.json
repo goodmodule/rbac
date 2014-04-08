@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/seeden/maglev.git"
+		"url": "git://github.com/seeden/rbac.git"
 	},
 	"keywords": [
 		"role",
