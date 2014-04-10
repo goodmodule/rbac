@@ -13,7 +13,10 @@ var appendTo = exports.appendTo = function(schema, addMethods) {
 	if(addMethods) {
 		schema.methods.can = can;
 		schema.methods.addPermissions = addPermissions;
+
 		schema.methods.hasRole = hasRole;
+		schema.methods.setRole = setRole;
+		
 	}
 	
 	return schema;
@@ -83,4 +86,20 @@ var hasRole = exports.hasRole = function(rbac, name) {
 	}
 
 	return false;
+};
+
+
+var setRole = exports.setRole = function(rbac, name, cb) {
+	if(this.role === name) {
+		return cb(new Error('User already has assigned this role'));
+	}
+
+	//check existance of permission
+	var role = rbac.getRole(name);
+	if(!role) {
+		return cb(new Error('Role does not exists'));	
+	}
+
+	this.role = role.getName();
+	this.save(cb);
 };
