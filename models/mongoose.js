@@ -13,15 +13,18 @@ var appendTo = exports.appendTo = function(schema, addMethods) {
 	if(addMethods) {
 		schema.methods.can = can;
 		schema.methods.addPermissions = addPermissions;
+		schema.methods.hasRole = hasRole;
 	}
 	
 	return schema;
 };
 
 /**
- * Check if user has assigned a specific role 
- * @param  {String}   role 
- * @param  {Function} cb Callback
+ * Check if user has assigned a specific permission 
+ * @param  {RBAC}  rbac Instance of RBAC
+ * @param  {String}   action  Name of action 
+ * @param  {String}   resource  Name of resource 
+ * @return {Boolean}        
  */
 var can = exports.can = function(rbac, action, resource) {
 	//check existance of permission
@@ -44,7 +47,7 @@ var can = exports.can = function(rbac, action, resource) {
 };
 
 /**
- * Assign permissions to the user
+ * Assign additional permissions to the user
  * @param  {String|Array}   permissions  Array of permissions or string representing of permission
  * @param  {Function} cb Callback
  */
@@ -60,4 +63,24 @@ var addPermissions = exports.addPermissions = function(permissions, cb) {
         self.permissions = obj.permissions;
         cb(err, obj);
 	});
+};
+
+/**
+ * Check if user has assigned a specific role 
+ * @param  {RBAC}  rbac Instance of RBAC
+ * @param  {String}  name Name of role
+ * @return {Boolean}      [description]
+ */
+var hasRole = exports.hasRole = function(rbac, name) {
+	if(!this.role) {
+		return false;
+	}
+
+	//check existance of permission
+	var role = rbac.getRole(this.role);
+	if(role && role.hasRole(name) === true) {
+		return true;
+	}
+
+	return false;
 };
