@@ -27,15 +27,15 @@ RBAC is the authorization library for NodeJs.
     var user = rbac.createRole('user');
 
     //assign permissions to roles
-    user.allow(createArticle);
-    admin.allow(deleteUser);
+    user.grant(createArticle);
+    admin.grant(deleteUser);
     
     //create hierarchy
-    admin.allow(user);
+    admin.grant(user);
 
     //check permissions
-    var isAllowed = admin.isAllowed('create', 'article');
-    var isAllowed = user.isAllowed('delete', 'user');
+    var canCreateArticle = admin.can('create', 'article');
+    var canDeleteUser = user.can('delete', 'user');
 
     
 ## Credits

@@ -17,15 +17,15 @@ describe('RBAC', function() {
 		var deleteUser = rbac.createPermission('delete', 'user');
 
 		//assign roles
-		superAdmin.allow(admin);
-		admin.allow(user);
-		user.allow(guest);
+		superAdmin.grant(admin);
+		admin.grant(user);
+		user.grant(guest);
 
 		//assign permissions
-		admin.allow(deleteUser);
-		user.allow(createUser);
+		admin.grant(deleteUser);
+		user.grant(createUser);
 
-		expect(admin.isAllowed('create', 'user')).toEqual(true);
-		expect(user.isAllowed('delete', 'user')).toEqual(false);
+		expect(admin.can('create', 'user')).toEqual(true);
+		expect(user.can('delete', 'user')).toEqual(false);
 	});
 });
