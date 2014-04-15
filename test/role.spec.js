@@ -8,16 +8,31 @@ describe('RBAC', function() {
 
 
 	it('role hierarchy', function() {
+		var roles = ['superadmin', 'admin', 'user', 'guest'];
+		var permissions = [
+			['create', 'user'], 
+			['delete', 'user']
+		];
+
+
+		rbac.crete(roles, permissions, function(err, data) {
+			console.log(err);
+			console.log(data);
+
+		});
+
+
+/*
 		var superAdmin = rbac.createRole('superadmin');
 		var admin = rbac.createRole('admin');
 		var user = rbac.createRole('user');
 		var guest = rbac.createRole('guest');
 
 		var createUser = rbac.createPermission('create', 'user');
-		var deleteUser = rbac.createPermission('delete', 'user');
+		var deleteUser = rbac.createPermission('delete', 'user');*/
 
 		//assign roles
-		superAdmin.grant(admin);
+		/*superAdmin.grant(admin);
 		admin.grant(user);
 		user.grant(guest);
 
@@ -26,6 +41,6 @@ describe('RBAC', function() {
 		user.grant(createUser);
 
 		expect(admin.can('create', 'user')).toEqual(true);
-		expect(user.can('delete', 'user')).toEqual(false);
+		expect(user.can('delete', 'user')).toEqual(false);*/
 	});
 });
