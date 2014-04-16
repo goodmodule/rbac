@@ -34,7 +34,8 @@
 		"test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js test"
 	},
 	"dependencies" : {
-		"underscore": "~1.6.0"
+		"underscore": "~1.6.0",
+		"async": "~0.7.0"
 	},
 	"devDependencies": {
 		"jasmine-node": "~1.14.2"
