@@ -9,7 +9,9 @@
  */
 exports.can = function(rbac, action, resource) {
 	var permission = rbac.getPermission(action, resource);
-	if(!permission) throw new Error('Permission is undefined');
+	if(!permission) {
+		throw new Error('Permission is undefined');
+	}
 
 	return function(req, res, next) {
 		if(!req.can) {
@@ -32,7 +34,9 @@ exports.can = function(rbac, action, resource) {
  */
 exports.hasRole = function(rbac, name) {
 	var role = rbac.getRole(name);
-	if(!role) throw new Error('Role is undefined');
+	if(!role) {
+		throw new Error('Role is undefined');
+	}
 
 	return function(req, res, next) {
 		if(!req.hasRole) {

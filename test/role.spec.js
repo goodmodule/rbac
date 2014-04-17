@@ -119,24 +119,14 @@ describe('RBAC', function() {
 		runs(function(){
 			expect(grant).toBe(true);	
 		});
-
-
-
-/*
-		expect(admin.can('create', 'user')).toEqual(true);
-		expect(user.can('delete', 'user')).toEqual(false);*/
 	});	
-
 
 	it('admin can create article', function() {
 		var admin = response.roles.admin;
-		var user = response.roles.user;
-
 		var granted = false;
 
 		runs(function(){
 			admin.can('create', 'article', function(err, can) {
-				console.log(123, can);
 				if(err) throw err;
 				granted = can;
 			});	
@@ -149,5 +139,135 @@ describe('RBAC', function() {
 		runs(function(){
 			expect(granted).toBe(true);	
 		});
-	});			
+	});	
+	
+	it('admin can delete user', function() {
+		var admin = response.roles.admin;
+		var granted = false;
+
+		runs(function(){
+			admin.can('delete', 'user', function(err, can) {
+				if(err) throw err;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return granted;
+		}, 'The admin should be able delete user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(true);	
+		});
+	});	
+	
+	it('user can not delete user', function() {
+		var user = response.roles.user;
+		var finish = false;
+		var granted = null;
+
+		runs(function(){
+			user.can('delete', 'user', function(err, can) {
+				if(err) throw err;
+				finish = true;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return finish;
+		}, 'The user should not be able delete user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(false);	
+		});
+	});	
+
+	it('user can create article', function() {
+		var user = response.roles.user;
+		var finish = false;
+		var granted = null;
+
+		runs(function(){
+			user.can('create', 'article', function(err, can) {
+				if(err) throw err;
+				finish = true;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return finish;
+		}, 'The user should be able create user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(true);	
+		});
+	});	
+
+	it('user can any create article', function() {
+		var user = response.roles.user;
+		var finish = false;
+		var granted = null;
+
+		runs(function(){
+			user.canAny(permissions, function(err, can) {
+				if(err) throw err;
+				finish = true;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return finish;
+		}, 'The user should be able create user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(true);	
+		});
+	});	
+
+	it('user can all create article', function() {
+		var user = response.roles.user;
+		var finish = false;
+		var granted = null;
+
+		runs(function(){
+			user.canAll(permissions, function(err, can) {
+				if(err) throw err;
+				finish = true;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return finish;
+		}, 'The user should be able create user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(false);	
+		});
+	});	
+
+	it('admin can all create article', function() {
+		var admin = response.roles.admin;
+		var finish = false;
+		var granted = null;
+
+		runs(function(){
+			admin.canAll(permissions, function(err, can) {
+				if(err) throw err;
+				finish = true;
+				granted = can;
+			});	
+		});
+
+		waitsFor(function() {
+			return finish;
+		}, 'The admin should be able create user', 1000);		
+		
+		runs(function(){
+			expect(granted).toBe(true);	
+		});
+	});
 });
