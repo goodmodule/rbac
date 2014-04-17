@@ -7,6 +7,16 @@
 RBAC is the authorization library for NodeJs. 
 
 
+## Motivation
+
+I needed hierarchical role based access control for my projects based on ExpressJS. 
+I had one requirement. This structure must be permanently stored in various storages. 
+For example in memory, file, Redis and Mongoose. 
+Because there is a lot of options for storing of data and many of them are asynchronous. 
+I created asynchronous API. 
+Please, if you found any bug or you need custom API, create an issue or pull request.
+
+
 ## Install
 
     $ npm install rbac
