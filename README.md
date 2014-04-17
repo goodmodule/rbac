@@ -1,5 +1,5 @@
 # RBAC 
-## (Hierarchical Role Based Access Control)
+(Hierarchical Role Based Access Control)
 
 [![Quality](https://codeclimate.com/github/seeden/rbac.png)](https://codeclimate.com/github/seeden/rbac/badges)
 [![Dependencies](https://david-dm.org/seeden/rbac.png)](https://david-dm.org/seeden/rbac)
@@ -81,6 +81,34 @@ Please, if you found any bug or you need custom API, create an issue or pull req
         }); 
 
     });
+
+## Api 
+
+### Create RBAC
+
+### `RBAC(storage)`
+
+Constructor of RBAC
+
+* `storage` Instance of storage (default memory)
+
+
+### Create Role
+
+### `createRole(name, cb) `
+
+Create a new role assigned to actual instance of RBAC
+
+* `name` Name of new Role
+* `cb` Callback function(error, role)
+
+
+
+## Running Tests
+
+To run the tests, install the dev dependencies and run:
+    
+    npm test
 
 
     
