@@ -1,4 +1,5 @@
-# RBAC (Hierarchical Role Based Access Control)
+# RBAC 
+## (Hierarchical Role Based Access Control)
 
 [![Quality](https://codeclimate.com/github/seeden/rbac.png)](https://codeclimate.com/github/seeden/rbac/badges)
 [![Dependencies](https://david-dm.org/seeden/rbac.png)](https://david-dm.org/seeden/rbac)
@@ -15,27 +16,62 @@ RBAC is the authorization library for NodeJs.
 
     var RBAC = require('rbac');
 
-    //create instance of RBAC
     var rbac = new RBAC();
 
-    //create permissions
-    var createArticle = rbac.createPermission('create', 'article');
-    var deleteUser = rbac.createPermission('delete', 'user');
+    var roles = ['superadmin', 'admin', 'user', 'guest'];
+    var permissions = [
+        ['create', 'article'], 
+        ['delete', 'user']
+    ];
 
-    //create roles
-    var admin = rbac.createRole('admin');
-    var user = rbac.createRole('user');
+    rbac.create(roles, permissions, function(err, response) {
+        if(err) throw err; //process error
 
-    //assign permissions to roles
-    user.grant(createArticle);
-    admin.grant(deleteUser);
-    
-    //create hierarchy
-    admin.grant(user);
+        //get admin role
+        var admin = response.roles.admin;
 
-    //check permissions
-    var canCreateArticle = admin.can('create', 'article');
-    var canDeleteUser = user.can('delete', 'user');
+        //get delete user permission
+        var deleteUser = response.permissions.delete_user;
+
+        //assign delete user permission to the admin
+        admin.grant(deleteUser, function(err, granted) {
+            if(err) throw err; //process error
+            
+            if(granted) {
+                console.log('Admin can delete user');    
+            }
+        }); 
+    });
+
+## Check permissions
+
+    rbac.can('admin', 'create', 'article', function(err, can) {
+        if(err) throw err; //process error
+            
+        if(can) {
+            console.log('Admin is able create article');    
+        }
+    });
+
+    //or you can use instance of admin role
+
+    rbac.getRole('admin', function(err, admin) {
+        if(err) throw err; //process error
+
+        if(!admin) {
+            return console.log('Role does not exists');
+        }
+
+        admin.can('create', 'article', function(err, can) {
+            if(err) throw err; //process error
+            
+            if(can) {
+                console.log('Admin is able create article');    
+            }
+        }); 
+
+    });
+
 
     
 ## Credits
