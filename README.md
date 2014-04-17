@@ -4,7 +4,7 @@
 [![Quality](https://codeclimate.com/github/seeden/rbac.png)](https://codeclimate.com/github/seeden/rbac/badges)
 [![Dependencies](https://david-dm.org/seeden/rbac.png)](https://david-dm.org/seeden/rbac)
 
-RBAC is the authorization library for NodeJs. 
+RBAC is the authorization library for NodeJS. 
 
 
 ## Motivation
@@ -86,7 +86,7 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 
 ### Create RBAC
 
-### `RBAC(storage)`
+#### `RBAC(storage)`
 
 Constructor of RBAC
 
@@ -95,12 +95,37 @@ Constructor of RBAC
 
 ### Create Role
 
-### `createRole(name, cb) `
+#### `createRole(role, cb) `
 
 Create a new role assigned to actual instance of RBAC
 
-* `name` Name of new Role
+* `role` Name of new Role
 * `cb` Callback function(error, role)
+
+#### `createRoles(roles, cb) `
+
+Create multiple roles in one step
+
+* `roles` Names of new roles
+* `cb` Callback function(error, role)
+
+
+### Create Permission
+
+#### `createPermission(action, resource, cb) `
+
+Create a new permission assigned to actual instance of RBAC
+
+* `action` Name of action
+* `resource` Name of resource
+* `cb` Callback function(error, permission)
+
+#### `createPermissions(permissions, cb) `
+
+Create multiple permissions in one step
+
+* `permissions` Array of permissions [['create', 'article'], ['delete', 'user']]
+* `cb` Callback function(error, permissions)
 
 
 
