@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "2.0.1",
+	"version": "2.0.3",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -41,6 +41,6 @@
 		"jasmine-node": "~1.14.2"
 	},
 	"bugs": {
-    	"url": "https://github.com/seeden/rbac/issues"
+		"url": "https://github.com/seeden/rbac/issues"
 	}
 }

@@ -35,7 +35,9 @@ Please, if you found any bug or you need custom API, create an issue or pull req
     ];
 
     rbac.create(roles, permissions, function(err, response) {
-        if(err) throw err; //process error
+        if(err) {
+            throw err; //process error
+        }
 
         //get admin role
         var admin = response.roles.admin;
@@ -56,7 +58,9 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 ## Check permissions
 
     rbac.can('admin', 'create', 'article', function(err, can) {
-        if(err) throw err; //process error
+        if(err) {
+            throw err; //process error
+        }
             
         if(can) {
             console.log('Admin is able create article');    
@@ -66,7 +70,9 @@ Please, if you found any bug or you need custom API, create an issue or pull req
     //or you can use instance of admin role
 
     rbac.getRole('admin', function(err, admin) {
-        if(err) throw err; //process error
+        if(err) {
+            throw err; //process error
+        }
 
         if(!admin) {
             return console.log('Role does not exists');
@@ -79,7 +85,6 @@ Please, if you found any bug or you need custom API, create an issue or pull req
                 console.log('Admin is able create article');    
             }
         }); 
-
     });
 
 ## Api 

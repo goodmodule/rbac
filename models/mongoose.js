@@ -29,24 +29,33 @@ var appendTo = exports.appendTo = function(schema, addMethods) {
  * @param  {String}   resource  Name of resource 
  * @return {Boolean}        
  */
-var can = exports.can = function(rbac, action, resource) {
+var can = exports.can = function(rbac, action, resource, cb) {
+	var self = this;
+
 	//check existance of permission
-	var permission = rbac.getPermission(action, resource);
-	if(!permission) {
-		return false;
-	}
+	rbac.getPermission(action, resource, function(err, permission) {
+		if(err) {
+			return cb(err);
+		}
 
-	//check permission inside user role
-	if(this.role && rbac.can(this.role, action, resource) === true) {
-		return true;
-	}
+		if(!permission) {
+			return cb(null, false);
+		}
 
-	//check user additional permissions
-	if(_.indexOf(this.permissions, permission.getName() !== -1) {
-		return true;
-	}
+		//check user additional permissions
+		if(_.indexOf(self.permissions, permission.getName()) !== -1) {
+			return cb(null, true);
+		}
 
-	return false;
+		if(!this.role) {
+			return cb(null, false);	
+		}
+
+		//check permission inside user role
+		rbac.can(this.role, action, resource, cb);
+	});
+
+	return this;
 };
 
 /**
@@ -60,12 +69,19 @@ var addPermissions = exports.addPermissions = function(permissions, cb) {
 	permissions = typeof permissions === 'string' ? [permissions] : permissions;
 
 	this.update({$addToSet: {permissions: {$each: permissions}}}, function(err, obj) {
-		if(err) return cb(err);
-		if(!obj) return cb(new Error('Obj is undefined'));
+		if(err) {
+			return cb(err);
+		}
+
+		if(!obj) {
+			return cb(new Error('Obj is undefined'));
+		}
 
         self.permissions = obj.permissions;
         cb(err, obj);
 	});
+
+	return this;
 };
 
 /**
@@ -74,32 +90,35 @@ var addPermissions = exports.addPermissions = function(permissions, cb) {
  * @param  {String}  name Name of role
  * @return {Boolean}      [description]
  */
-var hasRole = exports.hasRole = function(rbac, name) {
+var hasRole = exports.hasRole = function(rbac, role, cb) {
 	if(!this.role) {
-		return false;
+		return cb(null, false);
 	}
 
 	//check existance of permission
-	var role = rbac.getRole(this.role);
-	if(role && role.hasRole(name) === true) {
-		return true;
-	}
-
-	return false;
+	rbac.hasRole(this.role, role, cb);
+	return this;
 };
 
 
-var setRole = exports.setRole = function(rbac, name, cb) {
-	if(this.role === name) {
+var setRole = exports.setRole = function(rbac, role, cb) {
+	var self = this;
+
+	if(this.role === role) {
 		return cb(new Error('User already has assigned this role'));
 	}
 
 	//check existance of permission
-	var role = rbac.getRole(name);
-	if(!role) {
-		return cb(new Error('Role does not exists'));	
-	}
+	rbac.getRole(role, function(err, role) {
+		if(err) {
+			return cb(err);
+		}
 
-	this.role = role.getName();
-	this.save(cb);
+		if(!role) {
+			return cb(new Error('Role does not exists'));		
+		}
+
+		self.role = role.getName();
+		self.save(cb);
+	});
 };
