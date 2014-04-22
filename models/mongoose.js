@@ -68,16 +68,18 @@ var addPermissions = exports.addPermissions = function(permissions, cb) {
 
 	permissions = typeof permissions === 'string' ? [permissions] : permissions;
 
-	this.update({$addToSet: {permissions: {$each: permissions}}}, function(err, obj) {
+	//TODO return real object in callback 
+
+	this.update({$addToSet: {permissions: {$each: permissions}}}, function(err, numberOfAffected) {
 		if(err) {
 			return cb(err);
 		}
 
-		if(!obj) {
+		if(!numberOfAffected) {
 			return cb(new Error('Obj is undefined'));
 		}
 
-        self.permissions = obj.permissions;
+        //self.permissions = obj.permissions;
         cb(err, obj);
 	});
 
