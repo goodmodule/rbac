@@ -10,13 +10,25 @@ describe('RBAC', function() {
 	var permissions = [
 		['create', 'article'], 
 		['delete', 'user']
-	];	
+	];
+
+	var permissionsAsObject = {
+		article: ['create'],
+		user: ['delete']
+	};
+
+	var grants = {
+		admin: ['user', 'delete_user'],
+		user: ['create_article']
+	};
 
 	it('create roles and permissions', function() {
 		var created = false;
 
+		var perm = rbac.permissionsFromObject(permissionsAsObject);
+
 		runs(function() {
-			rbac.create(roles, permissions, function(err, data) {
+			rbac.create(roles, perm, function(err, data) {
 				if(err) throw err;
 				response = data;
 				created = true;
