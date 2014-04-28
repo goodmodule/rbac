@@ -25,10 +25,8 @@ describe('RBAC', function() {
 	it('create roles and permissions', function() {
 		var created = false;
 
-		var perm = rbac.permissionsFromObject(permissionsAsObject);
-
 		runs(function() {
-			rbac.create(roles, perm, function(err, data) {
+			rbac.create(roles, permissionsAsObject, function(err, data) {
 				if(err) throw err;
 				response = data;
 				created = true;
