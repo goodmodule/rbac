@@ -47,12 +47,12 @@ var can = exports.can = function(rbac, action, resource, cb) {
 			return cb(null, true);
 		}
 
-		if(!this.role) {
+		if(!self.role) {
 			return cb(null, false);	
 		}
 
 		//check permission inside user role
-		rbac.can(this.role, action, resource, cb);
+		rbac.can(self.role, action, resource, cb);
 	});
 
 	return this;
@@ -121,6 +121,12 @@ var setRole = exports.setRole = function(rbac, role, cb) {
 		}
 
 		self.role = role.getName();
-		self.save(cb);
+		self.save(function(err, user) {
+			if(err) {
+				return cb(err);
+			}
+
+			cb(null, user.role === self.role);
+		});
 	});
 };
