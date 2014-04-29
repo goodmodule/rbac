@@ -12,10 +12,16 @@ var appendTo = exports.appendTo = function(schema, addMethods) {
 
 	if(addMethods) {
 		schema.methods.can = can;
-		schema.methods.addPermissions = addPermissions;
+
+		schema.methods.addPermission = addPermission;
+		schema.methods.removePermission = removePermission;
 
 		schema.methods.hasRole = hasRole;
+		schema.methods.removeRole = removeRole;
 		schema.methods.setRole = setRole;
+
+		schema.statics.removeRoleFromAllUsers = removeRoleFromAllUsers;
+		schema.statics.removePermissionFromAllUsers = removePermissionFromAllUsers;
 		
 	}
 	
@@ -63,28 +69,80 @@ var can = exports.can = function(rbac, action, resource, cb) {
  * @param  {String|Array}   permissions  Array of permissions or string representing of permission
  * @param  {Function} cb Callback
  */
-var addPermissions = exports.addPermissions = function(permissions, cb) {
+var addPermission = exports.addPermission = function(rbac, action, resource, cb) {
 	var self = this;
 
-	permissions = typeof permissions === 'string' ? [permissions] : permissions;
-
-	//TODO return real object in callback 
-
-	this.update({$addToSet: {permissions: {$each: permissions}}}, function(err, numberOfAffected) {
+	rbac.getPermission(action, resource, function(err, permission) {
 		if(err) {
 			return cb(err);
+		}	
+
+		if(!permission) {
+			return cb(null, false);
 		}
 
-		if(!numberOfAffected) {
-			return cb(new Error('Obj is undefined'));
+		if(_.indexOf(self.permissions, permission.getName()) !== -1) {
+			return cb(null, false);
 		}
 
-        //self.permissions = obj.permissions;
-        cb(err, obj);
+		self.permissions.push(permission.getName());
+		self.save(function(err, user) {
+			if(err) {
+				return cb(err);
+			}
+
+			if(!user) {
+				return cb(new Error('User is undefined'));	
+			}
+
+			cb(null, true);
+		});
 	});
 
 	return this;
 };
+
+
+var removePermission = exports.removePermission = function(permissionName, cb) {
+	var self = this;
+
+	if(_.indexOf(this.permissions, permissionName) === -1) {
+		return cb(null, false);
+	}
+
+	this.permissions = _.without(this.permissions, permissionName);
+	this.save(function(err, user) {
+		if(err) {
+			return cb(err);
+		}
+
+		if(!user) {
+			return cb(new Error('User is undefined'));
+		}
+
+		if(_.indexOf(user.permissions, permissionName) === -1) {
+			return cb(null, true);
+		}
+
+		cb(null, false);
+	});
+
+	return this;
+};
+
+
+var removePermissionFromAllUsers = exports.removePermissionFromAllUsers = function(permissionName, cb) {
+	this.update({permissions: permissionName}, {$pull: {permissions: permissionName}}, {multi: true}, function(err, num) {
+		if(err) {
+			return cb(err);
+		}
+
+        return cb(null, true);
+    });
+
+	return this;
+};
+
 
 /**
  * Check if user has assigned a specific role 
@@ -99,6 +157,42 @@ var hasRole = exports.hasRole = function(rbac, role, cb) {
 
 	//check existance of permission
 	rbac.hasRole(this.role, role, cb);
+	return this;
+};
+
+var removeRole = exports.removeRole = function(cb) {
+	var self = this;
+
+	if(!this.role) {
+		return cb(null, false);
+	}
+
+	this.role = null;
+	this.save(function(err, user) {
+		if(err) {
+			return cb(err);
+		}
+
+		if(!user) {
+			return cb(new Error('User is undefined'));
+		}
+
+		cb(null, user.role === null);
+	});
+
+	return this;
+};
+
+var removeRoleFromAllUsers = exports.removeRoleFromAllUsers = function(roleName, cb) {
+	this.update({role: roleName}, {role: null}, {multi: true}, function(err, num) {
+		if(err) {
+			return cb(err);
+		}
+
+        return cb(null, true);
+    });
+
+
 	return this;
 };
 
@@ -124,6 +218,10 @@ var setRole = exports.setRole = function(rbac, role, cb) {
 		self.save(function(err, user) {
 			if(err) {
 				return cb(err);
+			}
+
+			if(!user) {
+				return cb(new Error('User is undefined'));
 			}
 
 			cb(null, user.role === self.role);
