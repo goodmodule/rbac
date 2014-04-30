@@ -29,31 +29,27 @@ Please, if you found any bug or you need custom API, create an issue or pull req
     var rbac = new RBAC();
 
     var roles = ['superadmin', 'admin', 'user', 'guest'];
-    var permissions = [
-        ['create', 'article'], 
-        ['delete', 'user']
-    ];
 
-    rbac.create(roles, permissions, function(err, response) {
+    var permissions = {
+        user: ['create', 'delete'],
+        password: ['change', 'forgot'],
+        article: ['create'],
+        rbac: ['update']
+    };
+
+    var grants = {
+        guest: ['create_user', 'forgot_password'],
+        user: ['change_password'],
+        admin: ['user', 'delete_user', 'update_rbac'],
+        superadmin: ['admin']
+    };
+
+    rbac.create(roles, permissions, grants, function(err, data) {
         if(err) {
-            throw err; //process error
+            throw err;
         }
+    });     
 
-        //get admin role
-        var admin = response.roles.admin;
-
-        //get delete user permission
-        var deleteUser = response.permissions.delete_user;
-
-        //assign delete user permission to the admin
-        admin.grant(deleteUser, function(err, granted) {
-            if(err) throw err; //process error
-            
-            if(granted) {
-                console.log('Admin can delete user');    
-            }
-        }); 
-    });
 
 ## Check permissions
 
