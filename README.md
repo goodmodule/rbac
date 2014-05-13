@@ -16,6 +16,10 @@ Because there is a lot of options for storing of data and many of them are async
 I created asynchronous API. 
 Please, if you found any bug or you need custom API, create an issue or pull request.
 
+## 
+
+[Documentation](https://rawgithub.com/user/seeden/rbac/documentation/index.html)
+
 
 ## Install
 
