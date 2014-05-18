@@ -35,7 +35,7 @@
 	},
 	"dependencies" : {
 		"underscore": "~1.6.0",
-		"async": "~0.8.0"
+		"async": "~0.9.0"
 	},
 	"devDependencies": {
 		"jasmine-node": "~1.14.2"
