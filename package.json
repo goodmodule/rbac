@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "2.0.16",
+	"version": "2.1.0",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -31,14 +31,21 @@
 		"node": ">= 0.10.0"
 	},	
 	"scripts": {
-		"test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js test"
+		"test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js test",
+		"doc": "node node_modules/.bin/jsdoc -t ./lib",
+		"start": "node node_modules/grunt-cli/bin/grunt"
 	},
 	"dependencies" : {
 		"underscore": "~1.6.0",
 		"async": "~0.9.0"
 	},
 	"devDependencies": {
-		"jasmine-node": "~1.14.2"
+		"grunt": "~0.4.4",
+		"grunt-cli": "~0.1.13",
+		"grunt-jsdoc": "~0.5.4",
+		"jasmine-node": "~1.14.2",
+		"jsdoc": "~3.3.0",
+		"jaguarjs-jsdoc": "git://github.com/davidshimjs/jaguarjs-jsdoc.git"
 	},
 	"bugs": {
 		"url": "https://github.com/seeden/rbac/issues"

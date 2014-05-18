@@ -16,6 +16,10 @@ Because there is a lot of options for storing of data and many of them are async
 I created asynchronous API. 
 Please, if you found any bug or you need custom API, create an issue or pull request.
 
+## Documentation
+
+[Link to Documentation](http://htmlpreview.github.io/?https://github.com/seeden/rbac/blob/master/documentation/index.html)
+
 
 ## Install
 
@@ -83,59 +87,12 @@ Please, if you found any bug or you need custom API, create an issue or pull req
         }); 
     });
 
-## Api 
-
-### Create RBAC
-
-#### `RBAC(storage)`
-
-Constructor of RBAC
-
-* `storage` Instance of storage (default memory)
-
-
-### Create Role
-
-#### `createRole(role, cb) `
-
-Create a new role assigned to actual instance of RBAC
-
-* `role` Name of new Role
-* `cb` Callback function(error, role)
-
-#### `createRoles(roles, cb) `
-
-Create multiple roles in one step
-
-* `roles` Names of new roles
-* `cb` Callback function(error, role)
-
-
-### Create Permission
-
-#### `createPermission(action, resource, cb) `
-
-Create a new permission assigned to actual instance of RBAC
-
-* `action` Name of action
-* `resource` Name of resource
-* `cb` Callback function(error, permission)
-
-#### `createPermissions(permissions, cb) `
-
-Create multiple permissions in one step
-
-* `permissions` Array of permissions [['create', 'article'], ['delete', 'user']]
-* `cb` Callback function(error, permissions)
-
-
 
 ## Running Tests
 
 To run the tests, install the dev dependencies and run:
     
     npm test
-
 
     
 ## Credits
@@ -144,6 +101,24 @@ To run the tests, install the dev dependencies and run:
 
 ## License
 
-[The MIT License](http://opensource.org/licenses/MIT)
+The MIT License (MIT)
 
-Copyright (c) 2014 Zlatko Fedor [http://www.cherrysro.com/](http://www.cherrysro.com/)
+Copyright (c) 2014 Zlatko Fedor zlatkofedor@cherrysro.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
