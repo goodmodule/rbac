@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "2.1.0",
+	"version": "2.1.2",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -45,7 +45,7 @@
 		"grunt-jsdoc": "~0.5.4",
 		"jasmine-node": "~1.14.2",
 		"jsdoc": "~3.3.0",
-		"jaguarjs-jsdoc": "git://github.com/davidshimjs/jaguarjs-jsdoc.git"
+		"jaguarjs-jsdoc": "~0.0.1"
 	},
 	"bugs": {
 		"url": "https://github.com/seeden/rbac/issues"
