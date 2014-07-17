@@ -1,6 +1,8 @@
 //node ./node_modules/jasmine-node/lib/jasmine-node/cli.js ./test
 var RBAC = require('./../lib/rbac');
 
+var timeout = 5000;
+
 //The tests
 describe('RBAC', function() {
 	var rbac = new RBAC();
@@ -35,7 +37,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return created;
-		}, 'The permissions and role should be created', 1000);
+		}, 'The permissions and role should be created', timeout);
 
 
 		runs(function() {
@@ -80,7 +82,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return grant;
-		}, 'The permissions should be granted for admin', 1000);		
+		}, 'The permissions should be granted for admin', timeout);		
 		
 		runs(function(){
 			expect(grant).toBe(true);	
@@ -102,7 +104,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return grant;
-		}, 'The permissions should be granted for user', 1000);		
+		}, 'The permissions should be granted for user', timeout);		
 		
 		runs(function(){
 			expect(grant).toBe(true);	
@@ -124,7 +126,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return grant;
-		}, 'The role should be granted for admin', 1000);		
+		}, 'The role should be granted for admin', timeout);		
 		
 		runs(function(){
 			expect(grant).toBe(true);	
@@ -144,7 +146,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return granted;
-		}, 'The admin should be able create article', 1000);		
+		}, 'The admin should be able create article', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(true);	
@@ -164,7 +166,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return granted;
-		}, 'The admin should be able delete user', 1000);		
+		}, 'The admin should be able delete user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(true);	
@@ -186,7 +188,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return finish;
-		}, 'The user should not be able delete user', 1000);		
+		}, 'The user should not be able delete user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(false);	
@@ -208,7 +210,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return finish;
-		}, 'The user should be able create user', 1000);		
+		}, 'The user should be able create user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(true);	
@@ -230,7 +232,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return finish;
-		}, 'The user should be able create user', 1000);		
+		}, 'The user should be able create user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(true);	
@@ -252,7 +254,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return finish;
-		}, 'The user should be able create user', 1000);		
+		}, 'The user should be able create user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(false);	
@@ -274,7 +276,7 @@ describe('RBAC', function() {
 
 		waitsFor(function() {
 			return finish;
-		}, 'The admin should be able create user', 1000);		
+		}, 'The admin should be able create user', timeout);		
 		
 		runs(function(){
 			expect(granted).toBe(true);	
