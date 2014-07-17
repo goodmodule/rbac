@@ -20,12 +20,29 @@ var appendTo = exports.appendTo = function(schema, addMethods) {
 		schema.methods.removeRole = removeRole;
 		schema.methods.setRole = setRole;
 
+		schema.methods.getScope = getScope;
+
 		schema.statics.removeRoleFromAllUsers = removeRoleFromAllUsers;
 		schema.statics.removePermissionFromAllUsers = removePermissionFromAllUsers;
 		
 	}
 	
 	return schema;
+};
+
+var getScope = exports.getScope = function(rbac, cb) {
+	var permissions = this.permissions || [];
+
+	rbac.getScope(this.role, function(err, scope) {
+		if(err) {
+			return cb(err);
+		}
+
+		scope = _.union(permissions, scope);
+		cb(null, scope);
+	});
+
+	return this;
 };
 
 /**
