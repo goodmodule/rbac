@@ -24,6 +24,15 @@ describe('RBAC', function() {
 		user: ['create_article']
 	};
 
+	it('decode permission', function() {
+		var decoded = RBAC.Permission.decodeName('create_article');
+
+		expect(decoded).toBeDefined();
+
+		expect(decoded.action).toBe('create');
+		expect(decoded.resource).toBe('article');
+	});
+
 	it('create roles and permissions', function() {
 		var created = false;
 

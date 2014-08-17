@@ -37,7 +37,8 @@
 	},
 	"dependencies" : {
 		"underscore": "~1.6.0",
-		"async": "~0.9.0"
+		"async": "~0.9.0",
+		"mongoose": "~3.8.14"
 	},
 	"devDependencies": {
 		"grunt": "~0.4.4",
@@ -45,7 +46,7 @@
 		"grunt-jsdoc": "~0.5.4",
 		"jasmine-node": "~1.14.2",
 		"jsdoc": "~3.3.0",
-		"jaguarjs-jsdoc": "~0.0.1"
+		"jaguarjs-jsdoc": "git://github.com/davidshimjs/jaguarjs-jsdoc"
 	},
 	"bugs": {
 		"url": "https://github.com/seeden/rbac/issues"

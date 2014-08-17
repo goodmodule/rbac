@@ -88,6 +88,10 @@ Please, if you found any bug or you need custom API, create an issue or pull req
         }); 
     });
 
+## Mongoose user model
+
+Please take a look on plugin [mongoose-hrbac](http://github.com/seeden/mongoose-hrbac)
+
 
 ## Running Tests
 
