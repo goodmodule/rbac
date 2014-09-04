@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "2.1.7",
+	"version": "2.1.8",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -36,7 +36,7 @@
 		"start": "node node_modules/grunt-cli/bin/grunt"
 	},
 	"dependencies" : {
-		"underscore": "~1.6.0",
+		"underscore": "~1.7.0",
 		"async": "~0.9.0",
 		"mongoose": "~3.8.14"
 	},
