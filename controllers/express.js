@@ -1,52 +1,72 @@
 'use strict';
 
+var WebError = require('web-error');
+
 /**
  * Return middleware function for permission check
- * @param  {RBAC}    rbac      Instance of RBAC
- * @param  {String}  action    Name of action
- * @param  {String}  resource  Name of resource
- * @return {Function}          Middleware function
+ * @param  {RBAC}    rbac              Instance of RBAC
+ * @param  {String}  action            Name of action
+ * @param  {String}  resource          Name of resource
+ * @param  {String}  redirect          Url where is user redirected when he has no permissions
+ * @param  {Number}  redirectStatus    Status code of redirect action 
+ * @return {Function}                  Middleware function
  */
-exports.can = function(rbac, action, resource) {
-	var permission = rbac.getPermission(action, resource);
-	if(!permission) {
-		throw new Error('Permission is undefined');
-	}
+exports.can = function(rbac, action, resource, redirect, redirectStatus) {
+	redirectStatus = redirectStatus || 302;
 
 	return function(req, res, next) {
-		if(!req.can) {
-			return next('Method can is not implemented inside request');
+		if(!req.user) {
+			return next(new WebError(401));
 		}
 
-		if(req.can(permission) === true) {
+		req.user.can(rbac, action, resource, function(err, can) {
+			if(err) {
+				return next(err);
+			}
+
+			if(!can) {
+				if(redirect) {
+					return res.redirect(redirectStatus, redirect);
+				}
+
+				return next(new WebError(401));	
+			}
+
 			next();
-		}
-
-		return next(new Error('You have no permission for this action'));
+		});
 	};
 };
 
 /**
  * Return middleware function for permission check
- * @param  {RBAC}  rbac     Instance of RBAC
- * @param  {String}  name   Name of role
- * @return {Function}       Middleware function
+ * @param  {RBAC}  rbac                Instance of RBAC
+ * @param  {String}  name              Name of role
+ * @param  {String}  redirect          Url where is user redirected when he has no permissions
+ * @param  {Number}  redirectStatus    Status code of redirect action  
+ * @return {Function}                  Middleware function
  */
-exports.hasRole = function(rbac, name) {
-	var role = rbac.getRole(name);
-	if(!role) {
-		throw new Error('Role is undefined');
-	}
+exports.hasRole = function(rbac, name, redirect, redirectStatus) {
+	redirectStatus = redirectStatus || 302;
 
 	return function(req, res, next) {
-		if(!req.hasRole) {
-			return next('Method hasRole is not implemented inside request');
+		if(!req.user) {
+			return next(new WebError(401));
 		}
 
-		if(req.hasRole(role) === true) {
+		req.user.hasRole(rbac, name, function(err, has) {
+			if(err) {
+				return next(err);
+			}
+
+			if(!has) {
+				if(redirect) {
+					return res.redirect(redirectStatus, redirect);
+				}
+
+				return next(new WebError(401));	
+			}
+
 			next();
-		}
-
-		return next(new Error('You have no permission for this action'));
+		});
 	};
 };
