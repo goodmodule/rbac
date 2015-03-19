@@ -6,11 +6,6 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-/************************************
- * Hierarchical RBAC
- * Role Based Access Control
-************************************/
-
 var _ = _interopRequire(require("lodash"));
 
 var _async = require("async");
@@ -24,12 +19,14 @@ var Permission = _interopRequire(require("./permission"));
 
 var MemoryStorage = _interopRequire(require("./storages/memory"));
 
-/**
- * RBAC
- * @constructor
- */
-
 var RBAC = (function () {
+	/**
+  * RBAC constructor
+  * @constructor RBAC
+  * @param  {Object} options             Options for RBAC
+  * @param  {Storage} [options.storage]  Storage of grants
+  */
+
 	function RBAC(options) {
 		_classCallCheck(this, RBAC);
 
@@ -43,6 +40,12 @@ var RBAC = (function () {
 
 	_createClass(RBAC, {
 		options: {
+
+			/**
+    * The RBAC's options.
+    * @member RBAC#options {Object}
+    */
+
 			get: function () {
 				return this._options;
 			}
@@ -50,8 +53,8 @@ var RBAC = (function () {
 		storage: {
 
 			/**
-    * Return current storage of RBAC
-    * @return {Storage} Instance of storage
+    * The RBAC's storage.
+    * @member RBAC#storage {Storage}
     */
 
 			get: function () {
@@ -62,8 +65,10 @@ var RBAC = (function () {
 
 			/**
     * Register role or permission to actual RBAC instance
-    * @param  {Base} item Instance of Base
-    * @return {RBAC}      Return actual instance
+    * @method RBAC#add
+    * @param  {Role|Permission}     item Instance of Base
+    * @param  {Function} cb   Callback function
+    * @return {RBAC}          Return actual instance
     */
 
 			value: function add(item, cb) {
@@ -83,6 +88,7 @@ var RBAC = (function () {
 
 			/**
     * Get instance of Role or Permission by his name
+    * @method RBAC#get
     * @param  {String}   name  Name of item
     * @param  {Function} cb    Callback function
     * @return {RBAC}           Return instance of actual RBAC
@@ -97,8 +103,10 @@ var RBAC = (function () {
 
 			/**
     * Remove role or permission from RBAC
+    * @method RBAC#remove
     * @param  {Role|Permission} item Instance of role or permission
-    * @return {RBAC}    Current instance
+    * @param  {Function}        cb   Callback function
+    * @return {RBAC}                 Current instance
     */
 
 			value: function remove(item, cb) {
@@ -115,6 +123,15 @@ var RBAC = (function () {
 			}
 		},
 		removeByName: {
+
+			/**
+    * Remove role or permission from RBAC
+    * @method RBAC#removeByName
+    * @param  {String}   name Name of role or permission
+    * @param  {Function} cb   Callback function
+    * @return {RBAC}          Current instance
+    */
+
 			value: function removeByName(name, cb) {
 				this.get(name, function (err, item) {
 					if (err) {
@@ -132,6 +149,16 @@ var RBAC = (function () {
 			}
 		},
 		grant: {
+
+			/**
+    * Grant permission or role to the role
+    * @method RBAC#grant
+    * @param  {Role}            role  Instance of the role
+    * @param  {Role|Permission} child Instance of the role or permission
+    * @param  {Function}        cb    Callback function
+    * @return {RBAC}                  Current instance
+    */
+
 			value: function grant(role, child, cb) {
 				if (!role || !child) {
 					return cb(new Error("One of item is undefined"));
@@ -150,6 +177,16 @@ var RBAC = (function () {
 			}
 		},
 		revoke: {
+
+			/**
+    * Revoke permission or role from the role
+    * @method RBAC#revoke
+    * @param  {Role}            role   Instance of the role
+    * @param  {Role|Permission} child  Instance of the role or permission
+    * @param  {Function}        cb     Callback function
+    * @return {RBAC}                   Current instance
+    */
+
 			value: function revoke(role, child, cb) {
 				if (!role || !child) {
 					return cb(new Error("One of item is undefined"));
@@ -164,6 +201,16 @@ var RBAC = (function () {
 			}
 		},
 		revokeByName: {
+
+			/**
+    * Revoke permission or role from the role by names
+    * @method RBAC#revokeByName
+    * @param  {String}   roleName  Instance of the role
+    * @param  {String}   childName Instance of the role or permission
+    * @param  {Function} cb        Callback function
+    * @return {RBAC}               Current instance
+    */
+
 			value: function revokeByName(roleName, childName, cb) {
 				var _this = this;
 
@@ -186,6 +233,16 @@ var RBAC = (function () {
 			}
 		},
 		grantByName: {
+
+			/**
+    * Grant permission or role from the role by names
+    * @method RBAC#grantByName
+    * @param  {String}   roleName  Instance of the role
+    * @param  {String}   childName Instance of the role or permission
+    * @param  {Function} cb        Callback function
+    * @return {RBAC}               Current instance
+    */
+
 			value: function grantByName(roleName, childName, cb) {
 				var _this = this;
 
@@ -211,8 +268,10 @@ var RBAC = (function () {
 
 			/**
     * Create a new role assigned to actual instance of RBAC
-    * @param  {String} roleName Name of new Role
-    * @return {Role}   Instance of the Role
+    * @method RBAC#createRole
+    * @param  {String}  roleName Name of new Role
+    * @param  {Boolean} [add=true]    True if you need to add it to the storage
+    * @return {Role}    Instance of the Role
     */
 
 			value: function createRole(roleName, add, cb) {
@@ -223,8 +282,10 @@ var RBAC = (function () {
 
 			/**
     * Create a new permission assigned to actual instance of RBAC
+    * @method RBAC#createPermission
     * @param  {String} action   Name of action
     * @param  {String} resource Name of resource
+    * @param  {Boolean} [add=true]   True if you need to add it to the storage
     * @param  {Function} cb     Callback function
     * @return {Permission}      Instance of the Permission
     */
@@ -237,6 +298,7 @@ var RBAC = (function () {
 
 			/**
     * Callback returns true if role or permission exists
+    * @method RBAC#exists
     * @param  {String}   name  Name of item
     * @param  {Function} cb    Callback function
     * @return {RBAC}           Return instance of actual RBAC
@@ -251,6 +313,7 @@ var RBAC = (function () {
 
 			/**
     * Callback returns true if role exists
+    * @method RBAC#existsRole
     * @param  {String}   name  Name of item
     * @param  {Function} cb    Callback function
     * @return {RBAC}           Return instance of actual RBAC
@@ -265,6 +328,7 @@ var RBAC = (function () {
 
 			/**
     * Callback returns true if permission exists
+    * @method RBAC#existsPermission
     * @param  {String}   action  Name of action
     * @param  {String}   resource  Name of resource
     * @param  {Function} cb    Callback function
@@ -280,6 +344,7 @@ var RBAC = (function () {
 
 			/**
     * Return instance of Role by his name
+    * @method RBAC#getRole
     * @param  {String}   name  Name of role
     * @param  {Function} cb    Callback function
     * @return {RBAC}           Return instance of actual RBAC
@@ -294,7 +359,9 @@ var RBAC = (function () {
 
 			/**
     * Return all instances of Role
-    * @return {RBAC}      Return instance of actual RBAC
+    * @method RBAC#getRoles
+    * @param  {Function} cb    Callback function
+    * @return {RBAC}           Return instance of actual RBAC
     */
 
 			value: function getRoles(cb) {
@@ -306,8 +373,10 @@ var RBAC = (function () {
 
 			/**
     * Return instance of Permission by his name
+    * @method RBAC#getPermission
     * @param  {String} action    Name of action
     * @param  {String} resource  Name of resource
+    * @param  {Function} cb      Callback function
     * @return {RBAC}             Return instance of actual RBAC
     */
 
@@ -320,7 +389,9 @@ var RBAC = (function () {
 
 			/**
     * Return all instances of Permission
-    * @return {RBAC}  Return instance of actual RBAC
+    * @method RBAC#getPermissions
+    * @param  {Function} cb    Callback function
+    * @return {RBAC}           Return instance of actual RBAC
     */
 
 			value: function getPermissions(cb) {
@@ -332,12 +403,19 @@ var RBAC = (function () {
 
 			/**
     * Create multiple permissions in one step
+    * @method RBAC#createPermissions
     * @param  {Object}   permissions Object of permissions
+    * @param  {Boolean} [add=true]   True if you need to add it to the storage
     * @param  {Function} cb          Callbck function
     * @return {RBAC}                 Instance of actual RBAC
     */
 
-			value: function createPermissions(resources, cb) {
+			value: function createPermissions(resources, add, cb) {
+				if (typeof add === "function") {
+					cb = add;
+					add = true;
+				}
+
 				var tasks = {};
 
 				if (!_.isPlainObject(resources)) {
@@ -350,7 +428,7 @@ var RBAC = (function () {
 
 						var name = Permission.createName(action, resource);
 						tasks[name] = function (callback) {
-							return _this.createPermission(action, resource, callback);
+							return _this.createPermission(action, resource, add, callback);
 						};
 					}, this);
 				}, this);
@@ -363,19 +441,26 @@ var RBAC = (function () {
 
 			/**
     * Create multiple roles in one step assigned to actual instance of RBAC
+    * @method RBAC#createRoles
     * @param  {Array}    roleNames  Array of role names
+    * @param  {Boolean} [add=true]   True if you need to add it to the storage
     * @param  {Function} cb         Callback function
     * @return {RBAC}                Current instance
     */
 
-			value: function createRoles(roleNames, cb) {
+			value: function createRoles(roleNames, add, cb) {
+				if (typeof add === "function") {
+					cb = add;
+					add = true;
+				}
+
 				var tasks = {};
 
 				roleNames.forEach(function (roleName) {
 					var _this = this;
 
 					tasks[roleName] = function (callback) {
-						return _this.createRole(roleName, callback);
+						return _this.createRole(roleName, add, callback);
 					};
 				}, this);
 
@@ -387,6 +472,7 @@ var RBAC = (function () {
 
 			/**
     * Grant multiple items in one function
+    * @method RBAC#grants
     * @param  {Object}   	  List of roles  
     * @param  {Function} cb  Callback function
     * @return {RBAC}         Current instance
@@ -417,9 +503,10 @@ var RBAC = (function () {
 
 			/**
     * Create multiple permissions and roles in one step
+    * @method RBAC#create
     * @param  {Array}   roleNames       List of role names
     * @param  {Object}  permissionNames List of permission names
-    * @param  {Object}  grants          List og grants
+    * @param  {Object}  [grants]        List og grants
     * @param  {Array}   cb              Callback function
     * @return {RBAC}                    Instance of actual RBAC
     */
@@ -464,6 +551,7 @@ var RBAC = (function () {
 			/**
     * Traverse hierarchy of roles. 
     * Callback function returns as second parameter item from hierarchy or null if we are on the end of hierarchy.
+    * @method RBAC#_traverseGrants
     * @param  {String}   roleName  Name of role
     * @param  {Function} cb        Callback function
     * @return {RBAC}               Return instance of actual RBAC
@@ -514,9 +602,11 @@ var RBAC = (function () {
 
 			/**
     * Return true if role has allowed permission
+    * @method RBAC#can
     * @param  {String}  roleName Name of role
     * @param  {String}  action   Name of action
     * @param  {String}  resource Name of resource
+    * @param  {Function} cb        Callback function
     * @return {RBAC}             Current instance         
     */
 
@@ -546,8 +636,10 @@ var RBAC = (function () {
 
 			/**
     * Check if the role has any of the given permissions.
+    * @method RBAC#canAny
     * @param  {String} roleName     Name of role
     * @param  {Array}  permissions  Array (String action, String resource)
+    * @param  {Function} cb        Callback function
     * @return {RBAC}                Current instance           
     */
 
@@ -581,8 +673,10 @@ var RBAC = (function () {
 
 			/**
     * Check if the model has all of the given permissions.
+    * @method RBAC#canAll
     * @param  {String} roleName     Name of role
     * @param  {Array}  permissions  Array (String action, String resource)
+    * @param  {Function} cb        Callback function
     * @return {RBAC}                Current instance           
     */
 
@@ -624,9 +718,10 @@ var RBAC = (function () {
 
 			/**
     * Return true if role has allowed permission
+    * @method RBAC#hasRole
     * @param  {String}   roleName        Name of role
     * @param  {String}   roleChildName   Name of child role
-    * @param  {Function} cb              Name of resource
+    * @param  {Function} cb              Callback function
     * @return {RBAC}                     Current instance          
     */
 
@@ -661,7 +756,10 @@ var RBAC = (function () {
 
 			/**
     * Return array of all permission assigned to role of RBAC
-    * @return {Array}  Array of permission assigned to actual RBAC 
+    * @method RBAC#getScope
+    * @param  {String} roleName   Name of role
+    * @param  {Function} cb       Callback function
+    * @return {RBAC}              Current instance   
     */
 
 			value: function getScope(roleName, cb) {
@@ -692,8 +790,11 @@ var RBAC = (function () {
 
 			/**
     * Convert Array of permissions to permission name
+    * @function getPermissionNames
+    * @memberof RBAC
     * @param  {Array} permissions List of array items of permission names. It contan action and resource
     * @return {Array}             List of permission names
+    * @static
     */
 
 			value: function getPermissionNames(permissions) {

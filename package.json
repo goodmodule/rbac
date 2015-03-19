@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -31,7 +31,7 @@
 		"node": ">= 0.10.0"
 	},	
 	"scripts": {
-		"doc": "node node_modules/.bin/jsdoc -t ./lib",
+		"doc": "node ./node_modules/gulp/bin/gulp.js doc",
 		"test"  : "babel-node ./node_modules/gulp/bin/gulp.js test",
 		"build" : "node ./node_modules/gulp/bin/gulp.js build"
 	},
@@ -45,9 +45,10 @@
 		"gulp": "~3.8.11",
 		"gulp-mocha": "~2.0.0",
 		"gulp-babel": "~4.0.0",
+		"gulp-jsdoc": "~0.1.4",
 		"should": "~5.0.1",
 		"babel": "~4.6.1",
-		"jsdoc": "~3.2.2",
+		"jsdoc": "~3.3.0-beta3",
 		"jaguarjs-jsdoc": "~0.0.1"
 	},
 	"bugs": {

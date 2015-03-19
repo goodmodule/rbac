@@ -1,7 +1,12 @@
-/**
- * @constructor
- */
 export default class Base {
+	/**
+	 * Base constructor
+	 * @constructor Base
+	 * @param  {RBAC}     rbac     Instance of the RBAC
+	 * @param  {String}   name     Name of the grant
+	 * @param  {Boolean}  add      True if you need to save it to storage
+	 * @param  {Function} cb       Callback function after add
+	 */	
 	constructor (rbac, name, add, cb) {
 		if(!rbac || !name || typeof cb !== 'function') {
 			return cb(new Error('One of parameters is undefined'));
@@ -19,7 +24,7 @@ export default class Base {
 
 	/**
 	 * Get name of actual instance
-	 * @return {String}  Name of instance
+	 * @member Base#name {String}
 	 */
 	get name() {
 		return this._name;
@@ -27,14 +32,15 @@ export default class Base {
 
 	/**
 	 * Get instance of RBAC
-	 * @return {RBAC|null} Instance of RBAC 
+	 * @member Base#rbac {RBAC|null} Instance of RBAC 
 	 */
 	get rbac() {
 		return this._rbac;
 	}
 
 	/**
-	 * Remove item from RBAC
+	 * Remove this from RBAC (storage)
+	 * @method Base#remove
 	 * @param  {Function} cb Callback function
 	 * @return {Base}      
 	 */

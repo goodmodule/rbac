@@ -22,8 +22,14 @@ exports.DELIMITER = DELIMITER;
 
 var Permission = (function (_Base) {
 	/**
-  * @constructor
+  * Permission constructor
+  * @constructor Permission
   * @extends {Base}
+  * @param  {RBAC}     rbac       Instance of the RBAC
+  * @param  {String}   action     Name of the action
+  * @param  {String}   resource   Name of the resource
+  * @param  {Boolean}  [add=true] True if you need to save it to storage
+  * @param  {Function} cb         Callback function after add
   */
 
 	function Permission(rbac, action, resource, add, cb) {
@@ -55,7 +61,7 @@ var Permission = (function (_Base) {
 
 			/**
     * Get action name of actual permission
-    * @return {String} Action of permission
+    * @member Permission#action {String} Action of permission
     */
 
 			get: function () {
@@ -66,7 +72,7 @@ var Permission = (function (_Base) {
 
 			/**
     * Get resource name of actual permission
-    * @return {String} Resource of permission
+    * @member Permission#resource {String} Resource of permission
     */
 
 			get: function () {
@@ -77,6 +83,7 @@ var Permission = (function (_Base) {
 
 			/**
     * Return true if has same action and resource
+    * @method Permission#can
     * @param  {String}  action   Name of action
     * @param  {String}  resource Name of resource
     * @return {Boolean}          
@@ -91,9 +98,12 @@ var Permission = (function (_Base) {
 
 			/**
     * Compute name of permission from action and resource
+    * @function createName
+    * @memberof Permission
     * @param  {String} action   Name of permission
     * @param  {String} resource Resource of permission
     * @return {String}          Computed name of permission
+    * @static
     */
 
 			value: function createName(action, resource) {
@@ -117,8 +127,11 @@ var Permission = (function (_Base) {
 
 			/**
     * Correct name can contain only alphanumeric characters
+    * @function isValidName
+    * @memberof Permission
     * @param  {String}  name Name
-    * @return {Boolean}      
+    * @return {Boolean}  
+    * @static    
     */
 
 			value: function isValidName(name) {

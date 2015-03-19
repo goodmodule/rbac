@@ -17,7 +17,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"default":{"outputSourceFiles":true},"monospaceLinks":false,"cleverLinks":false};
     </script>
     
 
@@ -41,6 +41,12 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Base#name"><a href="Base.html#name">name</a></li>
+            
+                <li data-name="Base#rbac"><a href="Base.html#rbac">rbac</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -48,14 +54,6 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
-            
-                <li data-name="Base#getName"><a href="Base.html#getName">getName</a></li>
-            
-                <li data-name="Base#getRBAC"><a href="Base.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Base#getScope"><a href="Base.html#getScope">getScope</a></li>
-            
-                <li data-name="Base#hasSameRBAC"><a href="Base.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Base#remove"><a href="Base.html#remove">remove</a></li>
             
@@ -72,6 +70,16 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Permission#action"><a href="Permission.html#action">action</a></li>
+            
+                <li data-name="Permission#name"><a href="Permission.html#name">name</a></li>
+            
+                <li data-name="Permission#rbac"><a href="Permission.html#rbac">rbac</a></li>
+            
+                <li data-name="Permission#resource"><a href="Permission.html#resource">resource</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -85,18 +93,6 @@
                 <li data-name="Permission.isValidName"><a href="Permission.html#isValidName">isValidName</a></li>
             
                 <li data-name="Permission#can"><a href="Permission.html#can">can</a></li>
-            
-                <li data-name="Permission#getAction"><a href="Permission.html#getAction">getAction</a></li>
-            
-                <li data-name="Permission#getName"><a href="Permission.html#getName">getName</a></li>
-            
-                <li data-name="Permission#getRBAC"><a href="Permission.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Permission#getResource"><a href="Permission.html#getResource">getResource</a></li>
-            
-                <li data-name="Permission#getScope"><a href="Permission.html#getScope">getScope</a></li>
-            
-                <li data-name="Permission#hasSameRBAC"><a href="Permission.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Permission#remove"><a href="Permission.html#remove">remove</a></li>
             
@@ -115,7 +111,9 @@
             
             <span class="subtitle">Members</span>
             
-                <li data-name="RBAC.permissionsFromObject"><a href="RBAC.html#permissionsFromObject">permissionsFromObject</a></li>
+                <li data-name="RBAC#options"><a href="RBAC.html#options">options</a></li>
+            
+                <li data-name="RBAC#storage"><a href="RBAC.html#storage">storage</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -126,8 +124,6 @@
             <span class="subtitle">Methods</span>
             
                 <li data-name="RBAC.getPermissionNames"><a href="RBAC.html#getPermissionNames">getPermissionNames</a></li>
-            
-                <li data-name="RBAC#_traverseGrants"><a href="RBAC.html#_traverseGrants">_traverseGrants</a></li>
             
                 <li data-name="RBAC#add"><a href="RBAC.html#add">add</a></li>
             
@@ -149,6 +145,10 @@
             
                 <li data-name="RBAC#exists"><a href="RBAC.html#exists">exists</a></li>
             
+                <li data-name="RBAC#existsPermission"><a href="RBAC.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="RBAC#existsRole"><a href="RBAC.html#existsRole">existsRole</a></li>
+            
                 <li data-name="RBAC#get"><a href="RBAC.html#get">get</a></li>
             
                 <li data-name="RBAC#getPermission"><a href="RBAC.html#getPermission">getPermission</a></li>
@@ -161,13 +161,21 @@
             
                 <li data-name="RBAC#getScope"><a href="RBAC.html#getScope">getScope</a></li>
             
-                <li data-name="RBAC#getStorage"><a href="RBAC.html#getStorage">getStorage</a></li>
+                <li data-name="RBAC#grant"><a href="RBAC.html#grant">grant</a></li>
+            
+                <li data-name="RBAC#grantByName"><a href="RBAC.html#grantByName">grantByName</a></li>
             
                 <li data-name="RBAC#grants"><a href="RBAC.html#grants">grants</a></li>
             
                 <li data-name="RBAC#hasRole"><a href="RBAC.html#hasRole">hasRole</a></li>
             
                 <li data-name="RBAC#remove"><a href="RBAC.html#remove">remove</a></li>
+            
+                <li data-name="RBAC#removeByName"><a href="RBAC.html#removeByName">removeByName</a></li>
+            
+                <li data-name="RBAC#revoke"><a href="RBAC.html#revoke">revoke</a></li>
+            
+                <li data-name="RBAC#revokeByName"><a href="RBAC.html#revokeByName">revokeByName</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -181,6 +189,12 @@
                 
             </span>
             <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Role#name"><a href="Role.html#name">name</a></li>
+            
+                <li data-name="Role#rbac"><a href="Role.html#rbac">rbac</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -196,21 +210,66 @@
             
                 <li data-name="Role#canAny"><a href="Role.html#canAny">canAny</a></li>
             
-                <li data-name="Role#getName"><a href="Role.html#getName">getName</a></li>
-            
-                <li data-name="Role#getRBAC"><a href="Role.html#getRBAC">getRBAC</a></li>
-            
                 <li data-name="Role#getScope"><a href="Role.html#getScope">getScope</a></li>
             
                 <li data-name="Role#grant"><a href="Role.html#grant">grant</a></li>
             
                 <li data-name="Role#hasRole"><a href="Role.html#hasRole">hasRole</a></li>
             
-                <li data-name="Role#hasSameRBAC"><a href="Role.html#hasSameRBAC">hasSameRBAC</a></li>
-            
                 <li data-name="Role#remove"><a href="Role.html#remove">remove</a></li>
             
                 <li data-name="Role#revoke"><a href="Role.html#revoke">revoke</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Storage">
+            <span class="title">
+                <a href="Storage.html">Storage</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Storage#rbac"><a href="Storage.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Storage#add"><a href="Storage.html#add">add</a></li>
+            
+                <li data-name="Storage#exists"><a href="Storage.html#exists">exists</a></li>
+            
+                <li data-name="Storage#existsPermission"><a href="Storage.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="Storage#existsRole"><a href="Storage.html#existsRole">existsRole</a></li>
+            
+                <li data-name="Storage#get"><a href="Storage.html#get">get</a></li>
+            
+                <li data-name="Storage#getGrants"><a href="Storage.html#getGrants">getGrants</a></li>
+            
+                <li data-name="Storage#getPermission"><a href="Storage.html#getPermission">getPermission</a></li>
+            
+                <li data-name="Storage#getPermissions"><a href="Storage.html#getPermissions">getPermissions</a></li>
+            
+                <li data-name="Storage#getRole"><a href="Storage.html#getRole">getRole</a></li>
+            
+                <li data-name="Storage#getRoles"><a href="Storage.html#getRoles">getRoles</a></li>
+            
+                <li data-name="Storage#grant"><a href="Storage.html#grant">grant</a></li>
+            
+                <li data-name="Storage#remove"><a href="Storage.html#remove">remove</a></li>
+            
+                <li data-name="Storage#revoke"><a href="Storage.html#revoke">revoke</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -245,97 +304,12 @@
     <div class="nameContainer">
         <h4 class="name" id="Base">
             
-            new Base<span class="signature">()</span>
+            new Base<span class="signature">(rbac, name, add, cb)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line6">line 6</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getName">
-            
-            getName<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line60">line 60</a>
+            <a href="base.js.html">base.js</a>, <a href="base.js.html#line8">line 8</a>
         </div>
         
     </div>
@@ -346,247 +320,7 @@
     
     
     <div class="description">
-        Get name of actual instance
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-
-
-<h5>Returns:</h5>
-of instance
-<br />
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getRBAC">
-            
-            getRBAC<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="RBAC.html">RBAC</a>|null}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line68">line 68</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Get instance of RBAC
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-
-
-<h5>Returns:</h5>
-of RBAC
-<br />
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getScope">
-            
-            getScope<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line87">line 87</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return array of permission
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-
-
-<h5>Returns:</h5>
-of permission assigned to actual instance
-<br />
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="hasSameRBAC">
-            
-            hasSameRBAC<span class="signature">(item)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line77">line 77</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return true if item and actual instance has assigned same RBAC instance
+        Base constructor
     </div>
     
 
@@ -617,13 +351,13 @@ of permission assigned to actual instance
 	
         <tr>
             
-                <td class="name"><code>item</code></td>
+                <td class="name"><code>rbac</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Base.html">Base</a></span>
+<span class="param-type"><a href="RBAC.html">RBAC</a></span>
 
 
             
@@ -633,7 +367,76 @@ of permission assigned to actual instance
             
             <td class="description last">
                 
-                [description]</td>
+                Instance of the RBAC</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of the grant</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>add</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                True if you need to save it to storage</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function after add</td>
         </tr>
 	
 	
@@ -678,14 +481,121 @@ of permission assigned to actual instance
     
     
     
-
+</dd>
 
     
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Members</h3>
+        
+        <dl>
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="name">name<span class="type-signature type string">String</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Get name of actual instance
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
     
     
 </dd>
 
         
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="rbac">rbac<span class="type-signature type rbac"><a href="RBAC.html">RBAC</a></span> <span class="type-signature type null">null</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Get instance of RBAC
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
             
 <dt>
     <div class="nameContainer">
@@ -696,7 +606,7 @@ of permission assigned to actual instance
     
         
         <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line33">line 33</a>
+            <a href="base.js.html">base.js</a>, <a href="base.js.html#line63">line 63</a>
         </div>
         
     </div>
@@ -707,7 +617,7 @@ of permission assigned to actual instance
     
     
     <div class="description">
-        Remove item from RBAC
+        Remove this from RBAC (storage)
     </div>
     
 
@@ -797,9 +707,33 @@ of permission assigned to actual instance
     
     
     
-    
+    <h5>Returns:</h5>
     
 
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Base.html">Base</a>
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
 
     
     
@@ -823,7 +757,7 @@ of permission assigned to actual instance
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue May 13 2014 13:37:43 GMT+0200 (CEST)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Mar 19 2015 15:45:03 GMT+1300 (New Zealand Daylight Time)
         </footer>
     </div>
 </div>

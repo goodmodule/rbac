@@ -4,11 +4,16 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-/**
- * @constructor
- */
-
 var Base = (function () {
+	/**
+  * Base constructor
+  * @constructor Base
+  * @param  {RBAC}     rbac     Instance of the RBAC
+  * @param  {String}   name     Name of the grant
+  * @param  {Boolean}  add      True if you need to save it to storage
+  * @param  {Function} cb       Callback function after add
+  */
+
 	function Base(rbac, name, add, cb) {
 		var _this = this;
 
@@ -35,7 +40,7 @@ var Base = (function () {
 
 			/**
     * Get name of actual instance
-    * @return {String}  Name of instance
+    * @member Base#name {String}
     */
 
 			get: function () {
@@ -46,7 +51,7 @@ var Base = (function () {
 
 			/**
     * Get instance of RBAC
-    * @return {RBAC|null} Instance of RBAC 
+    * @member Base#rbac {RBAC|null} Instance of RBAC 
     */
 
 			get: function () {
@@ -56,7 +61,8 @@ var Base = (function () {
 		remove: {
 
 			/**
-    * Remove item from RBAC
+    * Remove this from RBAC (storage)
+    * @method Base#remove
     * @param  {Function} cb Callback function
     * @return {Base}      
     */

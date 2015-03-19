@@ -17,7 +17,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"default":{"outputSourceFiles":true},"monospaceLinks":false,"cleverLinks":false};
     </script>
     
 
@@ -41,6 +41,12 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Base#name"><a href="Base.html#name">name</a></li>
+            
+                <li data-name="Base#rbac"><a href="Base.html#rbac">rbac</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -48,14 +54,6 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
-            
-                <li data-name="Base#getName"><a href="Base.html#getName">getName</a></li>
-            
-                <li data-name="Base#getRBAC"><a href="Base.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Base#getScope"><a href="Base.html#getScope">getScope</a></li>
-            
-                <li data-name="Base#hasSameRBAC"><a href="Base.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Base#remove"><a href="Base.html#remove">remove</a></li>
             
@@ -72,6 +70,16 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Permission#action"><a href="Permission.html#action">action</a></li>
+            
+                <li data-name="Permission#name"><a href="Permission.html#name">name</a></li>
+            
+                <li data-name="Permission#rbac"><a href="Permission.html#rbac">rbac</a></li>
+            
+                <li data-name="Permission#resource"><a href="Permission.html#resource">resource</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -85,18 +93,6 @@
                 <li data-name="Permission.isValidName"><a href="Permission.html#isValidName">isValidName</a></li>
             
                 <li data-name="Permission#can"><a href="Permission.html#can">can</a></li>
-            
-                <li data-name="Permission#getAction"><a href="Permission.html#getAction">getAction</a></li>
-            
-                <li data-name="Permission#getName"><a href="Permission.html#getName">getName</a></li>
-            
-                <li data-name="Permission#getRBAC"><a href="Permission.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Permission#getResource"><a href="Permission.html#getResource">getResource</a></li>
-            
-                <li data-name="Permission#getScope"><a href="Permission.html#getScope">getScope</a></li>
-            
-                <li data-name="Permission#hasSameRBAC"><a href="Permission.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Permission#remove"><a href="Permission.html#remove">remove</a></li>
             
@@ -115,7 +111,9 @@
             
             <span class="subtitle">Members</span>
             
-                <li data-name="RBAC.permissionsFromObject"><a href="RBAC.html#permissionsFromObject">permissionsFromObject</a></li>
+                <li data-name="RBAC#options"><a href="RBAC.html#options">options</a></li>
+            
+                <li data-name="RBAC#storage"><a href="RBAC.html#storage">storage</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -126,8 +124,6 @@
             <span class="subtitle">Methods</span>
             
                 <li data-name="RBAC.getPermissionNames"><a href="RBAC.html#getPermissionNames">getPermissionNames</a></li>
-            
-                <li data-name="RBAC#_traverseGrants"><a href="RBAC.html#_traverseGrants">_traverseGrants</a></li>
             
                 <li data-name="RBAC#add"><a href="RBAC.html#add">add</a></li>
             
@@ -149,6 +145,10 @@
             
                 <li data-name="RBAC#exists"><a href="RBAC.html#exists">exists</a></li>
             
+                <li data-name="RBAC#existsPermission"><a href="RBAC.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="RBAC#existsRole"><a href="RBAC.html#existsRole">existsRole</a></li>
+            
                 <li data-name="RBAC#get"><a href="RBAC.html#get">get</a></li>
             
                 <li data-name="RBAC#getPermission"><a href="RBAC.html#getPermission">getPermission</a></li>
@@ -161,13 +161,21 @@
             
                 <li data-name="RBAC#getScope"><a href="RBAC.html#getScope">getScope</a></li>
             
-                <li data-name="RBAC#getStorage"><a href="RBAC.html#getStorage">getStorage</a></li>
+                <li data-name="RBAC#grant"><a href="RBAC.html#grant">grant</a></li>
+            
+                <li data-name="RBAC#grantByName"><a href="RBAC.html#grantByName">grantByName</a></li>
             
                 <li data-name="RBAC#grants"><a href="RBAC.html#grants">grants</a></li>
             
                 <li data-name="RBAC#hasRole"><a href="RBAC.html#hasRole">hasRole</a></li>
             
                 <li data-name="RBAC#remove"><a href="RBAC.html#remove">remove</a></li>
+            
+                <li data-name="RBAC#removeByName"><a href="RBAC.html#removeByName">removeByName</a></li>
+            
+                <li data-name="RBAC#revoke"><a href="RBAC.html#revoke">revoke</a></li>
+            
+                <li data-name="RBAC#revokeByName"><a href="RBAC.html#revokeByName">revokeByName</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -181,6 +189,12 @@
                 
             </span>
             <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Role#name"><a href="Role.html#name">name</a></li>
+            
+                <li data-name="Role#rbac"><a href="Role.html#rbac">rbac</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -196,21 +210,66 @@
             
                 <li data-name="Role#canAny"><a href="Role.html#canAny">canAny</a></li>
             
-                <li data-name="Role#getName"><a href="Role.html#getName">getName</a></li>
-            
-                <li data-name="Role#getRBAC"><a href="Role.html#getRBAC">getRBAC</a></li>
-            
                 <li data-name="Role#getScope"><a href="Role.html#getScope">getScope</a></li>
             
                 <li data-name="Role#grant"><a href="Role.html#grant">grant</a></li>
             
                 <li data-name="Role#hasRole"><a href="Role.html#hasRole">hasRole</a></li>
             
-                <li data-name="Role#hasSameRBAC"><a href="Role.html#hasSameRBAC">hasSameRBAC</a></li>
-            
                 <li data-name="Role#remove"><a href="Role.html#remove">remove</a></li>
             
                 <li data-name="Role#revoke"><a href="Role.html#revoke">revoke</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Storage">
+            <span class="title">
+                <a href="Storage.html">Storage</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Storage#rbac"><a href="Storage.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Storage#add"><a href="Storage.html#add">add</a></li>
+            
+                <li data-name="Storage#exists"><a href="Storage.html#exists">exists</a></li>
+            
+                <li data-name="Storage#existsPermission"><a href="Storage.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="Storage#existsRole"><a href="Storage.html#existsRole">existsRole</a></li>
+            
+                <li data-name="Storage#get"><a href="Storage.html#get">get</a></li>
+            
+                <li data-name="Storage#getGrants"><a href="Storage.html#getGrants">getGrants</a></li>
+            
+                <li data-name="Storage#getPermission"><a href="Storage.html#getPermission">getPermission</a></li>
+            
+                <li data-name="Storage#getPermissions"><a href="Storage.html#getPermissions">getPermissions</a></li>
+            
+                <li data-name="Storage#getRole"><a href="Storage.html#getRole">getRole</a></li>
+            
+                <li data-name="Storage#getRoles"><a href="Storage.html#getRoles">getRoles</a></li>
+            
+                <li data-name="Storage#grant"><a href="Storage.html#grant">grant</a></li>
+            
+                <li data-name="Storage#remove"><a href="Storage.html#remove">remove</a></li>
+            
+                <li data-name="Storage#revoke"><a href="Storage.html#revoke">revoke</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -228,84 +287,113 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>'use strict';
+            <pre class="prettyprint source "><code>import Base from './base';
 
-var util = require("util"),
-	Base = require("./base");
+export const DELIMITER = '_';
 
-/**
- * @constructor
- * @extends {Base}
- */
-function Permission(rbac, action, resource, cb) {
-	if(!action || !resource) {
-		return cb(new Error('One of parameters is undefined'));
+export default class Permission extends Base {
+	/**
+	 * Permission constructor
+	 * @constructor Permission
+	 * @extends {Base}
+	 * @param  {RBAC}     rbac       Instance of the RBAC
+	 * @param  {String}   action     Name of the action
+	 * @param  {String}   resource   Name of the resource
+	 * @param  {Boolean}  [add=true] True if you need to save it to storage
+	 * @param  {Function} cb         Callback function after add
+	 */
+	constructor (rbac, action, resource, add, cb) {
+		if(typeof add === 'function') {
+			cb = add;
+			add = true;
+		}
+
+		if(!action || !resource) {
+			return cb(new Error('One of parameters is undefined'));
+		}
+
+		if(!Permission.isValidName(action) || !Permission.isValidName(resource)) {
+			return cb(new Error('Action or resource has no valid name'));
+		}
+
+		this._action = action;
+		this._resource = resource;
+
+		super(rbac, Permission.createName(action, resource), add, cb);		
 	}
 
-	if(!Permission.isValidName(action) || !Permission.isValidName(resource)) {
-		return cb(new Error('Action or resource has no valid name'));
+	/**
+	 * Get action name of actual permission
+	 * @member Permission#action {String} Action of permission
+	 */
+	get action() {
+		return this._action;
 	}
 
-	this._action = action;
-	this._resource = resource;
+	/**
+	 * Get resource name of actual permission
+	 * @member Permission#resource {String} Resource of permission
+	 */
+	get resource() {
+		return this._resource;
+	}
 
-	Base.call(this, rbac, Permission.createName(action, resource), cb);
+	/**
+	 * Return true if has same action and resource
+	 * @method Permission#can
+	 * @param  {String}  action   Name of action
+	 * @param  {String}  resource Name of resource
+	 * @return {Boolean}          
+	 */
+	can (action, resource) {
+		return this._action === action &amp;&amp; this._resource === resource;
+	}
+
+	/**
+	 * Compute name of permission from action and resource
+	 * @function createName
+	 * @memberof Permission
+	 * @param  {String} action   Name of permission
+	 * @param  {String} resource Resource of permission
+	 * @return {String}          Computed name of permission
+	 * @static
+	 */
+	static createName (action, resource) {
+		return action + DELIMITER + resource;
+	}
+
+	static decodeName (name) {
+		var pos = name.indexOf(DELIMITER);
+		if(pos === -1) {
+			return null;
+		}
+
+		return {
+			action   : name.substr(0, pos),
+			resource : name.substr(pos+1)
+		};
+	}
+
+	/**
+	 * Correct name can contain only alphanumeric characters
+	 * @function isValidName
+	 * @memberof Permission
+	 * @param  {String}  name Name
+	 * @return {Boolean}  
+	 * @static    
+	 */
+	static isValidName (name) {
+		if (/^[a-zA-Z0-9]+$/.test(name)) {
+			return true;
+		}
+
+		return false;
+	}	
 }
-
-util.inherits(Permission, Base);
-
-/**
- * Get action name of actual permission
- * @return {String} Action of permission
- */
-Permission.prototype.getAction = function() {
-	return this._action;
-};
-
-/**
- * Get resource name of actual permission
- * @return {String} Resource of permission
- */
-Permission.prototype.getResource = function() {
-	return this._resource;
-};
-
-/**
- * Return true if has same action and resource
- * @param  {String}  action   Name of action
- * @param  {String}  resource Name of resource
- * @return {Boolean}          
- */
-Permission.prototype.can = function(action, resource) {
-	return (this._action === action && this._resource === resource);
-};
-
-/**
- * Compute name of permission from action and resource
- * @param  {String} action   Name of permission
- * @param  {String} resource Resource of permission
- * @return {String}          Computed name of permission
- */
-Permission.createName = function(action, resource) {
-	return action + '_' + resource;
-};
-
-/**
- * Correct name can contain only alphanumeric characters
- * @param  {String}  name Name
- * @return {Boolean}      
- */
-Permission.isValidName = function(name) {
-	if (/^[a-zA-Z0-9]+$/.test(name)) {
-		return true;
-	}
-
-	return false;
-};
-
-module.exports = Permission;</code></pre>
+</code></pre>
         </article>
     </section>
+
 
 
 
@@ -314,7 +402,7 @@ module.exports = Permission;</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue May 13 2014 13:37:43 GMT+0200 (CEST)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Mar 19 2015 15:45:03 GMT+1300 (New Zealand Daylight Time)
         </footer>
     </div>
 </div>

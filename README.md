@@ -13,7 +13,7 @@ RBAC is the authorization library for NodeJS.
 
 I needed hierarchical role based access control for my projects based on ExpressJS. 
 I had one requirement. This structure must be permanently stored in various storages. 
-For example in memory, file, Redis and Mongoose. 
+For example in memory or Mongoose. 
 Because there is a lot of options for storing of data and many of them are asynchronous. 
 I created asynchronous API. 
 Please, if you found any bug or you need custom API, create an issue or pull request.
@@ -25,80 +25,95 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 
 ## Install
 
-    $ npm install rbac
+```sh
+npm install rbac
+```
 
+## Build documentation
+
+```sh
+npm run doc
+```  
+
+## Running Tests
+
+```sh
+npm run test        
+```
+
+## Build
+
+```sh
+npm run build     
+``` 
 
 ## Usage
 
-    var RBAC = require('rbac');
+```sh
+var RBAC = require('rbac');
 
-    var rbac = new RBAC();
+var rbac = new RBAC();
 
-    var roles = ['superadmin', 'admin', 'user', 'guest'];
+var roles = ['superadmin', 'admin', 'user', 'guest'];
 
-    var permissions = {
-        user: ['create', 'delete'],
-        password: ['change', 'forgot'],
-        article: ['create'],
-        rbac: ['update']
-    };
+var permissions = {
+    user: ['create', 'delete'],
+    password: ['change', 'forgot'],
+    article: ['create'],
+    rbac: ['update']
+};
 
-    var grants = {
-        guest: ['create_user', 'forgot_password'],
-        user: ['change_password'],
-        admin: ['user', 'delete_user', 'update_rbac'],
-        superadmin: ['admin']
-    };
+var grants = {
+    guest: ['create_user', 'forgot_password'],
+    user: ['change_password'],
+    admin: ['user', 'delete_user', 'update_rbac'],
+    superadmin: ['admin']
+};
 
-    rbac.create(roles, permissions, grants, function(err, data) {
-        if(err) {
-            throw err;
-        }
-    });     
-
+rbac.create(roles, permissions, grants, function(err, data) {
+    if(err) {
+        throw err;
+    }
+}); 
+```    
 
 ## Check permissions
 
-    rbac.can('admin', 'create', 'article', function(err, can) {
-        if(err) {
-            throw err; //process error
-        }
-            
+```sh
+rbac.can('admin', 'create', 'article', function(err, can) {
+    if(err) {
+        throw err; //process error
+    }
+        
+    if(can) {
+        console.log('Admin is able create article');    
+    }
+});
+
+//or you can use instance of admin role
+
+rbac.getRole('admin', function(err, admin) {
+    if(err) {
+        throw err; //process error
+    }
+
+    if(!admin) {
+        return console.log('Role does not exists');
+    }
+
+    admin.can('create', 'article', function(err, can) {
+        if(err) throw err; //process error
+        
         if(can) {
             console.log('Admin is able create article');    
         }
-    });
-
-    //or you can use instance of admin role
-
-    rbac.getRole('admin', function(err, admin) {
-        if(err) {
-            throw err; //process error
-        }
-
-        if(!admin) {
-            return console.log('Role does not exists');
-        }
-
-        admin.can('create', 'article', function(err, can) {
-            if(err) throw err; //process error
-            
-            if(can) {
-                console.log('Admin is able create article');    
-            }
-        }); 
-    });
+    }); 
+});
+```
 
 ## Mongoose user model
 
 Please take a look on plugin [mongoose-hrbac](http://github.com/seeden/mongoose-hrbac)
-
-
-## Running Tests
-
-To run the tests, install the dev dependencies and run:
-    
-    npm test
 
     
 ## Credits
@@ -109,7 +124,7 @@ To run the tests, install the dev dependencies and run:
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Zlatko Fedor zlatkofedor@cherrysro.com
+Copyright (c) 2015 Zlatko Fedor zlatkofedor@cherrysro.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -12,7 +12,8 @@ var Role = _interopRequire(require("../role"));
 
 var Storage = (function () {
 	/**
-  * Constructor of storage
+  * Storage constructor
+  * @constructor Storage
   */
 
 	function Storage() {
@@ -23,6 +24,12 @@ var Storage = (function () {
 
 	_createClass(Storage, {
 		rbac: {
+
+			/**
+    * Get instance of RBAC
+    * @member Storage#rbac {RBAC|null} Instance of RBAC 
+    */
+
 			get: function () {
 				return this._rbac;
 			},
@@ -38,6 +45,7 @@ var Storage = (function () {
 
 			/**
     * Add permission or role
+    * @method Storage#add
     * @param {Base}   item    Instance of role or permission
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -51,6 +59,7 @@ var Storage = (function () {
 
 			/**
     * Remove permission or role
+    * @method Storage#remove
     * @param {Base}   item    Instance of role or permission
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -64,6 +73,7 @@ var Storage = (function () {
 
 			/**
     * Add (grant) permission or role to hierarchy of actual role
+    * @method Storage#grant
     * @param  {Role}   role  Instance of role
     * @param  {Base}   child Instance of role or permission
     * @param  {Function} cb    Callback function
@@ -78,6 +88,7 @@ var Storage = (function () {
 
 			/**
     * Remove (revoke) permission or role from hierarchy of actual role
+    * @method Storage#revoke
     * @param  {Role}   role  Instance of role
     * @param  {Base}   child Instance of role or permission
     * @param  {Function} cb    Callback function
@@ -92,6 +103,7 @@ var Storage = (function () {
 
 			/**
     * Get instance of permission or role by his name
+    * @method Storage#get
     * @param  {String}   name Name of role or permission
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -105,6 +117,7 @@ var Storage = (function () {
 
 			/**
     * Get all instances of Roles
+    * @method Storage#getRoles
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
     */
@@ -117,6 +130,7 @@ var Storage = (function () {
 
 			/**
     * Get all instances of Permissions
+    * @method Storage#getPermissions
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
     */
@@ -129,6 +143,7 @@ var Storage = (function () {
 
 			/**
     * Get instances of Roles and Permissions assigned to role
+    * @method Storage#getGrants
     * @param  {String}   role Name of role
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -142,6 +157,7 @@ var Storage = (function () {
 
 			/**
     * Get instance of role by his name
+    * @method Storage#getRole
     * @param  {String}   name Name of role
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -167,10 +183,11 @@ var Storage = (function () {
 
 			/**
     * Get instance of permission by his name
+    * @method Storage#getPermission
     * @param  {String}   action   Name of action
     * @param  {String}   resource Name of resource
     * @param  {Function} cb       Callback function
-    * @return {[type]}            Instance of actual storage
+    * @return {Storage}           Instance of actual storage
     */
 
 			value: function getPermission(action, resource, cb) {
@@ -195,6 +212,7 @@ var Storage = (function () {
 
 			/**
     * Return true with callback if role or permission exists
+    * @method Storage#exists
     * @param  {String}   name Name of role or permission
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -220,6 +238,7 @@ var Storage = (function () {
 
 			/**
     * Return true with callback if role exists
+    * @method Storage#existsRole
     * @param  {String}   name Name of role
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage
@@ -245,6 +264,7 @@ var Storage = (function () {
 
 			/**
     * Return true with callback if permission exists
+    * @method Storage#existsPermission
     * @param  {String}   name Name of permission
     * @param  {Function} cb   Callback function
     * @return {Storage}       Instance of actual storage

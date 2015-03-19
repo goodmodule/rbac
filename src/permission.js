@@ -4,8 +4,14 @@ export const DELIMITER = '_';
 
 export default class Permission extends Base {
 	/**
-	 * @constructor
+	 * Permission constructor
+	 * @constructor Permission
 	 * @extends {Base}
+	 * @param  {RBAC}     rbac       Instance of the RBAC
+	 * @param  {String}   action     Name of the action
+	 * @param  {String}   resource   Name of the resource
+	 * @param  {Boolean}  [add=true] True if you need to save it to storage
+	 * @param  {Function} cb         Callback function after add
 	 */
 	constructor (rbac, action, resource, add, cb) {
 		if(typeof add === 'function') {
@@ -29,7 +35,7 @@ export default class Permission extends Base {
 
 	/**
 	 * Get action name of actual permission
-	 * @return {String} Action of permission
+	 * @member Permission#action {String} Action of permission
 	 */
 	get action() {
 		return this._action;
@@ -37,7 +43,7 @@ export default class Permission extends Base {
 
 	/**
 	 * Get resource name of actual permission
-	 * @return {String} Resource of permission
+	 * @member Permission#resource {String} Resource of permission
 	 */
 	get resource() {
 		return this._resource;
@@ -45,6 +51,7 @@ export default class Permission extends Base {
 
 	/**
 	 * Return true if has same action and resource
+	 * @method Permission#can
 	 * @param  {String}  action   Name of action
 	 * @param  {String}  resource Name of resource
 	 * @return {Boolean}          
@@ -55,9 +62,12 @@ export default class Permission extends Base {
 
 	/**
 	 * Compute name of permission from action and resource
+	 * @function createName
+	 * @memberof Permission
 	 * @param  {String} action   Name of permission
 	 * @param  {String} resource Resource of permission
 	 * @return {String}          Computed name of permission
+	 * @static
 	 */
 	static createName (action, resource) {
 		return action + DELIMITER + resource;
@@ -77,8 +87,11 @@ export default class Permission extends Base {
 
 	/**
 	 * Correct name can contain only alphanumeric characters
+	 * @function isValidName
+	 * @memberof Permission
 	 * @param  {String}  name Name
-	 * @return {Boolean}      
+	 * @return {Boolean}  
+	 * @static    
 	 */
 	static isValidName (name) {
 		if (/^[a-zA-Z0-9]+$/.test(name)) {

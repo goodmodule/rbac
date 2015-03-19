@@ -17,7 +17,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"default":{"outputSourceFiles":true},"monospaceLinks":false,"cleverLinks":false};
     </script>
     
 
@@ -41,6 +41,12 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Base#name"><a href="Base.html#name">name</a></li>
+            
+                <li data-name="Base#rbac"><a href="Base.html#rbac">rbac</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -48,14 +54,6 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
-            
-                <li data-name="Base#getName"><a href="Base.html#getName">getName</a></li>
-            
-                <li data-name="Base#getRBAC"><a href="Base.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Base#getScope"><a href="Base.html#getScope">getScope</a></li>
-            
-                <li data-name="Base#hasSameRBAC"><a href="Base.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Base#remove"><a href="Base.html#remove">remove</a></li>
             
@@ -72,6 +70,16 @@
             </span>
             <ul class="members itemMembers">
             
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Permission#action"><a href="Permission.html#action">action</a></li>
+            
+                <li data-name="Permission#name"><a href="Permission.html#name">name</a></li>
+            
+                <li data-name="Permission#rbac"><a href="Permission.html#rbac">rbac</a></li>
+            
+                <li data-name="Permission#resource"><a href="Permission.html#resource">resource</a></li>
+            
             </ul>
             <ul class="typedefs itemMembers">
             
@@ -85,18 +93,6 @@
                 <li data-name="Permission.isValidName"><a href="Permission.html#isValidName">isValidName</a></li>
             
                 <li data-name="Permission#can"><a href="Permission.html#can">can</a></li>
-            
-                <li data-name="Permission#getAction"><a href="Permission.html#getAction">getAction</a></li>
-            
-                <li data-name="Permission#getName"><a href="Permission.html#getName">getName</a></li>
-            
-                <li data-name="Permission#getRBAC"><a href="Permission.html#getRBAC">getRBAC</a></li>
-            
-                <li data-name="Permission#getResource"><a href="Permission.html#getResource">getResource</a></li>
-            
-                <li data-name="Permission#getScope"><a href="Permission.html#getScope">getScope</a></li>
-            
-                <li data-name="Permission#hasSameRBAC"><a href="Permission.html#hasSameRBAC">hasSameRBAC</a></li>
             
                 <li data-name="Permission#remove"><a href="Permission.html#remove">remove</a></li>
             
@@ -115,7 +111,9 @@
             
             <span class="subtitle">Members</span>
             
-                <li data-name="RBAC.permissionsFromObject"><a href="RBAC.html#permissionsFromObject">permissionsFromObject</a></li>
+                <li data-name="RBAC#options"><a href="RBAC.html#options">options</a></li>
+            
+                <li data-name="RBAC#storage"><a href="RBAC.html#storage">storage</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -126,8 +124,6 @@
             <span class="subtitle">Methods</span>
             
                 <li data-name="RBAC.getPermissionNames"><a href="RBAC.html#getPermissionNames">getPermissionNames</a></li>
-            
-                <li data-name="RBAC#_traverseGrants"><a href="RBAC.html#_traverseGrants">_traverseGrants</a></li>
             
                 <li data-name="RBAC#add"><a href="RBAC.html#add">add</a></li>
             
@@ -149,6 +145,10 @@
             
                 <li data-name="RBAC#exists"><a href="RBAC.html#exists">exists</a></li>
             
+                <li data-name="RBAC#existsPermission"><a href="RBAC.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="RBAC#existsRole"><a href="RBAC.html#existsRole">existsRole</a></li>
+            
                 <li data-name="RBAC#get"><a href="RBAC.html#get">get</a></li>
             
                 <li data-name="RBAC#getPermission"><a href="RBAC.html#getPermission">getPermission</a></li>
@@ -161,13 +161,21 @@
             
                 <li data-name="RBAC#getScope"><a href="RBAC.html#getScope">getScope</a></li>
             
-                <li data-name="RBAC#getStorage"><a href="RBAC.html#getStorage">getStorage</a></li>
+                <li data-name="RBAC#grant"><a href="RBAC.html#grant">grant</a></li>
+            
+                <li data-name="RBAC#grantByName"><a href="RBAC.html#grantByName">grantByName</a></li>
             
                 <li data-name="RBAC#grants"><a href="RBAC.html#grants">grants</a></li>
             
                 <li data-name="RBAC#hasRole"><a href="RBAC.html#hasRole">hasRole</a></li>
             
                 <li data-name="RBAC#remove"><a href="RBAC.html#remove">remove</a></li>
+            
+                <li data-name="RBAC#removeByName"><a href="RBAC.html#removeByName">removeByName</a></li>
+            
+                <li data-name="RBAC#revoke"><a href="RBAC.html#revoke">revoke</a></li>
+            
+                <li data-name="RBAC#revokeByName"><a href="RBAC.html#revokeByName">revokeByName</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -181,6 +189,12 @@
                 
             </span>
             <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Role#name"><a href="Role.html#name">name</a></li>
+            
+                <li data-name="Role#rbac"><a href="Role.html#rbac">rbac</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -196,21 +210,66 @@
             
                 <li data-name="Role#canAny"><a href="Role.html#canAny">canAny</a></li>
             
-                <li data-name="Role#getName"><a href="Role.html#getName">getName</a></li>
-            
-                <li data-name="Role#getRBAC"><a href="Role.html#getRBAC">getRBAC</a></li>
-            
                 <li data-name="Role#getScope"><a href="Role.html#getScope">getScope</a></li>
             
                 <li data-name="Role#grant"><a href="Role.html#grant">grant</a></li>
             
                 <li data-name="Role#hasRole"><a href="Role.html#hasRole">hasRole</a></li>
             
-                <li data-name="Role#hasSameRBAC"><a href="Role.html#hasSameRBAC">hasSameRBAC</a></li>
-            
                 <li data-name="Role#remove"><a href="Role.html#remove">remove</a></li>
             
                 <li data-name="Role#revoke"><a href="Role.html#revoke">revoke</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Storage">
+            <span class="title">
+                <a href="Storage.html">Storage</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Storage#rbac"><a href="Storage.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Storage#add"><a href="Storage.html#add">add</a></li>
+            
+                <li data-name="Storage#exists"><a href="Storage.html#exists">exists</a></li>
+            
+                <li data-name="Storage#existsPermission"><a href="Storage.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="Storage#existsRole"><a href="Storage.html#existsRole">existsRole</a></li>
+            
+                <li data-name="Storage#get"><a href="Storage.html#get">get</a></li>
+            
+                <li data-name="Storage#getGrants"><a href="Storage.html#getGrants">getGrants</a></li>
+            
+                <li data-name="Storage#getPermission"><a href="Storage.html#getPermission">getPermission</a></li>
+            
+                <li data-name="Storage#getPermissions"><a href="Storage.html#getPermissions">getPermissions</a></li>
+            
+                <li data-name="Storage#getRole"><a href="Storage.html#getRole">getRole</a></li>
+            
+                <li data-name="Storage#getRoles"><a href="Storage.html#getRoles">getRoles</a></li>
+            
+                <li data-name="Storage#grant"><a href="Storage.html#grant">grant</a></li>
+            
+                <li data-name="Storage#remove"><a href="Storage.html#remove">remove</a></li>
+            
+                <li data-name="Storage#revoke"><a href="Storage.html#revoke">revoke</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -228,100 +287,60 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>'use strict';
+            <pre class="prettyprint source "><code>export default class Base {
+	/**
+	 * Base constructor
+	 * @constructor Base
+	 * @param  {RBAC}     rbac     Instance of the RBAC
+	 * @param  {String}   name     Name of the grant
+	 * @param  {Boolean}  add      True if you need to save it to storage
+	 * @param  {Function} cb       Callback function after add
+	 */	
+	constructor (rbac, name, add, cb) {
+		if(!rbac || !name || typeof cb !== 'function') {
+			return cb(new Error('One of parameters is undefined'));
+		}
 
-/**
- * @constructor
- */
-function Base(rbac, name, cb) {
-	var self = this;
+		this._name = name;
+		this._rbac = rbac;
 
-	if(!rbac || !name) {
-		return cb(new Error('One of parameters is undefined'));
+		if(!add) {
+			return cb(null, this);	
+		}
+
+		rbac.add(this, (err) => cb(err, this));		
 	}
 
-	this._name = name;
-	this._rbac = null;
-
-	//add to RBAC structure
-	rbac.add(this, function(err, item) {
-		if(err) {
-			return cb(err);
-		}
-
-		self._rbac = rbac;
-
-		cb(null, item);
-	});
-}
-
-/**
- * Remove item from RBAC
- * @param  {Function} cb Callback function
- * @return {Base}      
- */
-Base.prototype.remove = function(cb) {
-	var self = this;
-
-	if(!this._rbac) {
-		return cb(new Error('RBAC is undefined. Is object saved?'));
+	/**
+	 * Get name of actual instance
+	 * @member Base#name {String}
+	 */
+	get name() {
+		return this._name;
 	}
 
-	//remove it from RBAC instance
-	this._rbac.remove(this, function(err, removed) {
-		if(err) {
-			return cb(err);
-		}
+	/**
+	 * Get instance of RBAC
+	 * @member Base#rbac {RBAC|null} Instance of RBAC 
+	 */
+	get rbac() {
+		return this._rbac;
+	}
 
-		if(removed) {
-			self._rbac = null;	
-		}
-		
-		cb(err, removed);
-	});
-
-	return this;
-};
-
-/**
- * Get name of actual instance
- * @return {String}  Name of instance
- */
-Base.prototype.getName = function() {
-	return this._name;
-};
-
-/**
- * Get instance of RBAC
- * @return {RBAC|null} Instance of RBAC 
- */
-Base.prototype.getRBAC = function() {
-	return this._rbac;
-};
-
-/**
- * Return true if item and actual instance has assigned same RBAC instance
- * @param  {Base}  item [description]
- * @return {Boolean}      [description]
- */
-Base.prototype.hasSameRBAC = function(item) {
-	var itemRBAC = item.getRBAC();
-
-	return (itemRBAC && this._rbac && itemRBAC === this._rbac);
-};
-
-/**
- * Return array of permission  
- * @return {Array}    Array of permission assigned to actual instance  
- */
-Base.prototype.getScope = function() {
-	return [this.getName()];
-};
-
-
-module.exports = Base;</code></pre>
+	/**
+	 * Remove this from RBAC (storage)
+	 * @method Base#remove
+	 * @param  {Function} cb Callback function
+	 * @return {Base}      
+	 */
+	remove(cb) {
+		this.rbac.remove(this, cb);
+		return this;
+	}
+}</code></pre>
         </article>
     </section>
+
 
 
 
@@ -330,7 +349,7 @@ module.exports = Base;</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue May 13 2014 13:37:43 GMT+0200 (CEST)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Mar 19 2015 15:45:03 GMT+1300 (New Zealand Daylight Time)
         </footer>
     </div>
 </div>

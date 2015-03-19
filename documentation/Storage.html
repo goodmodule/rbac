@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: Role</title>
+    <title>Class: Storage</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -280,7 +280,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="Role.html">Class: Role</h1>
+        <h1 class="page-title" data-filename="Storage.html">Class: Storage</h1>
         
 
 
@@ -289,7 +289,7 @@
     
 <header>
     <h2>
-    Role
+    Storage
     </h2>
     
 </header>  
@@ -302,14 +302,14 @@
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="Role">
+        <h4 class="name" id="Storage">
             
-            new Role<span class="signature">(rbac, name, <span class="optional">add</span>, cb)</span>
+            new Storage<span class="signature">()</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line18">line 18</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line14">line 14</a>
         </div>
         
     </div>
@@ -320,7 +320,7 @@
     
     
     <div class="description">
-        Role constructor
+        Storage constructor
     </div>
     
 
@@ -328,162 +328,6 @@
     
     
     
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rbac</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RBAC.html">RBAC</a></span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                Instance of the RBAC</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                Name of the role</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>add</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                True if you need to save it to storage</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>cb</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                Callback function after add</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -528,12 +372,6 @@
     
     </div>
     
-    
-        <h3 class="subsection-title">Extends</h3>
-        
-        <ul>
-            <li><a href="Base.html">Base</a></li>
-        </ul>
     
     
     
@@ -548,51 +386,6 @@
         <h3 class="subsection-title">Members</h3>
         
         <dl>
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="name">name<span class="type-signature type string">String</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Get name of actual instance
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
             
 <dt>
     <div class="nameContainer">
@@ -647,14 +440,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="can">
+        <h4 class="name" id="add">
             
-            can<span class="signature">(action, resource, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
+            add<span class="signature">(item, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line78">line 78</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line46">line 46</a>
         </div>
         
     </div>
@@ -665,7 +458,1015 @@
     
     
     <div class="description">
-        Return true if contains permission
+        Add permission or role
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Base.html">Base</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Instance of role or permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="exists">
+            
+            exists<span class="signature">(name, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line213">line 213</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return true with callback if role or permission exists
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of role or permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="existsPermission">
+            
+            existsPermission<span class="signature">(name, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line265">line 265</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return true with callback if permission exists
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="existsRole">
+            
+            existsRole<span class="signature">(name, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line239">line 239</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return true with callback if role exists
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of role</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="get">
+            
+            get<span class="signature">(name, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line104">line 104</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get instance of permission or role by his name
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of role or permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="getGrants">
+            
+            getGrants<span class="signature">(role, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line144">line 144</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get instances of Roles and Permissions assigned to role
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Name of role</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="getPermission">
+            
+            getPermission<span class="signature">(action, resource, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line184">line 184</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get instance of permission by his name
     </div>
     
 
@@ -819,11 +1620,11 @@
             
             <td class="type">
             
-                        <a href="Role.html">Role</a>
+                        <a href="Storage.html">Storage</a>
                         
                     
             </td>
-            <td class="description last">Return current instance of role</td>
+            <td class="description last">Instance of actual storage</td>
         </tr>
     
     </tbody>
@@ -838,14 +1639,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="canAll">
+        <h4 class="name" id="getPermissions">
             
-            canAll<span class="signature">(permissions, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
+            getPermissions<span class="signature">(cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line109">line 109</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line131">line 131</a>
         </div>
         
     </div>
@@ -856,343 +1657,7 @@
     
     
     <div class="description">
-        Check if the model has all of the given permissions
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>permissions</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                List of permissions. Each has structure (String action, String resource)</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>cb</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                Callback function</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Role.html">Role</a>
-                        
-                    
-            </td>
-            <td class="description last">Return current instance of role</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="canAny">
-            
-            canAny<span class="signature">(permissions, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line94">line 94</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Check if the role has any of the given permissions
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>permissions</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                List of permissions. Each has structure (String action, String resource)</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>cb</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                Callback function</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Role.html">Role</a>
-                        
-                    
-            </td>
-            <td class="description last">Return current instance of role</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getScope">
-            
-            getScope<span class="signature">(cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line139">line 139</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return array of permission assigned to actual role
+        Get all instances of Permissions
     </div>
     
 
@@ -1300,11 +1765,11 @@
             
             <td class="type">
             
-                        <a href="Role.html">Role</a>
+                        <a href="Storage.html">Storage</a>
                         
                     
             </td>
-            <td class="description last">Return current instance of role</td>
+            <td class="description last">Instance of actual storage</td>
         </tr>
     
     </tbody>
@@ -1319,14 +1784,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="grant">
+        <h4 class="name" id="getRole">
             
-            grant<span class="signature">(item, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
+            getRole<span class="signature">(name, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line48">line 48</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line158">line 158</a>
         </div>
         
     </div>
@@ -1337,7 +1802,7 @@
     
     
     <div class="description">
-        Add role or permission to current role
+        Get instance of role by his name
     </div>
     
 
@@ -1368,178 +1833,7 @@
 	
         <tr>
             
-                <td class="name"><code>item</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Role.html">Role</a></span>
-|
-
-<span class="param-type"><a href="Permission.html">Permission</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                Instance of role or permission</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>cb</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                Callback function</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="Role.html">Role</a>
-                        
-                    
-            </td>
-            <td class="description last">Return current instance of role</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="hasRole">
-            
-            hasRole<span class="signature">(roleChildName, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line124">line 124</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return true if the current role contains the specified role name
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>roleChildName</code></td>
+                <td class="name"><code>name</code></td>
             
             
             <td class="type">
@@ -1639,11 +1933,11 @@
             
             <td class="type">
             
-                        <a href="Role.html">Role</a>
+                        <a href="Storage.html">Storage</a>
                         
                     
             </td>
-            <td class="description last">Return current instance of role</td>
+            <td class="description last">Instance of actual storage</td>
         </tr>
     
     </tbody>
@@ -1657,17 +1951,15 @@
         
             
 <dt>
-    <div class="nameContainer inherited">
-        <h4 class="name" id="remove">
+    <div class="nameContainer">
+        <h4 class="name" id="getRoles">
             
-                <span class="inherited"><a href="Base.html#remove">inherited</a></span>
-            
-            remove<span class="signature">(cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Base.html">Base</a>}</span>
+            getRoles<span class="signature">(cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="base.js.html">base.js</a>, <a href="base.js.html#line63">line 63</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line118">line 118</a>
         </div>
         
     </div>
@@ -1678,7 +1970,7 @@
     
     
     <div class="description">
-        Remove this from RBAC (storage)
+        Get all instances of Roles
     </div>
     
 
@@ -1786,11 +2078,11 @@
             
             <td class="type">
             
-                        <a href="Base.html">Base</a>
+                        <a href="Storage.html">Storage</a>
                         
                     
             </td>
-            <td class="description last"></td>
+            <td class="description last">Instance of actual storage</td>
         </tr>
     
     </tbody>
@@ -1805,14 +2097,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="revoke">
+        <h4 class="name" id="grant">
             
-            revoke<span class="signature">(item, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Role.html">Role</a>}</span>
+            grant<span class="signature">(role, child, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="role.js.html">role.js</a>, <a href="role.js.html#line63">line 63</a>
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line74">line 74</a>
         </div>
         
     </div>
@@ -1823,7 +2115,7 @@
     
     
     <div class="description">
-        Remove role or permission from current role
+        Add (grant) permission or role to hierarchy of actual role
     </div>
     
 
@@ -1854,16 +2146,36 @@
 	
         <tr>
             
-                <td class="name"><code>item</code></td>
+                <td class="name"><code>role</code></td>
             
             
             <td class="type">
             
                 
 <span class="param-type"><a href="Role.html">Role</a></span>
-|
 
-<span class="param-type"><a href="Permission.html">Permission</a></span>
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Instance of role</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Base.html">Base</a></span>
 
 
             
@@ -1957,11 +2269,370 @@
             
             <td class="type">
             
-                        <a href="Role.html">Role</a>
+                        <a href="Storage.html">Storage</a>
                         
                     
             </td>
-            <td class="description last">Return current instance of role</td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="remove">
+            
+            remove<span class="signature">(item, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line60">line 60</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Remove permission or role
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Base.html">Base</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Instance of role or permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="revoke">
+            
+            revoke<span class="signature">(role, child, cb)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="Storage.html">Storage</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="index.js.html">storages/index.js</a>, <a href="index.js.html#line89">line 89</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Remove (revoke) permission or role from hierarchy of actual role
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Role.html">Role</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Instance of role</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Base.html">Base</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Instance of role or permission</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>cb</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Callback function</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="Storage.html">Storage</a>
+                        
+                    
+            </td>
+            <td class="description last">Instance of actual storage</td>
         </tr>
     
     </tbody>
