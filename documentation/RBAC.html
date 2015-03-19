@@ -304,7 +304,7 @@
     <div class="nameContainer">
         <h4 class="name" id="RBAC">
             
-            new RBAC<span class="signature">(options)</span>
+            new RBAC<span class="signature">(options, <span class="optional">callback</span>)</span>
         </h4>
     
         
@@ -367,6 +367,11 @@
             
             <td class="description last">
                 
+                    
+                    
+                        
+                    
+                
                 Options for RBAC
                 
 
@@ -417,9 +422,129 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>roles</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                List of role names (String)</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>permissions</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                List of permissions</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>grants</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                List og grants</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
             </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Callback function</td>
         </tr>
 	
 	
@@ -589,7 +714,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line791">line 791</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line811">line 811</a>
         </div>
         
     </div>
@@ -734,7 +859,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line66">line 66</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line86">line 86</a>
         </div>
         
     </div>
@@ -905,7 +1030,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line603">line 603</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line623">line 623</a>
         </div>
         
     </div>
@@ -1119,7 +1244,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line674">line 674</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line694">line 694</a>
         </div>
         
     </div>
@@ -1310,7 +1435,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line637">line 637</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line657">line 657</a>
         </div>
         
     </div>
@@ -1501,7 +1626,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line504">line 504</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line524">line 524</a>
         </div>
         
     </div>
@@ -1737,7 +1862,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line283">line 283</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line303">line 303</a>
         </div>
         
     </div>
@@ -1993,7 +2118,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line404">line 404</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line424">line 424</a>
         </div>
         
     </div>
@@ -2217,7 +2342,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line269">line 269</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line289">line 289</a>
         </div>
         
     </div>
@@ -2409,7 +2534,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line442">line 442</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line462">line 462</a>
         </div>
         
     </div>
@@ -2633,7 +2758,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line299">line 299</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line319">line 319</a>
         </div>
         
     </div>
@@ -2801,7 +2926,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line329">line 329</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line349">line 349</a>
         </div>
         
     </div>
@@ -2992,7 +3117,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line314">line 314</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line334">line 334</a>
         </div>
         
     </div>
@@ -3160,7 +3285,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line89">line 89</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line109">line 109</a>
         </div>
         
     </div>
@@ -3328,7 +3453,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line374">line 374</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line394">line 394</a>
         </div>
         
     </div>
@@ -3519,7 +3644,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line390">line 390</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line410">line 410</a>
         </div>
         
     </div>
@@ -3664,7 +3789,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line345">line 345</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line365">line 365</a>
         </div>
         
     </div>
@@ -3832,7 +3957,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line360">line 360</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line380">line 380</a>
         </div>
         
     </div>
@@ -3977,7 +4102,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line757">line 757</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line777">line 777</a>
         </div>
         
     </div>
@@ -4145,7 +4270,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line153">line 153</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line173">line 173</a>
         </div>
         
     </div>
@@ -4339,7 +4464,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line237">line 237</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line257">line 257</a>
         </div>
         
     </div>
@@ -4530,7 +4655,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line473">line 473</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line493">line 493</a>
         </div>
         
     </div>
@@ -4698,7 +4823,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line719">line 719</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line739">line 739</a>
         </div>
         
     </div>
@@ -4889,7 +5014,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line104">line 104</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line124">line 124</a>
         </div>
         
     </div>
@@ -5060,7 +5185,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line127">line 127</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line147">line 147</a>
         </div>
         
     </div>
@@ -5228,7 +5353,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line181">line 181</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line201">line 201</a>
         </div>
         
     </div>
@@ -5422,7 +5547,7 @@
     
         
         <div class="tag-source">
-            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line205">line 205</a>
+            <a href="rbac.js.html">rbac.js</a>, <a href="rbac.js.html#line225">line 225</a>
         </div>
         
     </div>
@@ -5619,7 +5744,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Mar 19 2015 15:45:03 GMT+1300 (New Zealand Daylight Time)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Mar 19 2015 16:25:18 GMT+1300 (New Zealand Daylight Time)
         </footer>
     </div>
 </div>

@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",

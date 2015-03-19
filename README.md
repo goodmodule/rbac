@@ -33,26 +33,21 @@ npm install rbac
 
 ```js
 var RBAC = require('rbac');
-
-var rbac = new RBAC();
-
-var roles = ['superadmin', 'admin', 'user', 'guest'];
-
-var permissions = {
-    user: ['create', 'delete'],
-    password: ['change', 'forgot'],
-    article: ['create'],
-    rbac: ['update']
-};
-
-var grants = {
-    guest: ['create_user', 'forgot_password'],
-    user: ['change_password'],
-    admin: ['user', 'delete_user', 'update_rbac'],
-    superadmin: ['admin']
-};
-
-rbac.create(roles, permissions, grants, function(err, data) {
+var rbac = new RBAC({
+    roles        : ['superadmin', 'admin', 'user', 'guest'],
+    permissions  : {
+        user     : ['create', 'delete'],
+        password : ['change', 'forgot'],
+        article  : ['create'],
+        rbac     : ['update']
+    },
+    grants: {
+        guest: ['create_user', 'forgot_password'],
+        user: ['change_password'],
+        admin: ['user', 'delete_user', 'update_rbac'],
+        superadmin: ['admin']
+    }
+}, function(err, rbac) {
     if(err) {
         throw err;
     }
@@ -64,25 +59,21 @@ rbac.create(roles, permissions, grants, function(err, data) {
 ```js
 var express = require('express');
 var RBAC = require('rbac');
-
-var app = express();
-var rbac = new RBAC();
 var secure = require('rbac/controllers/express');
-
-var roles = ['admin', 'user'];
 
 //your custom controller for express
 function adminController(req, res, next) {
     res.send('Hello admin');
 }
 
-//prepare roles
-rbac.createRoles(roles, function(err) {
+var app = express();
+var rbac = new RBAC({
+    roles: ['admin', 'user']  
+}, function(err, rbac) {
     if(err) throw err;
 
     //setup express routes
     app.use('/admin', secure.hasRole(rbac, 'admin'), adminController);
-    
 });
 ```    
 

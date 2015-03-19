@@ -24,10 +24,16 @@ var RBAC = (function () {
   * RBAC constructor
   * @constructor RBAC
   * @param  {Object} options             Options for RBAC
-  * @param  {Storage} [options.storage]  Storage of grants
+  * @param  {Storage}  [options.storage]  Storage of grants
+  * @param  {Array}    [options.roles]            List of role names (String)
+  * @param  {Object}   [options.permissions]      List of permissions
+  * @param  {Object}   [options.grants]           List og grants
+  * @param  {Function} [callback]         Callback function
   */
 
-	function RBAC(options) {
+	function RBAC(options, callback) {
+		var _this = this;
+
 		_classCallCheck(this, RBAC);
 
 		options = options || {};
@@ -36,6 +42,20 @@ var RBAC = (function () {
 		this._options = options;
 
 		this.storage.rbac = this;
+
+		var permissions = options.permissions || {};
+		var roles = options.roles || [];
+		var grants = options.grants || {};
+
+		callback = callback || function () {};
+
+		this.create(roles, permissions, grants, function (err) {
+			if (err) {
+				return callback(err);
+			}
+
+			return callback(null, _this);
+		});
 	}
 
 	_createClass(RBAC, {
@@ -520,11 +540,11 @@ var RBAC = (function () {
 				}
 
 				var tasks = {
-					roles: function (callback) {
-						return _this.createRoles(roleNames, callback);
-					},
 					permissions: function (callback) {
 						return _this.createPermissions(permissionNames, callback);
+					},
+					roles: function (callback) {
+						return _this.createRoles(roleNames, callback);
 					}
 				};
 

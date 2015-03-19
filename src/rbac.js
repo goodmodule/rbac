@@ -9,15 +9,33 @@ export default class RBAC {
 	 * RBAC constructor
 	 * @constructor RBAC
 	 * @param  {Object} options             Options for RBAC
-	 * @param  {Storage} [options.storage]  Storage of grants
+	 * @param  {Storage}  [options.storage]  Storage of grants
+	 * @param  {Array}    [options.roles]            List of role names (String)
+	 * @param  {Object}   [options.permissions]      List of permissions
+	 * @param  {Object}   [options.grants]           List og grants
+	 * @param  {Function} [callback]         Callback function
 	 */
-	constructor (options) {
+	constructor (options, callback) {
 		options = options || {};
 		options.storage = options.storage || new MemoryStorage();
 
 		this._options = options;
 
 		this.storage.rbac = this;
+
+		var permissions = options.permissions || {};
+		var roles = options.roles || [];
+		var grants = options.grants || {};
+
+		callback = callback || function() {};
+
+		this.create(roles, permissions, grants, (err) => {
+			if(err) {
+				return callback(err);
+			}
+
+			return callback(null, this);
+		});
 	}
 
 	/**
@@ -409,8 +427,8 @@ export default class RBAC {
 		}
 
 		var tasks = {
-			roles: (callback) => this.createRoles(roleNames, callback),
-			permissions: (callback) => this.createPermissions(permissionNames, callback)
+			permissions: (callback) => this.createPermissions(permissionNames, callback),
+			roles: (callback) => this.createRoles(roleNames, callback)
 		};
 
 		parallel(tasks, (err, result) => {
