@@ -1,5 +1,6 @@
-import RBAC from '../src/index';
+import RBAC, { Storage } from '../src/index';
 import should from 'should';
+import mongoose from 'mongoose';
 
 describe('RBAC', function() {
 	var rbac = null
@@ -34,7 +35,13 @@ describe('RBAC', function() {
 	});
 
 	it('should be able to create roles and permissions', function(done) {
-		rbac = new RBAC();
+		var storage = new Storage.Mongoose({
+			connection: mongoose.connect('mongodb://localhost/rbac')
+		});
+
+		rbac = new RBAC({
+			storage: storage
+		});
 		rbac.create(roles, permissionsAsObject, function(err, data) {
 			if(err) throw err;
 

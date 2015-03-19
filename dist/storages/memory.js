@@ -31,7 +31,7 @@ var Memory = (function (_Storage) {
 			value: function add(item, cb) {
 				var name = item.name;
 				if (this._items[name]) {
-					return cb(new Error("Item is already in storage"));
+					return cb(null, this._items[name].item);
 				}
 
 				this._items[name] = {

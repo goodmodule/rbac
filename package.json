@@ -1,6 +1,6 @@
 {
 	"name": "rbac",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"description": "Hierarchical Role Based Access Control",
 	"author": {
 		"name": "Zlatko Fedor",
@@ -49,7 +49,8 @@
 		"should": "~5.0.1",
 		"babel": "~4.6.1",
 		"jsdoc": "~3.3.0-beta3",
-		"jaguarjs-jsdoc": "~0.0.1"
+		"jaguarjs-jsdoc": "~0.0.1",
+		"mongoose": "~3.8.25"
 	},
 	"bugs": {
 		"url": "https://github.com/seeden/rbac/issues"
