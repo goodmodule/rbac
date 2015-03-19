@@ -29,27 +29,9 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 npm install rbac
 ```
 
-## Build documentation
-
-```sh
-npm run doc
-```  
-
-## Running Tests
-
-```sh
-npm run test        
-```
-
-## Build
-
-```sh
-npm run build     
-``` 
-
 ## Usage
 
-```sh
+```js
 var RBAC = require('rbac');
 
 var rbac = new RBAC();
@@ -75,11 +57,38 @@ rbac.create(roles, permissions, grants, function(err, data) {
         throw err;
     }
 }); 
+``` 
+
+## Usage with express
+
+```js
+var express = require('express');
+var RBAC = require('rbac');
+
+var app = express();
+var rbac = new RBAC();
+var secure = require('rbac/controllers/express');
+
+var roles = ['admin', 'user'];
+
+//your custom controller for express
+function adminController(req, res, next) {
+    res.send('Hello admin');
+}
+
+//prepare roles
+rbac.createRoles(roles, function(err) {
+    if(err) throw err;
+
+    //setup express routes
+    app.use('/admin', secure.hasRole(rbac, 'admin'), adminController);
+    
+});
 ```    
 
 ## Check permissions
 
-```sh
+```js
 rbac.can('admin', 'create', 'article', function(err, can) {
     if(err) {
         throw err; //process error
@@ -115,6 +124,23 @@ rbac.getRole('admin', function(err, admin) {
 
 Please take a look on plugin [mongoose-hrbac](http://github.com/seeden/mongoose-hrbac)
 
+## Build documentation
+
+```sh
+npm run doc
+```  
+
+## Running Tests
+
+```sh
+npm run test        
+```
+
+## Build
+
+```sh
+npm run build     
+``` 
     
 ## Credits
 
