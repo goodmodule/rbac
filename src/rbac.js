@@ -307,7 +307,7 @@ export default class RBAC {
 	}
 
 	/**
-	 * Return instance of Permission by his name
+	 * Return instance of Permission by his action and resource
 	 * @method RBAC#getPermission
 	 * @param  {String} action    Name of action
 	 * @param  {String} resource  Name of resource
@@ -318,6 +318,19 @@ export default class RBAC {
 		this.storage.getPermission(action, resource, cb);
 		return this;
 	}
+
+	/**
+	 * Return instance of Permission by his name
+	 * @method RBAC#getPermission
+	 * @param  {String} name      Name of permission
+	 * @param  {Function} cb      Callback function
+	 * @return {RBAC}             Return instance of actual RBAC
+	 */
+	getPermissionByName (name, cb) {
+		var data = Permission.decodeName(name);
+		this.storage.getPermission(data.action, data.resource, cb);
+		return this;
+	}	
 
 	/**
 	 * Return all instances of Permission

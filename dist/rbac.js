@@ -392,7 +392,7 @@ var RBAC = (function () {
 		getPermission: {
 
 			/**
-    * Return instance of Permission by his name
+    * Return instance of Permission by his action and resource
     * @method RBAC#getPermission
     * @param  {String} action    Name of action
     * @param  {String} resource  Name of resource
@@ -402,6 +402,22 @@ var RBAC = (function () {
 
 			value: function getPermission(action, resource, cb) {
 				this.storage.getPermission(action, resource, cb);
+				return this;
+			}
+		},
+		getPermissionByName: {
+
+			/**
+    * Return instance of Permission by his name
+    * @method RBAC#getPermission
+    * @param  {String} name      Name of permission
+    * @param  {Function} cb      Callback function
+    * @return {RBAC}             Return instance of actual RBAC
+    */
+
+			value: function getPermissionByName(name, cb) {
+				var data = Permission.decodeName(name);
+				this.storage.getPermission(data.action, data.resource, cb);
 				return this;
 			}
 		},
