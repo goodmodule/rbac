@@ -1,21 +1,36 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var RBAC = _interopRequire(require("./rbac"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var Role = _interopRequire(require("./role"));
+var _rbac = require('./rbac');
 
-var Permission = _interopRequire(require("./permission"));
+var _rbac2 = _interopRequireDefault(_rbac);
 
-var Storage = _interopRequire(require("./storages/index"));
+var _role = require('./role');
 
-var MongooseStorage = _interopRequire(require("./storages/mongoose"));
+var _role2 = _interopRequireDefault(_role);
 
-Storage.Mongoose = MongooseStorage;
+var _permission = require('./permission');
 
-RBAC.Role = Role;
-RBAC.Permission = Permission;
-RBAC.Storage = Storage;
+var _permission2 = _interopRequireDefault(_permission);
 
-module.exports = RBAC;
+var _storagesIndex = require('./storages/index');
+
+var _storagesIndex2 = _interopRequireDefault(_storagesIndex);
+
+var _storagesMongoose = require('./storages/mongoose');
+
+var _storagesMongoose2 = _interopRequireDefault(_storagesMongoose);
+
+_storagesIndex2['default'].Mongoose = _storagesMongoose2['default'];
+
+_rbac2['default'].Role = _role2['default'];
+_rbac2['default'].Permission = _permission2['default'];
+_rbac2['default'].Storage = _storagesIndex2['default'];
+
+exports['default'] = _rbac2['default'];
+module.exports = exports['default'];

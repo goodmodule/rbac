@@ -4,8 +4,9 @@ import Role from '../role';
 
 export default class Memory extends Storage {
 	constructor () {
-		this._items = {};
 		super();
+
+		this._items = {};
 	}
 
 	add (item, cb) {

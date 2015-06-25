@@ -7,7 +7,7 @@ export default class Base {
 	 * @param  {Boolean}  add      True if you need to save it to storage
 	 * @param  {Function} cb       Callback function after add
 	 */	
-	constructor (rbac, name, add, cb) {
+	constructor(rbac, name, add, cb) {
 		if(!rbac || !name || typeof cb !== 'function') {
 			return cb(new Error('One of parameters is undefined'));
 		}
@@ -16,11 +16,13 @@ export default class Base {
 		this._rbac = rbac;
 
 		if(!add) {
-			return cb(null, this);	
+			return cb(null, this);
 		}
 
-		rbac.add(this, (err) => cb(err, this));		
+		rbac.add(this, (err) => cb(err, this));
 	}
+
+
 
 	/**
 	 * Get name of actual instance

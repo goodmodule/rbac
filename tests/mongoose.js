@@ -2,7 +2,7 @@ import RBAC, { Storage } from '../src/index';
 import should from 'should';
 import mongoose from 'mongoose';
 
-describe('RBAC', function() {
+describe('RBAC mongoose', function() {
 	var rbac = null
 	var response = null;
 

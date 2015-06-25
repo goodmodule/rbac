@@ -15,7 +15,7 @@ export default class RBAC {
 	 * @param  {Object}   [options.grants]           List og grants
 	 * @param  {Function} [callback]         Callback function
 	 */
-	constructor (options, callback) {
+	constructor(options, callback) {
 		options = options || {};
 		options.storage = options.storage || new MemoryStorage();
 
@@ -61,7 +61,7 @@ export default class RBAC {
 	 * @param  {Function} cb   Callback function
 	 * @return {RBAC}          Return actual instance
 	 */
-	add (item, cb) {
+	add(item, cb) {
 		if(!item) {
 			return cb(new Error('Item is undefined'));	
 		}
@@ -81,7 +81,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	get (name, cb) {
+	get(name, cb) {
 		this.storage.get(name, cb);
 		return this;
 	}
@@ -93,7 +93,7 @@ export default class RBAC {
 	 * @param  {Function}        cb   Callback function
 	 * @return {RBAC}                 Current instance
 	 */
-	remove (item, cb) {
+	remove(item, cb) {
 		if(!item) {
 			return cb(new Error('Item is undefined'));	
 		}
@@ -113,7 +113,7 @@ export default class RBAC {
 	 * @param  {Function} cb   Callback function
 	 * @return {RBAC}          Current instance
 	 */
-	removeByName (name, cb) {
+	removeByName(name, cb) {
 		this.get(name, function(err, item) {
 			if(err) {
 				return cb(err);
@@ -137,7 +137,7 @@ export default class RBAC {
 	 * @param  {Function}        cb    Callback function
 	 * @return {RBAC}                  Current instance
 	 */
-	grant (role, child, cb) {
+	grant(role, child, cb) {
 		if(!role || !child) {
 			return cb(new Error('One of item is undefined'));	
 		}
@@ -162,7 +162,7 @@ export default class RBAC {
 	 * @param  {Function}        cb     Callback function
 	 * @return {RBAC}                   Current instance
 	 */
-	revoke (role, child, cb) {
+	revoke(role, child, cb) {
 		if(!role || !child) {
 			return cb(new Error('One of item is undefined'));	
 		}
@@ -183,7 +183,7 @@ export default class RBAC {
 	 * @param  {Function} cb        Callback function
 	 * @return {RBAC}               Current instance
 	 */
-	revokeByName (roleName, childName, cb) {
+	revokeByName(roleName, childName, cb) {
 		parallel({
 			role  : (callback) => this.get(roleName, callback),
 			child : (callback) => this.get(childName, callback)
@@ -206,7 +206,7 @@ export default class RBAC {
 	 * @param  {Function} cb        Callback function
 	 * @return {RBAC}               Current instance
 	 */
-	grantByName (roleName, childName, cb) {
+	grantByName(roleName, childName, cb) {
 		parallel({
 			role  : (callback) => this.get(roleName, callback),
 			child : (callback) => this.get(childName, callback)
@@ -228,7 +228,7 @@ export default class RBAC {
 	 * @param  {Boolean} [add=true]    True if you need to add it to the storage
 	 * @return {Role}    Instance of the Role
 	 */
-	createRole (roleName, add, cb) {
+	createRole(roleName, add, cb) {
 		return new Role(this, roleName, add, cb);
 	}
 
@@ -241,7 +241,7 @@ export default class RBAC {
 	 * @param  {Function} cb     Callback function
 	 * @return {Permission}      Instance of the Permission
 	 */
-	createPermission (action, resource, add, cb) {
+	createPermission(action, resource, add, cb) {
 		return new Permission(this, action, resource, add, cb);
 	}	
 
@@ -252,7 +252,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	exists (name, cb) {
+	exists(name, cb) {
 		this.storage.exists(name, cb);
 		return this;
 	}
@@ -264,7 +264,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	existsRole (name, cb) {
+	existsRole(name, cb) {
 		this.storage.existsRole(name, cb);
 		return this;
 	}
@@ -277,7 +277,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	existsPermission (action, resource, cb) {
+	existsPermission(action, resource, cb) {
 		this.storage.existsPermission(action, resource, cb);
 		return this;
 	}
@@ -290,7 +290,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	getRole (name, cb) {
+	getRole(name, cb) {
 		this.storage.getRole(name, cb);
 		return this;
 	}
@@ -301,7 +301,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	getRoles (cb) {
+	getRoles(cb) {
 		this.storage.getRoles(cb);
 		return this;
 	}
@@ -314,7 +314,7 @@ export default class RBAC {
 	 * @param  {Function} cb      Callback function
 	 * @return {RBAC}             Return instance of actual RBAC
 	 */
-	getPermission (action, resource, cb) {
+	getPermission(action, resource, cb) {
 		this.storage.getPermission(action, resource, cb);
 		return this;
 	}
@@ -326,7 +326,7 @@ export default class RBAC {
 	 * @param  {Function} cb      Callback function
 	 * @return {RBAC}             Return instance of actual RBAC
 	 */
-	getPermissionByName (name, cb) {
+	getPermissionByName(name, cb) {
 		var data = Permission.decodeName(name);
 		this.storage.getPermission(data.action, data.resource, cb);
 		return this;
@@ -338,7 +338,7 @@ export default class RBAC {
 	 * @param  {Function} cb    Callback function
 	 * @return {RBAC}           Return instance of actual RBAC
 	 */
-	getPermissions (cb) {
+	getPermissions(cb) {
 		this.storage.getPermissions(cb);
 		return this;
 	}
@@ -351,7 +351,7 @@ export default class RBAC {
 	 * @param  {Function} cb          Callbck function
 	 * @return {RBAC}                 Instance of actual RBAC
 	 */
-	createPermissions (resources, add, cb) {
+	createPermissions(resources, add, cb) {
 		if(typeof add === 'function') {
 			cb = add;
 			add = true;
@@ -382,7 +382,7 @@ export default class RBAC {
 	 * @param  {Function} cb         Callback function
 	 * @return {RBAC}                Current instance
 	 */
-	createRoles (roleNames, add, cb) {
+	createRoles(roleNames, add, cb) {
 		if(typeof add === 'function') {
 			cb = add;
 			add = true;
@@ -406,7 +406,7 @@ export default class RBAC {
 	 * @param  {Function} cb  Callback function
 	 * @return {RBAC}         Current instance
 	 */
-	grants (roles, cb) {
+	grants(roles, cb) {
 		if(!_.isPlainObject(roles)) {
 			return cb(new Error('Grants is not a plain object'));
 		}
@@ -433,7 +433,7 @@ export default class RBAC {
 	 * @param  {Array}   cb              Callback function
 	 * @return {RBAC}                    Instance of actual RBAC
 	 */
-	create (roleNames, permissionNames, grants, cb) {
+	create(roleNames, permissionNames, grants, cb) {
 		if(typeof grants === 'function') {
 			cb = grants;
 			grants = null;
@@ -471,7 +471,7 @@ export default class RBAC {
 	 * @return {RBAC}               Return instance of actual RBAC
 	 * @private
 	 */
-	_traverseGrants (roleName, cb, next, used) {
+	_traverseGrants(roleName, cb, next, used) {
 		next = next || [roleName];
 		used = used || {};
 
@@ -518,7 +518,7 @@ export default class RBAC {
 	 * @param  {Function} cb        Callback function
 	 * @return {RBAC}             Current instance         
 	 */
-	can (roleName, action, resource, cb) {
+	can(roleName, action, resource, cb) {
 		this._traverseGrants(roleName, function(err, item) {
 			//if there is a error
 			if(err) {
@@ -549,7 +549,7 @@ export default class RBAC {
 	 * @param  {Function} cb        Callback function
 	 * @return {RBAC}                Current instance           
 	 */
-	canAny (roleName, permissions, cb) {
+	canAny(roleName, permissions, cb) {
 		//prepare the names of permissions
 		var permissionNames = RBAC.getPermissionNames(permissions);
 
@@ -583,7 +583,7 @@ export default class RBAC {
 	 * @param  {Function} cb        Callback function
 	 * @return {RBAC}                Current instance           
 	 */
-	canAll (roleName, permissions, cb) {
+	canAll(roleName, permissions, cb) {
 		//prepare the names of permissions
 		var permissionNames = RBAC.getPermissionNames(permissions);
 
@@ -627,7 +627,7 @@ export default class RBAC {
 	 * @param  {Function} cb              Callback function
 	 * @return {RBAC}                     Current instance          
 	 */
-	hasRole (roleName, roleChildName, cb) {
+	hasRole(roleName, roleChildName, cb) {
 		if(roleName === roleChildName) {
 			cb(null, true);
 			return this;
@@ -661,7 +661,7 @@ export default class RBAC {
 	 * @param  {Function} cb       Callback function
 	 * @return {RBAC}              Current instance   
 	 */
-	getScope (roleName, cb) {
+	getScope(roleName, cb) {
 		var scope = [];
 
 		//traverse hierarchy
@@ -692,7 +692,7 @@ export default class RBAC {
 	 * @return {Array}             List of permission names
 	 * @static
 	 */
-	static getPermissionNames (permissions) {
+	static getPermissionNames(permissions) {
 		var permissionNames = [];
 
 		for(var i=0; i<permissions.length; i++) {
@@ -703,11 +703,11 @@ export default class RBAC {
 		return permissionNames;
 	}
 
-	static isPermission (item) {
+	static isPermission(item) {
 		return item instanceof Permission;
 	}
 
-	static isRole (item) {
+	static isRole(item) {
 		return item instanceof Role;
 	}
 }

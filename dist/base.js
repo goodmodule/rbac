@@ -1,8 +1,12 @@
-"use strict";
+'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var Base = (function () {
 	/**
@@ -19,8 +23,8 @@ var Base = (function () {
 
 		_classCallCheck(this, Base);
 
-		if (!rbac || !name || typeof cb !== "function") {
-			return cb(new Error("One of parameters is undefined"));
+		if (!rbac || !name || typeof cb !== 'function') {
+			return cb(new Error('One of parameters is undefined'));
 		}
 
 		this._name = name;
@@ -35,46 +39,43 @@ var Base = (function () {
 		});
 	}
 
-	_createClass(Base, {
-		name: {
+	_createClass(Base, [{
+		key: 'remove',
 
-			/**
-    * Get name of actual instance
-    * @member Base#name {String}
-    */
-
-			get: function () {
-				return this._name;
-			}
-		},
-		rbac: {
-
-			/**
-    * Get instance of RBAC
-    * @member Base#rbac {RBAC|null} Instance of RBAC 
-    */
-
-			get: function () {
-				return this._rbac;
-			}
-		},
-		remove: {
-
-			/**
-    * Remove this from RBAC (storage)
-    * @method Base#remove
-    * @param  {Function} cb Callback function
-    * @return {Base}      
-    */
-
-			value: function remove(cb) {
-				this.rbac.remove(this, cb);
-				return this;
-			}
+		/**
+   * Remove this from RBAC (storage)
+   * @method Base#remove
+   * @param  {Function} cb Callback function
+   * @return {Base}      
+   */
+		value: function remove(cb) {
+			this.rbac.remove(this, cb);
+			return this;
 		}
-	});
+	}, {
+		key: 'name',
+
+		/**
+   * Get name of actual instance
+   * @member Base#name {String}
+   */
+		get: function get() {
+			return this._name;
+		}
+	}, {
+		key: 'rbac',
+
+		/**
+   * Get instance of RBAC
+   * @member Base#rbac {RBAC|null} Instance of RBAC 
+   */
+		get: function get() {
+			return this._rbac;
+		}
+	}]);
 
 	return Base;
 })();
 
-module.exports = Base;
+exports['default'] = Base;
+module.exports = exports['default'];
