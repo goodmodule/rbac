@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-	value: true
+  value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -23,134 +23,134 @@ var _permission = require('./permission');
 var _permission2 = _interopRequireDefault(_permission);
 
 var Role = (function (_Base) {
-	/**
-  * Role constructor
-  * @constructor Role
-  * @extends {Base}
-  * @param  {RBAC}     rbac       Instance of the RBAC
-  * @param  {String}   name       Name of the role
-  * @param  {Boolean}  [add=true] True if you need to save it to storage
-  * @param  {Function} cb         Callback function after add
-  */
-
-	function Role(rbac, name, add, cb) {
-		_classCallCheck(this, Role);
-
-		if (typeof add === 'function') {
-			cb = add;
-			add = true;
-		}
-
-		if (!_permission2['default'].isValidName(name)) {
-			return cb(new Error('Role has no valid name'));
-		}
-
-		_get(Object.getPrototypeOf(Role.prototype), 'constructor', this).call(this, rbac, name, add, cb);
-	}
-
-	_inherits(Role, _Base);
-
-	_createClass(Role, [{
-		key: 'grant',
-
-		/**
-   * Add role or permission to current role
-   * @method Role#grant
-   * @param  {Role|Permission} item	Instance of role or permission
-   * @param  {Function} cb	        Callback function
-   * @return {Role}                	Return current instance of role
+  /**
+   * Role constructor
+   * @constructor Role
+   * @extends {Base}
+   * @param  {RBAC}     rbac       Instance of the RBAC
+   * @param  {String}   name       Name of the role
+   * @param  {Boolean}  [add=true] True if you need to save it to storage
+   * @param  {Function} cb         Callback function after add
    */
-		value: function grant(item, cb) {
-			this.rbac.grant(this, item, cb);
-			return this;
-		}
-	}, {
-		key: 'revoke',
 
-		/**
-   * Remove role or permission from current role
-   * @method Role#revoke 
-   * @param  {Role|Permission} item	Instance of role or permission
-   * @param  {Function} cb	        Callback function
-   * @return {Role}                	Return current instance of role
-   */
-		value: function revoke(item, cb) {
-			this.rbac.revoke(this, item, cb);
-			return this;
-		}
-	}, {
-		key: 'can',
+  function Role(rbac, name, add, cb) {
+    _classCallCheck(this, Role);
 
-		/**
-   * Return true if contains permission
-   * @method Role#can 
-   * @param  {String}  action  	Name of action
-   * @param  {String}  resource	Name of resource
-   * @param  {Function} cb	    Callback function
-   * @return {Role}            	Return current instance of role          
-   */
-		value: function can(action, resource, cb) {
-			this.rbac.can(this.name, action, resource, cb);
-			return this;
-		}
-	}, {
-		key: 'canAny',
+    if (typeof add === 'function') {
+      cb = add;
+      add = true;
+    }
 
-		/**
-   * Check if the role has any of the given permissions
-   * @method Role#canAny 
-   * @param  {Array} permissions	List of permissions. Each has structure (String action, String resource)
-   * @param  {Function} cb	    Callback function
-   * @return {Role}             	Return current instance of role
-   */
-		value: function canAny(permissions, cb) {
-			this.rbac.canAny(this.name, permissions, cb);
-			return this;
-		}
-	}, {
-		key: 'canAll',
+    if (!_permission2['default'].isValidName(name)) {
+      return cb(new Error('Role has no valid name'));
+    }
 
-		/**
-   * Check if the model has all of the given permissions
-   * @method Role#canAll 
-   * @param  {Array}  permissions	List of permissions. Each has structure (String action, String resource)
-   * @param  {Function} cb	    Callback function
-   * @return {Role}              	Return current instance of role            
-   */
-		value: function canAll(permissions, cb) {
-			this.rbac.canAll(this.name, permissions, cb);
-			return this;
-		}
-	}, {
-		key: 'hasRole',
+    _get(Object.getPrototypeOf(Role.prototype), 'constructor', this).call(this, rbac, name, add, cb);
+  }
 
-		/**
-   * Return true if the current role contains the specified role name
-   * @method Role#hasRole 
-   * @param  {String} roleChildName	Name of role
-   * @param  {Function} cb	        Callback function
-   * @return {Role}                	Return current instance of role
-   */
-		value: function hasRole(roleChildName, cb) {
-			this.rbac.hasRole(this.name, roleChildName, cb);
-			return this;
-		}
-	}, {
-		key: 'getScope',
+  _inherits(Role, _Base);
 
-		/**
-   * Return array of permission assigned to actual role 
-   * @method Role#getScope 
-   * @param  {Function} cb	Callback function
-   * @return {Role}       	Return current instance of role
-   */
-		value: function getScope(cb) {
-			this.rbac.getScope(this.name, cb);
-			return this;
-		}
-	}]);
+  _createClass(Role, [{
+    key: 'grant',
 
-	return Role;
+    /**
+     * Add role or permission to current role
+     * @method Role#grant
+     * @param  {Role|Permission} item Instance of role or permission
+     * @param  {Function} cb          Callback function
+     * @return {Role}                 Return current instance of role
+     */
+    value: function grant(item, cb) {
+      this.rbac.grant(this, item, cb);
+      return this;
+    }
+  }, {
+    key: 'revoke',
+
+    /**
+     * Remove role or permission from current role
+     * @method Role#revoke
+     * @param  {Role|Permission} item Instance of role or permission
+     * @param  {Function} cb          Callback function
+     * @return {Role}                 Return current instance of role
+     */
+    value: function revoke(item, cb) {
+      this.rbac.revoke(this, item, cb);
+      return this;
+    }
+  }, {
+    key: 'can',
+
+    /**
+     * Return true if contains permission
+     * @method Role#can
+     * @param  {String}  action   Name of action
+     * @param  {String}  resource Name of resource
+     * @param  {Function} cb      Callback function
+     * @return {Role}             Return current instance of role
+     */
+    value: function can(action, resource, cb) {
+      this.rbac.can(this.name, action, resource, cb);
+      return this;
+    }
+  }, {
+    key: 'canAny',
+
+    /**
+     * Check if the role has any of the given permissions
+     * @method Role#canAny
+     * @param  {Array} permissions  List of permissions. Each has structure (String action, String resource)
+     * @param  {Function} cb      Callback function
+     * @return {Role}               Return current instance of role
+     */
+    value: function canAny(permissions, cb) {
+      this.rbac.canAny(this.name, permissions, cb);
+      return this;
+    }
+  }, {
+    key: 'canAll',
+
+    /**
+     * Check if the model has all of the given permissions
+     * @method Role#canAll
+     * @param  {Array}  permissions List of permissions. Each has structure (String action, String resource)
+     * @param  {Function} cb      Callback function
+     * @return {Role}               Return current instance of role
+     */
+    value: function canAll(permissions, cb) {
+      this.rbac.canAll(this.name, permissions, cb);
+      return this;
+    }
+  }, {
+    key: 'hasRole',
+
+    /**
+     * Return true if the current role contains the specified role name
+     * @method Role#hasRole
+     * @param  {String} roleChildName Name of role
+     * @param  {Function} cb          Callback function
+     * @return {Role}                 Return current instance of role
+     */
+    value: function hasRole(roleChildName, cb) {
+      this.rbac.hasRole(this.name, roleChildName, cb);
+      return this;
+    }
+  }, {
+    key: 'getScope',
+
+    /**
+     * Return array of permission assigned to actual role
+     * @method Role#getScope
+     * @param  {Function} cb  Callback function
+     * @return {Role}         Return current instance of role
+     */
+    value: function getScope(cb) {
+      this.rbac.getScope(this.name, cb);
+      return this;
+    }
+  }]);
+
+  return Role;
 })(_base2['default']);
 
 exports['default'] = Role;

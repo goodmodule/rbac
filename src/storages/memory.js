@@ -3,173 +3,172 @@ import Permission from '../permission';
 import Role from '../role';
 
 export default class Memory extends Storage {
-	constructor () {
-		super();
+  constructor() {
+    super();
 
-		this._items = {};
-	}
+    this._items = {};
+  }
 
-	add (item, cb) {
-		var name = item.name;
-		if(this._items[name]) {
-			return cb(null, this._items[name].item);
-		}
+  add(item, cb) {
+    const name = item.name;
+    if (this._items[name]) {
+      return cb(null, this._items[name].item);
+    }
 
-		this._items[name] = {
-			instance: item,
-			grants: []
-		};
+    this._items[name] = {
+      instance: item,
+      grants: []
+    };
 
-		cb(null, item);
-		return this;
-	}
+    cb(null, item);
+    return this;
+  }
 
-	remove (item, cb) {
-		var name = item.name;
-		if(!this._items[name]) {
-			return cb(new Error('Item is not presented in storage'));
-		}
+  remove(item, cb) {
+    const name = item.name;
+    if (!this._items[name]) {
+      return cb(new Error('Item is not presented in storage'));
+    }
 
-		//revoke from all instances
-		for(var index in this._items) {
-			if (!this._items.hasOwnProperty(index)) {
-				continue;
-			}
+    // revoke from all instances
+    for (const index in this._items) {
+      if (!this._items.hasOwnProperty(index)) {
+        continue;
+      }
 
-			var grants = this._items[index].grants;
+      const grants = this._items[index].grants;
 
-			for(var i=0; i<grants.length; i++) {
-				if(grants[i] === name) {
-					grants.splice(i, 1);
-					break;
-				}
-			}
-		}
-		
-		//delete from items
-		delete this._items[name];
-		
-		cb(null, true);
-		return this;
-	}
+      for (let i = 0; i < grants.length; i++) {
+        if (grants[i] === name) {
+          grants.splice(i, 1);
+          break;
+        }
+      }
+    }
 
-	grant (role, child, cb) {
-		var name = role.name;
-		var childName = child.name;
+    // delete from items
+    delete this._items[name];
 
-		if(!this._items[name] || !this._items[childName]) {
-			return cb(new Error('Role is not exist'));
-		}
+    cb(null, true);
+    return this;
+  }
 
-		if(!role instanceof Role) {
-			return cb(new Error('Role is not instance of Role'));	
-		}	
+  grant(role, child, cb) {
+    const name = role.name;
+    const childName = child.name;
 
-		if(name === childName) {
-			return cb(new Error('You can grant yourself'));	
-		}
+    if (!this._items[name] || !this._items[childName]) {
+      return cb(new Error('Role is not exist'));
+    }
 
-		var grants = this._items[name].grants;
-		for(var i=0; i<grants.length; i++) {
-			var grant = grants[i];
-			if(grant === childName) {
-				return cb(null, true);
-			}
-		}
+    if (!role instanceof Role) {
+      return cb(new Error('Role is not instance of Role'));
+    }
 
-		grants.push(childName);
-		cb(null, true);
-		return this;
-	}
+    if (name === childName) {
+      return cb(new Error('You can grant yourself'));
+    }
 
-	revoke (role, child, cb) {
-		var name = role.name;
-		var childName = child.name;
+    const grants = this._items[name].grants;
+    for (let i = 0; i < grants.length; i++) {
+      const grant = grants[i];
+      if (grant === childName) {
+        return cb(null, true);
+      }
+    }
 
-		if(!this._items[name] || !this._items[childName]) {
-			return cb(new Error('Role is not exist'));
-		}
+    grants.push(childName);
+    cb(null, true);
+    return this;
+  }
 
-		var grants = this._items[name].grants;
-		for(var i=0; i<grants.length; i++) {
-			var grant = grants[i];
-			if(grant === childName) {
-				grants.splice(i, 1);
-				return cb(null, true);
-			}
-		}
+  revoke(role, child, cb) {
+    const name = role.name;
+    const childName = child.name;
 
-		cb(new Error('Item is not associated to this item'));
-		return this;
-	}
+    if (!this._items[name] || !this._items[childName]) {
+      return cb(new Error('Role is not exist'));
+    }
 
-	get (name, cb) {
-		if(!name || !this._items[name]) {
-			return cb(null, null);
-		}
+    const grants = this._items[name].grants;
+    for (let i = 0; i < grants.length; i++) {
+      const grant = grants[i];
+      if (grant === childName) {
+        grants.splice(i, 1);
+        return cb(null, true);
+      }
+    }
 
-		cb(null, this._items[name].instance);
-		return this;
-	}
+    cb(new Error('Item is not associated to this item'));
+    return this;
+  }
 
-	getRoles (cb) {
-		var items = [];
+  get(name, cb) {
+    if (!name || !this._items[name]) {
+      return cb(null, null);
+    }
 
-		for(var name in this._items) {
-			if (!this._items.hasOwnProperty(name)) {
-				continue;
-			}
-			
-			var item = this._items[name].instance;
+    cb(null, this._items[name].instance);
+    return this;
+  }
 
-			if(item instanceof Role) {
-				items.push(item);
-			}
-		}
+  getRoles(cb) {
+    const items = [];
 
-		cb(null, items);
-		return this;
-	}
+    for (const name in this._items) {
+      if (!this._items.hasOwnProperty(name)) {
+        continue;
+      }
 
-	getPermissions (cb) {
-		var items = [];
+      const item = this._items[name].instance;
 
-		for(var name in this._items) {
-			if (!this._items.hasOwnProperty(name)) {
-				continue;
-			}
+      if (item instanceof Role) {
+        items.push(item);
+      }
+    }
 
-			var item = this._items[name].instance;
+    cb(null, items);
+    return this;
+  }
 
-			if(item instanceof Permission) {
-				items.push(item);
-			}
-		}
+  getPermissions(cb) {
+    const items = [];
 
-		cb(null, items);
-		return this;
-	}
+    for (const name in this._items) {
+      if (!this._items.hasOwnProperty(name)) {
+        continue;
+      }
 
-	getGrants (role, cb) {
-		if(!role || !this._items[role]) {
-			return cb(null, null);
-		}
+      const item = this._items[name].instance;
 
-		var roleGrants = this._items[role].grants;
+      if (item instanceof Permission) {
+        items.push(item);
+      }
+    }
 
-		var grants = [];
-		for(var i=0; i<roleGrants.length; i++) {
-			var grantName = roleGrants[i];
-			var grant = this._items[grantName];
+    cb(null, items);
+    return this;
+  }
 
-			if(!grant) {
-				continue;
-			}
+  getGrants(role, cb) {
+    if (!role || !this._items[role]) {
+      return cb(null, null);
+    }
 
-			grants.push(grant.instance);
-		}
+    const roleGrants = this._items[role].grants;
 
-		cb(null, grants);
-		return this;
-	}
+    const grants = [];
+    for (let i = 0; i < roleGrants.length; i++) {
+      const grantName = roleGrants[i];
+      const grant = this._items[grantName];
+      if (!grant) {
+        continue;
+      }
+
+      grants.push(grant.instance);
+    }
+
+    cb(null, grants);
+    return this;
+  }
 }

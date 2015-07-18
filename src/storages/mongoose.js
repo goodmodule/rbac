@@ -5,241 +5,232 @@ import Role from '../role';
 import keymirror from 'keymirror';
 
 const Type = keymirror({
-	PERMISSION: null,
-	ROLE: null
+  PERMISSION: null,
+  ROLE: null
 });
 
-function createSchema (Schema) {
-	var schema = new Schema({
-		name    : { type: String, required: true, unique: true },
-		type    : { type: String, enum: _.values(Type), required: true },
-		grants  : [String]
-	});
+function createSchema(Schema) {
+  const schema = new Schema({
+    name: { type: String, required: true, unique: true },
+    type: { type: String, 'enum': _.values(Type), required: true },
+    grants: [String]
+  });
 
-	return schema;
+  return schema;
 }
 
 function getType(item) {
-	if (item instanceof Role) {
-		return Type.ROLE;
-	} else if (item instanceof Permission) {
-		return Type.PERMISSION;
-	}
+  if (item instanceof Role) {
+    return Type.ROLE;
+  } else if (item instanceof Permission) {
+    return Type.PERMISSION;
+  }
 
-	return null;
+  return null;
 }
 
 function convertToInstance(rbac, record) {
-	if(!record) {
-		throw new Error('Record is undefined');
-	}
+  if (!record) {
+    throw new Error('Record is undefined');
+  }
 
-	if(record.type === Type.ROLE) {
-		return rbac.createRole(record.name, false, function(){});
-	} else if(record.type === Type.PERMISSION) {
-		var decoded = Permission.decodeName(record.name);
-		if(!decoded) {
-			throw new Error('Bad permission name');
-		}
+  if (record.type === Type.ROLE) {
+    return rbac.createRole(record.name, false, function() {});
+  } else if (record.type === Type.PERMISSION) {
+    const decoded = Permission.decodeName(record.name);
+    if (!decoded) {
+      throw new Error('Bad permission name');
+    }
 
-		return rbac.createPermission(decoded.action, decoded.resource, false, function(){});
-	}
-		
-	throw new Error('Type is undefined');
+    return rbac.createPermission(decoded.action, decoded.resource, false, function() {});
+  }
+
+  throw new Error('Type is undefined');
 }
 
 export default class MongooseStorage extends Storage {
-	constructor(options) {
-		super();
+  constructor(options = {}) {
+    super();
 
-		options = options || {};
+    const connection = options.connection;
+    if (!connection) {
+      throw new Error('Parameter connection is undefined use your current mongoose connection.');
+    }
 
-		var connection = options.connection;
-		if(!connection) {
-			throw new Error('Parameter connection is undefined use your current mongoose connection.');
-		}
+    options.modelName = options.modelName || 'rbac';
+    options.Schema = options.Schema || connection.Schema;
 
-		options.modelName = options.modelName || 'rbac';
-		options.Schema = options.Schema || connection.Schema;
+    this._options = options;
 
-		this._options = options;
+    this._model = connection.model(options.modelName, createSchema(options.Schema));
+  }
 
-		this._model = connection.model(options.modelName, createSchema(options.Schema));		
-	}
+  get model() {
+    return this._model;
+  }
 
-	get model() {
-		return this._model;
-	}
+  get options() {
+    return this._options;
+  }
 
-	get options() {
-		return this._options;
-	}
+  add(item, cb) {
+    this.model.create({
+      name: item.name,
+      type: getType(item)
+    }, function(err, obj) {
+      if (err) {
+        return cb(err);
+      }
 
+      if (!obj) {
+        return cb(new Error('Item is undefined'));
+      }
 
-	add (item, cb) {
-		this.model.create({
-			name: item.name,
-			type: getType(item)
-		}, function(err, obj) {
-			if(err) {
-				return cb(err);
-			}
+      cb(null, item);
+    });
 
-			if(!obj) {
-				return cb(new Error('Item is undefined'));
-			}
+    return this;
+  }
 
-			cb(null, item);
-		});
+  remove(item, cb) {
+    const name = item.name;
 
-		return this;
-	}
+    this.model.update({ grants: name }, {
+      $pull: {
+        grants: name
+      }
+    }, { multi: true }, (err) => {
+      if (err) {
+        return cb(err);
+      }
 
-	remove (item, cb) {
-		var name = item.name;
+      this.model.remove({ name }, function(err2) {
+        if (err2) {
+          return cb(err2);
+        }
 
-		this.model.update({ grants: name }, { 
-			$pull: { 
-				grants: name 
-			} 
-		}, { multi: true }, (err) => {
-			if(err) {
-				return cb(err);
-			}
+        cb(null, true);
+      });
+    });
 
-			this.model.remove({ name: name }, function(err) {
-				if(err) {
-					return cb(err);
-				}
+    return this;
+  }
 
-				cb(null, true);
-			});
-		});
+  grant(role, child, cb) {
+    const name = role.name;
+    const childName = child.name;
 
-		return this;
-	};
+    if (!role instanceof Role) {
+      return cb(new Error('Role is not instance of Role'));
+    }
 
-	grant (role, child, cb) {
-		var name = role.name;
-		var childName = child.name;
+    if (name === childName) {
+      return cb(new Error('You can grant yourself'));
+    }
 
-		if(!role instanceof Role) {
-			return cb(new Error('Role is not instance of Role'));	
-		}	
+    this.model.update({ name: name, type: Type.ROLE }, { $addToSet: { grants: childName } }, function(err) {
+      if (err) {
+        return cb(err);
+      }
 
-		if(name === childName) {
-			return cb(new Error('You can grant yourself'));	
-		}
+      cb(null, true);
+    });
 
-		this.model.update({ name: name, type: Type.ROLE }, { $addToSet: { grants: childName } }, function(err) {
-			if(err) {
-				return cb(err);
-			}
+    return this;
+  }
 
-			cb(null, true);
-		});
+  revoke(role, child, cb) {
+    const name = role.name;
+    const childName = child.name;
 
-		return this;
-	}
+    this.model.update({ name: name, type: Type.ROLE }, { $pull: { grants: childName } }, function(err, num) {
+      if (err) {
+        return cb(err);
+      }
 
-	revoke (role, child, cb) {
-		var name = role.name;
-		var childName = child.name;
+      if (num === 0) {
+        return cb(new Error('Item is not associated to this item'));
+      }
 
-		this.model.update({ name: name, type: Type.ROLE }, { $pull: { grants: childName } }, function(err, num) {
-			if(err) {
-				return cb(err);
-			}
+      return cb(null, true);
+    });
 
-			if(num === 0) {
-				return cb(new Error('Item is not associated to this item'));
-			}
+    return this;
+  }
 
-			return cb(null, true);
-		});
+  get(name, cb) {
+    const rbac = this.rbac;
 
-		return this;
-	}
+    this.model.findOne({ name: name }, function(err, record) {
+      if (err) {
+        return cb(err);
+      }
 
-	get (name, cb) {
-		var rbac = this.rbac;
+      if (!record) {
+        return cb(null, null);
+      }
 
-		this.model.findOne({ name: name }, function(err, record) {
-			if(err) {
-				return cb(err);
-			}
+      cb(null, convertToInstance(rbac, record));
+    });
 
-			if(!record) {
-				return cb(null, null);
-			}
+    return this;
+  }
 
-			cb(null, convertToInstance(rbac, record));
-		});
+  getRoles(cb) {
+    const rbac = this.rbac;
 
-		return this;
-	}
+    this.model.find({ type: Type.ROLE }, function(err, records) {
+      if (err) {
+        return cb(err);
+      }
 
-	getRoles (cb) {
-		var rbac = this.rbac;
+      const instances = records.map((r) => convertToInstance(rbac, r));
 
-		this.model.find({ type: Type.ROLE }, function(err, records) {
-			if(err) {
-				return cb(err);
-			}
+      cb(null, instances);
+    });
 
-			records = records.map(function(record) {
-				return convertToInstance(rbac, record);
-			});
+    return this;
+  }
 
-			cb(null, records);
-		});
+  getPermissions(cb) {
+    const rbac = this.rbac;
 
-		return this;
-	}
+    this.model.find({ type: Type.PERMISSION }, function(err, records) {
+      if (err) {
+        return cb(err);
+      }
 
-	getPermissions (cb) {
-		var rbac = this.rbac;
+      const instances = records.map((r) => convertToInstance(rbac, r));
 
-		this.model.find({ type: Type.PERMISSION }, function(err, records) {
-			if(err) {
-				return cb(err);
-			}
+      cb(null, instances);
+    });
 
-			records = records.map(function(record) {
-				return convertToInstance(rbac, record);
-			});
+    return this;
+  }
 
-			cb(null, records);
-		});
+  getGrants(role, cb) {
+    const rbac = this.rbac;
 
-		return this;
-	}
+    this.model.findOne({ name: role, type: Type.ROLE }, (err, record) => {
+      if (err) {
+        return cb(err);
+      }
 
-	getGrants (role, cb) {
-		var rbac = this.rbac;
+      if (!record || !record.grants.length) {
+        return cb(null, []);
+      }
 
-		this.model.findOne({ name: role, type: Type.ROLE }, (err, record) => {
-			if(err) {
-				return cb(err);
-			}
+      this.model.find({ name: record.grants }, function(err2, records) {
+        if (err2) {
+          return cb(err2);
+        }
 
-			if(!record || !record.grants.length) {
-				return cb(null, []);
-			}
+        const instances = records.map((r) => convertToInstance(rbac, r));
 
-			this.model.find({ name: record.grants }, function(err, records) {
-				if(err) {
-					return cb(err);
-				}
+        cb(null, instances);
+      });
+    });
 
-				records = records.map(function(record) {
-					return convertToInstance(rbac, record);
-				});
-
-				cb(null, records);
-			});
-		});
-
-		return this;
-	}
+    return this;
+  }
 }

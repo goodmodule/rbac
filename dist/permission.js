@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-	value: true
+  value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -23,138 +23,138 @@ var DELIMITER = '_';
 exports.DELIMITER = DELIMITER;
 
 var Permission = (function (_Base) {
-	/**
-  * Permission constructor
-  * @constructor Permission
-  * @extends {Base}
-  * @param  {RBAC}     rbac       Instance of the RBAC
-  * @param  {String}   action     Name of the action
-  * @param  {String}   resource   Name of the resource
-  * @param  {Boolean}  [add=true] True if you need to save it to storage
-  * @param  {Function} cb         Callback function after add
-  */
-
-	function Permission(rbac, action, resource, add, cb) {
-		_classCallCheck(this, Permission);
-
-		if (typeof add === 'function') {
-			cb = add;
-			add = true;
-		}
-
-		if (!action || !resource) {
-			return cb(new Error('One of parameters is undefined'));
-		}
-
-		if (!Permission.isValidName(action) || !Permission.isValidName(resource)) {
-			return cb(new Error('Action or resource has no valid name'));
-		}
-
-		_get(Object.getPrototypeOf(Permission.prototype), 'constructor', this).call(this, rbac, Permission.createName(action, resource), add, cb);
-	}
-
-	_inherits(Permission, _Base);
-
-	_createClass(Permission, [{
-		key: 'can',
-
-		/**
-   * Return true if has same action and resource
-   * @method Permission#can
-   * @param  {String}  action   Name of action
-   * @param  {String}  resource Name of resource
-   * @return {Boolean}          
+  /**
+   * Permission constructor
+   * @constructor Permission
+   * @extends {Base}
+   * @param  {RBAC}     rbac       Instance of the RBAC
+   * @param  {String}   action     Name of the action
+   * @param  {String}   resource   Name of the resource
+   * @param  {Boolean}  [add=true] True if you need to save it to storage
+   * @param  {Function} cb         Callback function after add
    */
-		value: function can(action, resource) {
-			return this.action === action && this.resource === resource;
-		}
-	}, {
-		key: 'action',
 
-		/**
-   * Get action name of actual permission
-   * @member Permission#action {String} Action of permission
-   */
-		get: function get() {
-			if (!this._action) {
-				var decoded = Permission.decodeName(this.name);
-				if (!decoded) {
-					throw new Error('Action is null');
-				}
+  function Permission(rbac, action, resource, add, cb) {
+    _classCallCheck(this, Permission);
 
-				this._action = decoded.action;
-			}
+    if (typeof add === 'function') {
+      cb = add;
+      add = true;
+    }
 
-			return this._action;
-		}
-	}, {
-		key: 'resource',
+    if (!action || !resource) {
+      return cb(new Error('One of parameters is undefined'));
+    }
 
-		/**
-   * Get resource name of actual permission
-   * @member Permission#resource {String} Resource of permission
-   */
-		get: function get() {
-			if (!this._resource) {
-				var decoded = Permission.decodeName(this.name);
-				if (!decoded) {
-					throw new Error('Resource is null');
-				}
+    if (!Permission.isValidName(action) || !Permission.isValidName(resource)) {
+      return cb(new Error('Action or resource has no valid name'));
+    }
 
-				this._resource = decoded.resource;
-			}
+    _get(Object.getPrototypeOf(Permission.prototype), 'constructor', this).call(this, rbac, Permission.createName(action, resource), add, cb);
+  }
 
-			return this._resource;
-		}
-	}], [{
-		key: 'createName',
+  _inherits(Permission, _Base);
 
-		/**
-   * Compute name of permission from action and resource
-   * @function createName
-   * @memberof Permission
-   * @param  {String} action   Name of permission
-   * @param  {String} resource Resource of permission
-   * @return {String}          Computed name of permission
-   * @static
-   */
-		value: function createName(action, resource) {
-			return action + DELIMITER + resource;
-		}
-	}, {
-		key: 'decodeName',
-		value: function decodeName(name) {
-			var pos = name.indexOf(DELIMITER);
-			if (pos === -1) {
-				return null;
-			}
+  _createClass(Permission, [{
+    key: 'can',
 
-			return {
-				action: name.substr(0, pos),
-				resource: name.substr(pos + 1)
-			};
-		}
-	}, {
-		key: 'isValidName',
+    /**
+     * Return true if has same action and resource
+     * @method Permission#can
+     * @param  {String}  action   Name of action
+     * @param  {String}  resource Name of resource
+     * @return {Boolean}
+     */
+    value: function can(action, resource) {
+      return this.action === action && this.resource === resource;
+    }
+  }, {
+    key: 'action',
 
-		/**
-   * Correct name can contain only alphanumeric characters
-   * @function isValidName
-   * @memberof Permission
-   * @param  {String}  name Name
-   * @return {Boolean}  
-   * @static    
-   */
-		value: function isValidName(name) {
-			if (/^[a-zA-Z0-9]+$/.test(name)) {
-				return true;
-			}
+    /**
+     * Get action name of actual permission
+     * @member Permission#action {String} Action of permission
+     */
+    get: function get() {
+      if (!this._action) {
+        var decoded = Permission.decodeName(this.name);
+        if (!decoded) {
+          throw new Error('Action is null');
+        }
 
-			return false;
-		}
-	}]);
+        this._action = decoded.action;
+      }
 
-	return Permission;
+      return this._action;
+    }
+  }, {
+    key: 'resource',
+
+    /**
+     * Get resource name of actual permission
+     * @member Permission#resource {String} Resource of permission
+     */
+    get: function get() {
+      if (!this._resource) {
+        var decoded = Permission.decodeName(this.name);
+        if (!decoded) {
+          throw new Error('Resource is null');
+        }
+
+        this._resource = decoded.resource;
+      }
+
+      return this._resource;
+    }
+  }], [{
+    key: 'createName',
+
+    /**
+     * Compute name of permission from action and resource
+     * @function createName
+     * @memberof Permission
+     * @param  {String} action   Name of permission
+     * @param  {String} resource Resource of permission
+     * @return {String}          Computed name of permission
+     * @static
+     */
+    value: function createName(action, resource) {
+      return action + DELIMITER + resource;
+    }
+  }, {
+    key: 'decodeName',
+    value: function decodeName(name) {
+      var pos = name.indexOf(DELIMITER);
+      if (pos === -1) {
+        return null;
+      }
+
+      return {
+        action: name.substr(0, pos),
+        resource: name.substr(pos + 1)
+      };
+    }
+  }, {
+    key: 'isValidName',
+
+    /**
+     * Correct name can contain only alphanumeric characters
+     * @function isValidName
+     * @memberof Permission
+     * @param  {String}  name Name
+     * @return {Boolean}
+     * @static
+     */
+    value: function isValidName(name) {
+      if (/^[a-zA-Z0-9]+$/.test(name)) {
+        return true;
+      }
+
+      return false;
+    }
+  }]);
+
+  return Permission;
 })(_base2['default']);
 
 exports['default'] = Permission;

@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-	value: true
+  value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -27,191 +27,190 @@ var _role = require('../role');
 var _role2 = _interopRequireDefault(_role);
 
 var Memory = (function (_Storage) {
-	function Memory() {
-		_classCallCheck(this, Memory);
+  function Memory() {
+    _classCallCheck(this, Memory);
 
-		_get(Object.getPrototypeOf(Memory.prototype), 'constructor', this).call(this);
+    _get(Object.getPrototypeOf(Memory.prototype), 'constructor', this).call(this);
 
-		this._items = {};
-	}
+    this._items = {};
+  }
 
-	_inherits(Memory, _Storage);
+  _inherits(Memory, _Storage);
 
-	_createClass(Memory, [{
-		key: 'add',
-		value: function add(item, cb) {
-			var name = item.name;
-			if (this._items[name]) {
-				return cb(null, this._items[name].item);
-			}
+  _createClass(Memory, [{
+    key: 'add',
+    value: function add(item, cb) {
+      var name = item.name;
+      if (this._items[name]) {
+        return cb(null, this._items[name].item);
+      }
 
-			this._items[name] = {
-				instance: item,
-				grants: []
-			};
+      this._items[name] = {
+        instance: item,
+        grants: []
+      };
 
-			cb(null, item);
-			return this;
-		}
-	}, {
-		key: 'remove',
-		value: function remove(item, cb) {
-			var name = item.name;
-			if (!this._items[name]) {
-				return cb(new Error('Item is not presented in storage'));
-			}
+      cb(null, item);
+      return this;
+    }
+  }, {
+    key: 'remove',
+    value: function remove(item, cb) {
+      var name = item.name;
+      if (!this._items[name]) {
+        return cb(new Error('Item is not presented in storage'));
+      }
 
-			//revoke from all instances
-			for (var index in this._items) {
-				if (!this._items.hasOwnProperty(index)) {
-					continue;
-				}
+      // revoke from all instances
+      for (var index in this._items) {
+        if (!this._items.hasOwnProperty(index)) {
+          continue;
+        }
 
-				var grants = this._items[index].grants;
+        var grants = this._items[index].grants;
 
-				for (var i = 0; i < grants.length; i++) {
-					if (grants[i] === name) {
-						grants.splice(i, 1);
-						break;
-					}
-				}
-			}
+        for (var i = 0; i < grants.length; i++) {
+          if (grants[i] === name) {
+            grants.splice(i, 1);
+            break;
+          }
+        }
+      }
 
-			//delete from items
-			delete this._items[name];
+      // delete from items
+      delete this._items[name];
 
-			cb(null, true);
-			return this;
-		}
-	}, {
-		key: 'grant',
-		value: function grant(role, child, cb) {
-			var name = role.name;
-			var childName = child.name;
+      cb(null, true);
+      return this;
+    }
+  }, {
+    key: 'grant',
+    value: function grant(role, child, cb) {
+      var name = role.name;
+      var childName = child.name;
 
-			if (!this._items[name] || !this._items[childName]) {
-				return cb(new Error('Role is not exist'));
-			}
+      if (!this._items[name] || !this._items[childName]) {
+        return cb(new Error('Role is not exist'));
+      }
 
-			if (!role instanceof _role2['default']) {
-				return cb(new Error('Role is not instance of Role'));
-			}
+      if (!role instanceof _role2['default']) {
+        return cb(new Error('Role is not instance of Role'));
+      }
 
-			if (name === childName) {
-				return cb(new Error('You can grant yourself'));
-			}
+      if (name === childName) {
+        return cb(new Error('You can grant yourself'));
+      }
 
-			var grants = this._items[name].grants;
-			for (var i = 0; i < grants.length; i++) {
-				var grant = grants[i];
-				if (grant === childName) {
-					return cb(null, true);
-				}
-			}
+      var grants = this._items[name].grants;
+      for (var i = 0; i < grants.length; i++) {
+        var grant = grants[i];
+        if (grant === childName) {
+          return cb(null, true);
+        }
+      }
 
-			grants.push(childName);
-			cb(null, true);
-			return this;
-		}
-	}, {
-		key: 'revoke',
-		value: function revoke(role, child, cb) {
-			var name = role.name;
-			var childName = child.name;
+      grants.push(childName);
+      cb(null, true);
+      return this;
+    }
+  }, {
+    key: 'revoke',
+    value: function revoke(role, child, cb) {
+      var name = role.name;
+      var childName = child.name;
 
-			if (!this._items[name] || !this._items[childName]) {
-				return cb(new Error('Role is not exist'));
-			}
+      if (!this._items[name] || !this._items[childName]) {
+        return cb(new Error('Role is not exist'));
+      }
 
-			var grants = this._items[name].grants;
-			for (var i = 0; i < grants.length; i++) {
-				var grant = grants[i];
-				if (grant === childName) {
-					grants.splice(i, 1);
-					return cb(null, true);
-				}
-			}
+      var grants = this._items[name].grants;
+      for (var i = 0; i < grants.length; i++) {
+        var grant = grants[i];
+        if (grant === childName) {
+          grants.splice(i, 1);
+          return cb(null, true);
+        }
+      }
 
-			cb(new Error('Item is not associated to this item'));
-			return this;
-		}
-	}, {
-		key: 'get',
-		value: function get(name, cb) {
-			if (!name || !this._items[name]) {
-				return cb(null, null);
-			}
+      cb(new Error('Item is not associated to this item'));
+      return this;
+    }
+  }, {
+    key: 'get',
+    value: function get(name, cb) {
+      if (!name || !this._items[name]) {
+        return cb(null, null);
+      }
 
-			cb(null, this._items[name].instance);
-			return this;
-		}
-	}, {
-		key: 'getRoles',
-		value: function getRoles(cb) {
-			var items = [];
+      cb(null, this._items[name].instance);
+      return this;
+    }
+  }, {
+    key: 'getRoles',
+    value: function getRoles(cb) {
+      var items = [];
 
-			for (var name in this._items) {
-				if (!this._items.hasOwnProperty(name)) {
-					continue;
-				}
+      for (var _name in this._items) {
+        if (!this._items.hasOwnProperty(_name)) {
+          continue;
+        }
 
-				var item = this._items[name].instance;
+        var item = this._items[_name].instance;
 
-				if (item instanceof _role2['default']) {
-					items.push(item);
-				}
-			}
+        if (item instanceof _role2['default']) {
+          items.push(item);
+        }
+      }
 
-			cb(null, items);
-			return this;
-		}
-	}, {
-		key: 'getPermissions',
-		value: function getPermissions(cb) {
-			var items = [];
+      cb(null, items);
+      return this;
+    }
+  }, {
+    key: 'getPermissions',
+    value: function getPermissions(cb) {
+      var items = [];
 
-			for (var name in this._items) {
-				if (!this._items.hasOwnProperty(name)) {
-					continue;
-				}
+      for (var _name2 in this._items) {
+        if (!this._items.hasOwnProperty(_name2)) {
+          continue;
+        }
 
-				var item = this._items[name].instance;
+        var item = this._items[_name2].instance;
 
-				if (item instanceof _permission2['default']) {
-					items.push(item);
-				}
-			}
+        if (item instanceof _permission2['default']) {
+          items.push(item);
+        }
+      }
 
-			cb(null, items);
-			return this;
-		}
-	}, {
-		key: 'getGrants',
-		value: function getGrants(role, cb) {
-			if (!role || !this._items[role]) {
-				return cb(null, null);
-			}
+      cb(null, items);
+      return this;
+    }
+  }, {
+    key: 'getGrants',
+    value: function getGrants(role, cb) {
+      if (!role || !this._items[role]) {
+        return cb(null, null);
+      }
 
-			var roleGrants = this._items[role].grants;
+      var roleGrants = this._items[role].grants;
 
-			var grants = [];
-			for (var i = 0; i < roleGrants.length; i++) {
-				var grantName = roleGrants[i];
-				var grant = this._items[grantName];
+      var grants = [];
+      for (var i = 0; i < roleGrants.length; i++) {
+        var grantName = roleGrants[i];
+        var grant = this._items[grantName];
+        if (!grant) {
+          continue;
+        }
 
-				if (!grant) {
-					continue;
-				}
+        grants.push(grant.instance);
+      }
 
-				grants.push(grant.instance);
-			}
+      cb(null, grants);
+      return this;
+    }
+  }]);
 
-			cb(null, grants);
-			return this;
-		}
-	}]);
-
-	return Memory;
+  return Memory;
 })(_index2['default']);
 
 exports['default'] = Memory;
