@@ -36,7 +36,7 @@ var RBAC = (function () {
    * @param  {Storage}  [options.storage]  Storage of grants
    * @param  {Array}    [options.roles]            List of role names (String)
    * @param  {Object}   [options.permissions]      List of permissions
-   * @param  {Object}   [options.grants]           List og grants
+   * @param  {Object}   [options.grants]           List of grants
    * @param  {Function} [callback]         Callback function
    */
 
@@ -510,7 +510,7 @@ var RBAC = (function () {
      * @method RBAC#create
      * @param  {Array}   roleNames       List of role names
      * @param  {Object}  permissionNames List of permission names
-     * @param  {Object}  [grants]        List og grants
+     * @param  {Object}  [grants]        List of grants
      * @param  {Array}   cb              Callback function
      * @return {RBAC}                    Instance of actual RBAC
      */
