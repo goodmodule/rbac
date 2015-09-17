@@ -20,7 +20,7 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 
 ## Documentation
 
-[Link to Documentation](http://htmlpreview.github.io/?https://github.com/seeden/rbac/blob/master/documentation/index.html)
+[Read more about API in documentation](http://seeden.github.io/rbac/RBAC.html)
 
 
 ## Install
