@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: rbac.js</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"default":{"outputSourceFiles":true},"monospaceLinks":false,"cleverLinks":false};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html"></a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="Base">
+            <span class="title">
+                <a href="Base.html">Base</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Base#name"><a href="Base.html#name">name</a></li>
+            
+                <li data-name="Base#rbac"><a href="Base.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Base#remove"><a href="Base.html#remove">remove</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Permission">
+            <span class="title">
+                <a href="Permission.html">Permission</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Permission#action"><a href="Permission.html#action">action</a></li>
+            
+                <li data-name="Permission#name"><a href="Permission.html#name">name</a></li>
+            
+                <li data-name="Permission#rbac"><a href="Permission.html#rbac">rbac</a></li>
+            
+                <li data-name="Permission#resource"><a href="Permission.html#resource">resource</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Permission.createName"><a href="Permission.html#createName">createName</a></li>
+            
+                <li data-name="Permission.isValidName"><a href="Permission.html#isValidName">isValidName</a></li>
+            
+                <li data-name="Permission#can"><a href="Permission.html#can">can</a></li>
+            
+                <li data-name="Permission#remove"><a href="Permission.html#remove">remove</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="RBAC">
+            <span class="title">
+                <a href="RBAC.html">RBAC</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="RBAC#options"><a href="RBAC.html#options">options</a></li>
+            
+                <li data-name="RBAC#storage"><a href="RBAC.html#storage">storage</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="RBAC.getPermissionNames"><a href="RBAC.html#getPermissionNames">getPermissionNames</a></li>
+            
+                <li data-name="RBAC#add"><a href="RBAC.html#add">add</a></li>
+            
+                <li data-name="RBAC#can"><a href="RBAC.html#can">can</a></li>
+            
+                <li data-name="RBAC#canAll"><a href="RBAC.html#canAll">canAll</a></li>
+            
+                <li data-name="RBAC#canAny"><a href="RBAC.html#canAny">canAny</a></li>
+            
+                <li data-name="RBAC#create"><a href="RBAC.html#create">create</a></li>
+            
+                <li data-name="RBAC#createPermission"><a href="RBAC.html#createPermission">createPermission</a></li>
+            
+                <li data-name="RBAC#createPermissions"><a href="RBAC.html#createPermissions">createPermissions</a></li>
+            
+                <li data-name="RBAC#createRole"><a href="RBAC.html#createRole">createRole</a></li>
+            
+                <li data-name="RBAC#createRoles"><a href="RBAC.html#createRoles">createRoles</a></li>
+            
+                <li data-name="RBAC#exists"><a href="RBAC.html#exists">exists</a></li>
+            
+                <li data-name="RBAC#existsPermission"><a href="RBAC.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="RBAC#existsRole"><a href="RBAC.html#existsRole">existsRole</a></li>
+            
+                <li data-name="RBAC#get"><a href="RBAC.html#get">get</a></li>
+            
+                <li data-name="RBAC#getPermission"><a href="RBAC.html#getPermission">getPermission</a></li>
+            
+                <li data-name="RBAC#getPermission"><a href="RBAC.html#getPermission">getPermission</a></li>
+            
+                <li data-name="RBAC#getPermissions"><a href="RBAC.html#getPermissions">getPermissions</a></li>
+            
+                <li data-name="RBAC#getRole"><a href="RBAC.html#getRole">getRole</a></li>
+            
+                <li data-name="RBAC#getRoles"><a href="RBAC.html#getRoles">getRoles</a></li>
+            
+                <li data-name="RBAC#getScope"><a href="RBAC.html#getScope">getScope</a></li>
+            
+                <li data-name="RBAC#grant"><a href="RBAC.html#grant">grant</a></li>
+            
+                <li data-name="RBAC#grantByName"><a href="RBAC.html#grantByName">grantByName</a></li>
+            
+                <li data-name="RBAC#grants"><a href="RBAC.html#grants">grants</a></li>
+            
+                <li data-name="RBAC#hasRole"><a href="RBAC.html#hasRole">hasRole</a></li>
+            
+                <li data-name="RBAC#remove"><a href="RBAC.html#remove">remove</a></li>
+            
+                <li data-name="RBAC#removeByName"><a href="RBAC.html#removeByName">removeByName</a></li>
+            
+                <li data-name="RBAC#revoke"><a href="RBAC.html#revoke">revoke</a></li>
+            
+                <li data-name="RBAC#revokeByName"><a href="RBAC.html#revokeByName">revokeByName</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Role">
+            <span class="title">
+                <a href="Role.html">Role</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Role#name"><a href="Role.html#name">name</a></li>
+            
+                <li data-name="Role#rbac"><a href="Role.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Role#can"><a href="Role.html#can">can</a></li>
+            
+                <li data-name="Role#canAll"><a href="Role.html#canAll">canAll</a></li>
+            
+                <li data-name="Role#canAny"><a href="Role.html#canAny">canAny</a></li>
+            
+                <li data-name="Role#getScope"><a href="Role.html#getScope">getScope</a></li>
+            
+                <li data-name="Role#grant"><a href="Role.html#grant">grant</a></li>
+            
+                <li data-name="Role#hasRole"><a href="Role.html#hasRole">hasRole</a></li>
+            
+                <li data-name="Role#remove"><a href="Role.html#remove">remove</a></li>
+            
+                <li data-name="Role#revoke"><a href="Role.html#revoke">revoke</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="Storage">
+            <span class="title">
+                <a href="Storage.html">Storage</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="Storage#rbac"><a href="Storage.html#rbac">rbac</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="Storage#add"><a href="Storage.html#add">add</a></li>
+            
+                <li data-name="Storage#exists"><a href="Storage.html#exists">exists</a></li>
+            
+                <li data-name="Storage#existsPermission"><a href="Storage.html#existsPermission">existsPermission</a></li>
+            
+                <li data-name="Storage#existsRole"><a href="Storage.html#existsRole">existsRole</a></li>
+            
+                <li data-name="Storage#get"><a href="Storage.html#get">get</a></li>
+            
+                <li data-name="Storage#getGrants"><a href="Storage.html#getGrants">getGrants</a></li>
+            
+                <li data-name="Storage#getPermission"><a href="Storage.html#getPermission">getPermission</a></li>
+            
+                <li data-name="Storage#getPermissions"><a href="Storage.html#getPermissions">getPermissions</a></li>
+            
+                <li data-name="Storage#getRole"><a href="Storage.html#getRole">getRole</a></li>
+            
+                <li data-name="Storage#getRoles"><a href="Storage.html#getRoles">getRoles</a></li>
+            
+                <li data-name="Storage#grant"><a href="Storage.html#grant">grant</a></li>
+            
+                <li data-name="Storage#remove"><a href="Storage.html#remove">remove</a></li>
+            
+                <li data-name="Storage#revoke"><a href="Storage.html#revoke">revoke</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="rbac.js.html">Source: rbac.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>import _ from 'lodash';
+import { series, parallel } from 'async';
+import Role from './role';
+import Permission from './permission';
+import MemoryStorage from './storages/memory';
+
+export default class RBAC {
+	/**
+	 * RBAC constructor
+	 * @constructor RBAC
+	 * @param  {Object} options             Options for RBAC
+	 * @param  {Storage}  [options.storage]  Storage of grants
+	 * @param  {Array}    [options.roles]            List of role names (String)
+	 * @param  {Object}   [options.permissions]      List of permissions
+	 * @param  {Object}   [options.grants]           List of grants
+	 * @param  {Function} [callback]         Callback function
+	 */
+	constructor (options, callback) {
+		options = options || {};
+		options.storage = options.storage || new MemoryStorage();
+
+		this._options = options;
+
+		this.storage.rbac = this;
+
+		var permissions = options.permissions || {};
+		var roles = options.roles || [];
+		var grants = options.grants || {};
+
+		callback = callback || function() {};
+
+		this.create(roles, permissions, grants, (err) => {
+			if(err) {
+				return callback(err);
+			}
+
+			return callback(null, this);
+		});
+	}
+
+	/**
+	 * The RBAC's options.
+	 * @member RBAC#options {Object}
+	 */
+	get options() {
+		return this._options;
+	}
+
+	/**
+	 * The RBAC's storage.
+	 * @member RBAC#storage {Storage}
+	 */
+	get storage() {
+		return this.options.storage;
+	}
+
+	/**
+	 * Register role or permission to actual RBAC instance
+	 * @method RBAC#add
+	 * @param  {Role|Permission}     item Instance of Base
+	 * @param  {Function} cb   Callback function
+	 * @return {RBAC}          Return actual instance
+	 */
+	add (item, cb) {
+		if(!item) {
+			return cb(new Error('Item is undefined'));	
+		}
+
+		if(item.rbac !== this) {
+			return cb(new Error('Item is associated to another RBAC instance'));
+		}
+
+		this.storage.add(item, cb);
+		return this;
+	}
+
+	/**
+	 * Get instance of Role or Permission by his name
+	 * @method RBAC#get
+	 * @param  {String}   name  Name of item
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	get (name, cb) {
+		this.storage.get(name, cb);
+		return this;
+	}
+
+	/**
+	 * Remove role or permission from RBAC
+	 * @method RBAC#remove
+	 * @param  {Role|Permission} item Instance of role or permission
+	 * @param  {Function}        cb   Callback function
+	 * @return {RBAC}                 Current instance
+	 */
+	remove (item, cb) {
+		if(!item) {
+			return cb(new Error('Item is undefined'));	
+		}
+
+		if(item.rbac !== this) {
+			return cb(new Error('Item is associated to another RBAC instance'));
+		}
+
+		this.storage.remove(item, cb);
+		return this;
+	}
+
+	/**
+	 * Remove role or permission from RBAC
+	 * @method RBAC#removeByName
+	 * @param  {String}   name Name of role or permission
+	 * @param  {Function} cb   Callback function
+	 * @return {RBAC}          Current instance
+	 */
+	removeByName (name, cb) {
+		this.get(name, function(err, item) {
+			if(err) {
+				return cb(err);
+			}
+
+			if(!item) {
+				return cb(null, false);
+			}
+
+			item.remove(cb);
+		});
+
+		return this;
+	}
+
+	/**
+	 * Grant permission or role to the role
+	 * @method RBAC#grant
+	 * @param  {Role}            role  Instance of the role
+	 * @param  {Role|Permission} child Instance of the role or permission
+	 * @param  {Function}        cb    Callback function
+	 * @return {RBAC}                  Current instance
+	 */
+	grant (role, child, cb) {
+		if(!role || !child) {
+			return cb(new Error('One of item is undefined'));	
+		}
+
+		if(role.rbac !== this || child.rbac !== this) {
+			return cb(new Error('Item is associated to another RBAC instance'));
+		}
+
+		if(!RBAC.isRole(role)) {
+			return cb(new Error('Role is not instance of Role'));
+		}
+
+		this.storage.grant(role, child, cb);
+		return this;
+	}
+
+	/**
+	 * Revoke permission or role from the role
+	 * @method RBAC#revoke
+	 * @param  {Role}            role   Instance of the role
+	 * @param  {Role|Permission} child  Instance of the role or permission
+	 * @param  {Function}        cb     Callback function
+	 * @return {RBAC}                   Current instance
+	 */
+	revoke (role, child, cb) {
+		if(!role || !child) {
+			return cb(new Error('One of item is undefined'));	
+		}
+
+		if(role.rbac !== this || child.rbac !== this) {
+			return cb(new Error('Item is associated to another RBAC instance'));
+		}
+
+		this.storage.revoke(role, child, cb);
+		return this;
+	}
+
+	/**
+	 * Revoke permission or role from the role by names
+	 * @method RBAC#revokeByName
+	 * @param  {String}   roleName  Instance of the role
+	 * @param  {String}   childName Instance of the role or permission
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}               Current instance
+	 */
+	revokeByName (roleName, childName, cb) {
+		parallel({
+			role  : (callback) => this.get(roleName, callback),
+			child : (callback) => this.get(childName, callback)
+		}, (err, results) => {
+			if(err) {
+				return cb(err);
+			}
+
+			this.revoke(results.role, results.child, cb);
+		});
+
+		return this;
+	}
+
+	/**
+	 * Grant permission or role from the role by names
+	 * @method RBAC#grantByName
+	 * @param  {String}   roleName  Instance of the role
+	 * @param  {String}   childName Instance of the role or permission
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}               Current instance
+	 */
+	grantByName (roleName, childName, cb) {
+		parallel({
+			role  : (callback) => this.get(roleName, callback),
+			child : (callback) => this.get(childName, callback)
+		}, (err, results) => {
+			if(err) {
+				return cb(err);
+			}
+
+			this.grant(results.role, results.child, cb);
+		});
+
+		return this;
+	}
+
+	/**
+	 * Create a new role assigned to actual instance of RBAC
+	 * @method RBAC#createRole
+	 * @param  {String}  roleName Name of new Role
+	 * @param  {Boolean} [add=true]    True if you need to add it to the storage
+	 * @return {Role}    Instance of the Role
+	 */
+	createRole (roleName, add, cb) {
+		return new Role(this, roleName, add, cb);
+	}
+
+	/**
+	 * Create a new permission assigned to actual instance of RBAC
+	 * @method RBAC#createPermission
+	 * @param  {String} action   Name of action
+	 * @param  {String} resource Name of resource
+	 * @param  {Boolean} [add=true]   True if you need to add it to the storage
+	 * @param  {Function} cb     Callback function
+	 * @return {Permission}      Instance of the Permission
+	 */
+	createPermission (action, resource, add, cb) {
+		return new Permission(this, action, resource, add, cb);
+	}	
+
+	/**
+	 * Callback returns true if role or permission exists
+	 * @method RBAC#exists
+	 * @param  {String}   name  Name of item
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	exists (name, cb) {
+		this.storage.exists(name, cb);
+		return this;
+	}
+
+	/**
+	 * Callback returns true if role exists
+	 * @method RBAC#existsRole
+	 * @param  {String}   name  Name of item
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	existsRole (name, cb) {
+		this.storage.existsRole(name, cb);
+		return this;
+	}
+
+	/**
+	 * Callback returns true if permission exists
+	 * @method RBAC#existsPermission
+	 * @param  {String}   action  Name of action
+	 * @param  {String}   resource  Name of resource
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	existsPermission (action, resource, cb) {
+		this.storage.existsPermission(action, resource, cb);
+		return this;
+	}
+
+
+	/**
+	 * Return instance of Role by his name
+	 * @method RBAC#getRole
+	 * @param  {String}   name  Name of role
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	getRole (name, cb) {
+		this.storage.getRole(name, cb);
+		return this;
+	}
+
+	/**
+	 * Return all instances of Role
+	 * @method RBAC#getRoles
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	getRoles (cb) {
+		this.storage.getRoles(cb);
+		return this;
+	}
+
+	/**
+	 * Return instance of Permission by his action and resource
+	 * @method RBAC#getPermission
+	 * @param  {String} action    Name of action
+	 * @param  {String} resource  Name of resource
+	 * @param  {Function} cb      Callback function
+	 * @return {RBAC}             Return instance of actual RBAC
+	 */
+	getPermission (action, resource, cb) {
+		this.storage.getPermission(action, resource, cb);
+		return this;
+	}
+
+	/**
+	 * Return instance of Permission by his name
+	 * @method RBAC#getPermission
+	 * @param  {String} name      Name of permission
+	 * @param  {Function} cb      Callback function
+	 * @return {RBAC}             Return instance of actual RBAC
+	 */
+	getPermissionByName (name, cb) {
+		var data = Permission.decodeName(name);
+		this.storage.getPermission(data.action, data.resource, cb);
+		return this;
+	}	
+
+	/**
+	 * Return all instances of Permission
+	 * @method RBAC#getPermissions
+	 * @param  {Function} cb    Callback function
+	 * @return {RBAC}           Return instance of actual RBAC
+	 */
+	getPermissions (cb) {
+		this.storage.getPermissions(cb);
+		return this;
+	}
+
+	/**
+	 * Create multiple permissions in one step
+	 * @method RBAC#createPermissions
+	 * @param  {Object}   permissions Object of permissions
+	 * @param  {Boolean} [add=true]   True if you need to add it to the storage
+	 * @param  {Function} cb          Callbck function
+	 * @return {RBAC}                 Instance of actual RBAC
+	 */
+	createPermissions (resources, add, cb) {
+		if(typeof add === 'function') {
+			cb = add;
+			add = true;
+		}
+
+		var tasks = {};
+
+		if(!_.isPlainObject(resources)) {
+			return cb(new Error('Resources is not a plain object'));
+		}
+
+		Object.keys(resources).forEach(function(resource) {
+			resources[resource].forEach(function(action) {
+				var name = Permission.createName(action, resource);
+				tasks[name] = (callback) => this.createPermission(action, resource, add, callback);
+			}, this);
+		}, this);
+
+		parallel(tasks, cb);
+		return this;
+	}
+
+	/**
+	 * Create multiple roles in one step assigned to actual instance of RBAC
+	 * @method RBAC#createRoles
+	 * @param  {Array}    roleNames  Array of role names
+	 * @param  {Boolean} [add=true]   True if you need to add it to the storage
+	 * @param  {Function} cb         Callback function
+	 * @return {RBAC}                Current instance
+	 */
+	createRoles (roleNames, add, cb) {
+		if(typeof add === 'function') {
+			cb = add;
+			add = true;
+		}
+
+		var tasks = {};
+
+		roleNames.forEach(function(roleName) {
+			tasks[roleName] = (callback) => this.createRole(roleName, add, callback);
+		}, this);
+
+		parallel(tasks, cb);
+		return this;
+	}
+
+
+	/**
+	 * Grant multiple items in one function
+	 * @method RBAC#grants
+	 * @param  {Object}   	  List of roles  
+	 * @param  {Function} cb  Callback function
+	 * @return {RBAC}         Current instance
+	 */
+	grants (roles, cb) {
+		if(!_.isPlainObject(roles)) {
+			return cb(new Error('Grants is not a plain object'));
+		}
+
+		var tasks = [];
+
+		Object.keys(roles).forEach(function(role) {
+			roles[role].forEach(function(grant) {
+				tasks.push((callback) => this.grantByName(role, grant, callback));
+			}, this);
+		}, this);
+
+		parallel(tasks, cb);
+		return this;
+	}
+
+
+	/**
+	 * Create multiple permissions and roles in one step
+	 * @method RBAC#create
+	 * @param  {Array}   roleNames       List of role names
+	 * @param  {Object}  permissionNames List of permission names
+	 * @param  {Object}  [grants]        List of grants
+	 * @param  {Array}   cb              Callback function
+	 * @return {RBAC}                    Instance of actual RBAC
+	 */
+	create (roleNames, permissionNames, grants, cb) {
+		if(typeof grants === 'function') {
+			cb = grants;
+			grants = null;
+		}
+
+		var tasks = {
+			permissions: (callback) => this.createPermissions(permissionNames, callback),
+			roles: (callback) => this.createRoles(roleNames, callback)
+		};
+
+		parallel(tasks, (err, result) => {
+			if(err || !grants) {
+				return cb(err, result);
+			}
+
+			//add grants to roles
+			this.grants(grants, function(err) {
+				if(err) {
+					return cb(err);
+				}	
+
+				cb(null, result);
+			});
+		});
+
+		return this;
+	}
+
+	/**
+	 * Traverse hierarchy of roles. 
+	 * Callback function returns as second parameter item from hierarchy or null if we are on the end of hierarchy.
+	 * @method RBAC#_traverseGrants
+	 * @param  {String}   roleName  Name of role
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}               Return instance of actual RBAC
+	 * @private
+	 */
+	_traverseGrants (roleName, cb, next, used) {
+		next = next || [roleName];
+		used = used || {};
+
+		var actualRole = next.shift();
+		used[actualRole] = true;
+
+		this.storage.getGrants(actualRole, (err, items) => {
+			if(err) {
+				return cb(err);
+			}
+
+			items = items || [];
+
+			for(var i=0; i&lt;items.length; i++) {
+				var item = items[i];
+				var name = item.name;
+
+				if(RBAC.isRole(item) &amp;&amp; !used[name]) {
+					used[name] = true;
+					next.push(name);
+				}
+
+				if(cb(null, item) === false) {
+					return;
+				}
+			}
+
+			if(next.length === 0) {
+				return cb(null, null);
+			}
+
+			this._traverseGrants(null, cb, next, used);	
+		});
+		
+		return this;
+	}
+
+	/**
+	 * Return true if role has allowed permission
+	 * @method RBAC#can
+	 * @param  {String}  roleName Name of role
+	 * @param  {String}  action   Name of action
+	 * @param  {String}  resource Name of resource
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}             Current instance         
+	 */
+	can (roleName, action, resource, cb) {
+		this._traverseGrants(roleName, function(err, item) {
+			//if there is a error
+			if(err) {
+				return cb(err);
+			}
+
+			//this is last item
+			if(!item) {
+				return cb(null, false);
+			}
+
+			if(RBAC.isPermission(item) &amp;&amp; item.can(action, resource) === true) {
+				cb(null, true);
+				//end up actual traversing
+				return false;
+			}
+		});
+
+		return this;
+	}
+
+
+	/**
+	 * Check if the role has any of the given permissions.
+	 * @method RBAC#canAny
+	 * @param  {String} roleName     Name of role
+	 * @param  {Array}  permissions  Array (String action, String resource)
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}                Current instance           
+	 */
+	canAny (roleName, permissions, cb) {
+		//prepare the names of permissions
+		var permissionNames = RBAC.getPermissionNames(permissions);
+
+		//traverse hierarchy
+		this._traverseGrants(roleName, function(err, item) {
+			//if there is a error
+			if(err) {
+				return cb(err);
+			}
+
+			//this is last item
+			if(!item) {
+				return cb(null, false);
+			}
+
+			if(RBAC.isPermission(item) &amp;&amp; permissionNames.indexOf(item.name) !== -1) {
+				cb(null, true);
+				//end up actual traversing
+				return false;
+			}
+		});
+
+		return this;
+	}
+
+	/**
+	 * Check if the model has all of the given permissions.
+	 * @method RBAC#canAll
+	 * @param  {String} roleName     Name of role
+	 * @param  {Array}  permissions  Array (String action, String resource)
+	 * @param  {Function} cb        Callback function
+	 * @return {RBAC}                Current instance           
+	 */
+	canAll (roleName, permissions, cb) {
+		//prepare the names of permissions
+		var permissionNames = RBAC.getPermissionNames(permissions);
+
+		var founded = {};
+		var foundedCount = 0;
+
+		//traverse hierarchy
+		this._traverseGrants(roleName, function(err, item) {
+			//if there is a error
+			if(err) {
+				return cb(err);
+			}
+
+			//this is last item
+			if(!item) {
+				return cb(null, false);
+			}
+
+			if(RBAC.isPermission(item) &amp;&amp; permissionNames.indexOf(item.name) !== -1 &amp;&amp; !founded[item.name]) {
+				founded[item.name]=true;
+				foundedCount++;
+
+
+
+				if(foundedCount === permissionNames.length) {
+					cb(null, true);
+					//end up actual traversing
+					return false;			
+				}
+			}
+		});
+
+		return this;
+	}
+
+	/**
+	 * Return true if role has allowed permission
+	 * @method RBAC#hasRole
+	 * @param  {String}   roleName        Name of role
+	 * @param  {String}   roleChildName   Name of child role
+	 * @param  {Function} cb              Callback function
+	 * @return {RBAC}                     Current instance          
+	 */
+	hasRole (roleName, roleChildName, cb) {
+		if(roleName === roleChildName) {
+			cb(null, true);
+			return this;
+		}
+
+		this._traverseGrants(roleName, function(err, item) {
+			//if there is a error
+			if(err) {
+				return cb(err);
+			}
+
+			//this is last item
+			if(!item) {
+				return cb(null, false);
+			}
+
+			if(RBAC.isRole(item) &amp;&amp; item.name === roleChildName) {
+				cb(null, true);
+				//end up actual traversing
+				return false;
+			}
+		});
+
+		return this;
+	}
+
+	/**
+	 * Return array of all permission assigned to role of RBAC
+	 * @method RBAC#getScope
+	 * @param  {String} roleName   Name of role
+	 * @param  {Function} cb       Callback function
+	 * @return {RBAC}              Current instance   
+	 */
+	getScope (roleName, cb) {
+		var scope = [];
+
+		//traverse hierarchy
+		this._traverseGrants(roleName, function(err, item) {
+			//if there is a error
+			if(err) {
+				return cb(err);
+			}
+
+			//this is last item
+			if(!item) {
+				return cb(null, scope);
+			}
+
+			if(RBAC.isPermission(item) &amp;&amp; scope.indexOf(item.name) === -1) {
+				scope.push(item.name);
+			}
+		});
+
+		return this;
+	}
+
+	/**
+	 * Convert Array of permissions to permission name
+	 * @function getPermissionNames
+	 * @memberof RBAC
+	 * @param  {Array} permissions List of array items of permission names. It contan action and resource
+	 * @return {Array}             List of permission names
+	 * @static
+	 */
+	static getPermissionNames (permissions) {
+		var permissionNames = [];
+
+		for(var i=0; i&lt;permissions.length; i++) {
+			var permission = permissions[i];
+			permissionNames.push(Permission.createName(permission[0], permission[1]));	
+		}
+
+		return permissionNames;
+	}
+
+	static isPermission (item) {
+		return item instanceof Permission;
+	}
+
+	static isRole (item) {
+		return item instanceof Role;
+	}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Jun 25 2015 14:36:56 GMT+1200 (New Zealand Standard Time)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
