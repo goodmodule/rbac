@@ -6,14 +6,14 @@ import keymirror from 'keymirror';
 
 const Type = keymirror({
   PERMISSION: null,
-  ROLE: null
+  ROLE: null,
 });
 
 function createSchema(Schema) {
   const schema = new Schema({
     name: { type: String, required: true, unique: true },
     type: { type: String, 'enum': _.values(Type), required: true },
-    grants: [String]
+    grants: [String],
   });
 
   return schema;
@@ -35,14 +35,14 @@ function convertToInstance(rbac, record) {
   }
 
   if (record.type === Type.ROLE) {
-    return rbac.createRole(record.name, false, function() {});
+    return rbac.createRole(record.name, false, () => {});
   } else if (record.type === Type.PERMISSION) {
     const decoded = Permission.decodeName(record.name);
     if (!decoded) {
       throw new Error('Bad permission name');
     }
 
-    return rbac.createPermission(decoded.action, decoded.resource, false, function() {});
+    return rbac.createPermission(decoded.action, decoded.resource, false, () => {});
   }
 
   throw new Error('Type is undefined');
@@ -76,8 +76,8 @@ export default class MongooseStorage extends Storage {
   add(item, cb) {
     this.model.create({
       name: item.name,
-      type: getType(item)
-    }, function(err, obj) {
+      type: getType(item),
+    }, (err, obj) => {
       if (err) {
         return cb(err);
       }
@@ -97,14 +97,14 @@ export default class MongooseStorage extends Storage {
 
     this.model.update({ grants: name }, {
       $pull: {
-        grants: name
-      }
+        grants: name,
+      },
     }, { multi: true }, (err) => {
       if (err) {
         return cb(err);
       }
 
-      this.model.remove({ name }, function(err2) {
+      this.model.remove({ name }, (err2) => {
         if (err2) {
           return cb(err2);
         }
@@ -128,7 +128,7 @@ export default class MongooseStorage extends Storage {
       return cb(new Error('You can grant yourself'));
     }
 
-    this.model.update({ name: name, type: Type.ROLE }, { $addToSet: { grants: childName } }, function(err) {
+    this.model.update({ name: name, type: Type.ROLE }, { $addToSet: { grants: childName } }, (err) => {
       if (err) {
         return cb(err);
       }
@@ -143,7 +143,7 @@ export default class MongooseStorage extends Storage {
     const name = role.name;
     const childName = child.name;
 
-    this.model.update({ name: name, type: Type.ROLE }, { $pull: { grants: childName } }, function(err, num) {
+    this.model.update({ name: name, type: Type.ROLE }, { $pull: { grants: childName } }, (err, num) => {
       if (err) {
         return cb(err);
       }
@@ -161,7 +161,7 @@ export default class MongooseStorage extends Storage {
   get(name, cb) {
     const rbac = this.rbac;
 
-    this.model.findOne({ name: name }, function(err, record) {
+    this.model.findOne({ name }, (err, record) => {
       if (err) {
         return cb(err);
       }
@@ -179,7 +179,7 @@ export default class MongooseStorage extends Storage {
   getRoles(cb) {
     const rbac = this.rbac;
 
-    this.model.find({ type: Type.ROLE }, function(err, records) {
+    this.model.find({ type: Type.ROLE }, (err, records) => {
       if (err) {
         return cb(err);
       }
@@ -195,7 +195,7 @@ export default class MongooseStorage extends Storage {
   getPermissions(cb) {
     const rbac = this.rbac;
 
-    this.model.find({ type: Type.PERMISSION }, function(err, records) {
+    this.model.find({ type: Type.PERMISSION }, (err, records) => {
       if (err) {
         return cb(err);
       }
@@ -220,7 +220,11 @@ export default class MongooseStorage extends Storage {
         return cb(null, []);
       }
 
-      this.model.find({ name: record.grants }, function(err2, records) {
+      this.model.find({
+        name: {
+          $in: record.grants
+        }
+      }, (err2, records) => {
         if (err2) {
           return cb(err2);
         }

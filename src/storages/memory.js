@@ -17,7 +17,7 @@ export default class Memory extends Storage {
 
     this._items[name] = {
       instance: item,
-      grants: []
+      grants: [],
     };
 
     cb(null, item);
@@ -72,6 +72,7 @@ export default class Memory extends Storage {
     const grants = this._items[name].grants;
     for (let i = 0; i < grants.length; i++) {
       const grant = grants[i];
+
       if (grant === childName) {
         return cb(null, true);
       }
@@ -93,6 +94,7 @@ export default class Memory extends Storage {
     const grants = this._items[name].grants;
     for (let i = 0; i < grants.length; i++) {
       const grant = grants[i];
+
       if (grant === childName) {
         grants.splice(i, 1);
         return cb(null, true);

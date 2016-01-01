@@ -30,6 +30,11 @@ var Storage = (function () {
     this._rbac = null;
   }
 
+  /**
+   * Get instance of RBAC
+   * @member Storage#rbac {RBAC|null} Instance of RBAC
+   */
+
   _createClass(Storage, [{
     key: 'add',
 
@@ -43,8 +48,6 @@ var Storage = (function () {
     value: function add(item, cb) {
       cb(new Error('Storage method add is not implemented'));
     }
-  }, {
-    key: 'remove',
 
     /**
      * Remove permission or role
@@ -53,11 +56,11 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'remove',
     value: function remove(item, cb) {
       cb(new Error('Storage method remove is not implemented'));
     }
-  }, {
-    key: 'grant',
 
     /**
      * Add (grant) permission or role to hierarchy of actual role
@@ -67,11 +70,11 @@ var Storage = (function () {
      * @param  {Function} cb    Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'grant',
     value: function grant(role, child, cb) {
       cb(new Error('Storage method grant is not implemented'));
     }
-  }, {
-    key: 'revoke',
 
     /**
      * Remove (revoke) permission or role from hierarchy of actual role
@@ -81,11 +84,11 @@ var Storage = (function () {
      * @param  {Function} cb    Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'revoke',
     value: function revoke(role, child, cb) {
       cb(new Error('Storage method revoke is not implemented'));
     }
-  }, {
-    key: 'get',
 
     /**
      * Get instance of permission or role by his name
@@ -94,11 +97,11 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'get',
     value: function get(name, cb) {
       cb(new Error('Storage method get is not implemented'));
     }
-  }, {
-    key: 'getRoles',
 
     /**
      * Get all instances of Roles
@@ -106,11 +109,11 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'getRoles',
     value: function getRoles(cb) {
       cb(new Error('Storage method getRoles is not implemented'));
     }
-  }, {
-    key: 'getPermissions',
 
     /**
      * Get all instances of Permissions
@@ -118,11 +121,11 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'getPermissions',
     value: function getPermissions(cb) {
       cb(new Error('Storage method getPermissions is not implemented'));
     }
-  }, {
-    key: 'getGrants',
 
     /**
      * Get instances of Roles and Permissions assigned to role
@@ -131,11 +134,11 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'getGrants',
     value: function getGrants(role, cb) {
       cb(new Error('Storage method getGrants is not implemented'));
     }
-  }, {
-    key: 'getRole',
 
     /**
      * Get instance of role by his name
@@ -144,6 +147,8 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'getRole',
     value: function getRole(name, cb) {
       this.get(name, function (err, item) {
         if (err || !item) {
@@ -159,8 +164,6 @@ var Storage = (function () {
 
       return this;
     }
-  }, {
-    key: 'getPermission',
 
     /**
      * Get instance of permission by his name
@@ -170,6 +173,8 @@ var Storage = (function () {
      * @param  {Function} cb       Callback function
      * @return {Storage}           Instance of actual storage
      */
+  }, {
+    key: 'getPermission',
     value: function getPermission(action, resource, cb) {
       var name = _permission2['default'].createName(action, resource);
 
@@ -187,8 +192,6 @@ var Storage = (function () {
 
       return this;
     }
-  }, {
-    key: 'exists',
 
     /**
      * Return true with callback if role or permission exists
@@ -197,6 +200,8 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'exists',
     value: function exists(name, cb) {
       this.get(name, function (err, item) {
         if (err) {
@@ -212,8 +217,6 @@ var Storage = (function () {
 
       return this;
     }
-  }, {
-    key: 'existsRole',
 
     /**
      * Return true with callback if role exists
@@ -222,6 +225,8 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'existsRole',
     value: function existsRole(name, cb) {
       this.getRole(name, function (err, item) {
         if (err) {
@@ -237,8 +242,6 @@ var Storage = (function () {
 
       return this;
     }
-  }, {
-    key: 'existsPermission',
 
     /**
      * Return true with callback if permission exists
@@ -247,6 +250,8 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+  }, {
+    key: 'existsPermission',
     value: function existsPermission(action, resource, cb) {
       this.getPermission(action, resource, function (err, item) {
         if (err) {
@@ -264,11 +269,6 @@ var Storage = (function () {
     }
   }, {
     key: 'rbac',
-
-    /**
-     * Get instance of RBAC
-     * @member Storage#rbac {RBAC|null} Instance of RBAC
-     */
     get: function get() {
       return this._rbac;
     },

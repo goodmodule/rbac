@@ -39,6 +39,11 @@ var Base = (function () {
     });
   }
 
+  /**
+   * Get name of actual instance
+   * @member Base#name {String}
+   */
+
   _createClass(Base, [{
     key: 'remove',
 
@@ -54,21 +59,16 @@ var Base = (function () {
     }
   }, {
     key: 'name',
-
-    /**
-     * Get name of actual instance
-     * @member Base#name {String}
-     */
     get: function get() {
       return this._name;
     }
-  }, {
-    key: 'rbac',
 
     /**
      * Get instance of RBAC
      * @member Base#rbac {RBAC|null} Instance of RBAC
      */
+  }, {
+    key: 'rbac',
     get: function get() {
       return this._rbac;
     }

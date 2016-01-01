@@ -15,7 +15,7 @@ export default class RBAC {
    * @param  {Object}   [options.grants]           List of grants
    * @param  {Function} [callback]         Callback function
    */
-  constructor(options = {}, callback = function() {}) {
+  constructor(options = {}, callback = () => {}) {
     options.storage = options.storage || new MemoryStorage();
 
     this._options = options;
@@ -25,8 +25,6 @@ export default class RBAC {
     const permissions = options.permissions || {};
     const roles = options.roles || [];
     const grants = options.grants || {};
-
-    callback = callback || function() {};
 
     this.create(roles, permissions, grants, (err) => {
       if (err) {
@@ -113,7 +111,7 @@ export default class RBAC {
    * @return {RBAC}          Current instance
    */
   removeByName(name, cb) {
-    this.get(name, function(err, item) {
+    this.get(name, (err, item) => {
       if (err) {
         return cb(err);
       }
@@ -185,7 +183,7 @@ export default class RBAC {
   revokeByName(roleName, childName, cb) {
     parallel({
       role: (callback) => this.get(roleName, callback),
-      child: (callback) => this.get(childName, callback)
+      child: (callback) => this.get(childName, callback),
     }, (err, results) => {
       if (err) {
         return cb(err);
@@ -208,7 +206,7 @@ export default class RBAC {
   grantByName(roleName, childName, cb) {
     parallel({
       role: (callback) => this.get(roleName, callback),
-      child: (callback) => this.get(childName, callback)
+      child: (callback) => this.get(childName, callback),
     }, (err, results) => {
       if (err) {
         return cb(err);
@@ -352,8 +350,7 @@ export default class RBAC {
    */
   createPermissions(resources, add, cb) {
     if (typeof add === 'function') {
-      cb = add;
-      add = true;
+      return this.createPermissions(resources, true, add);
     }
 
     const tasks = {};
@@ -362,8 +359,8 @@ export default class RBAC {
       return cb(new Error('Resources is not a plain object'));
     }
 
-    Object.keys(resources).forEach(function(resource) {
-      resources[resource].forEach(function(action) {
+    Object.keys(resources).forEach((resource) => {
+      resources[resource].forEach((action) => {
         const name = Permission.createName(action, resource);
         tasks[name] = (callback) => this.createPermission(action, resource, add, callback);
       }, this);
@@ -383,13 +380,12 @@ export default class RBAC {
    */
   createRoles(roleNames, add, cb) {
     if (typeof add === 'function') {
-      cb = add;
-      add = true;
+      return this.createRoles(roleNames, true, add);
     }
 
     const tasks = {};
 
-    roleNames.forEach(function(roleName) {
+    roleNames.forEach((roleName) => {
       tasks[roleName] = (callback) => this.createRole(roleName, add, callback);
     }, this);
 
@@ -412,8 +408,8 @@ export default class RBAC {
 
     const tasks = [];
 
-    Object.keys(roles).forEach(function(role) {
-      roles[role].forEach(function(grant) {
+    Object.keys(roles).forEach((role) => {
+      roles[role].forEach((grant) => {
         tasks.push((callback) => this.grantByName(role, grant, callback));
       }, this);
     }, this);
@@ -434,13 +430,12 @@ export default class RBAC {
    */
   create(roleNames, permissionNames, grants, cb) {
     if (typeof grants === 'function') {
-      cb = grants;
-      grants = null;
+      return this.create(roleNames, permissionNames, null, grants);
     }
 
     const tasks = {
       permissions: (callback) => this.createPermissions(permissionNames, callback),
-      roles: (callback) => this.createRoles(roleNames, callback)
+      roles: (callback) => this.createRoles(roleNames, callback),
     };
 
     parallel(tasks, (err, result) => {
@@ -449,7 +444,7 @@ export default class RBAC {
       }
 
       // add grants to roles
-      this.grants(grants, function(err2) {
+      this.grants(grants, (err2) => {
         if (err2) {
           return cb(err2);
         }
@@ -470,19 +465,16 @@ export default class RBAC {
    * @return {RBAC}               Return instance of actual RBAC
    * @private
    */
-  _traverseGrants(roleName, cb, next, used) {
+  _traverseGrants(roleName, cb, next, used = {}) {
     next = next || [roleName];
-    used = used || {};
 
     const actualRole = next.shift();
     used[actualRole] = true;
 
-    this.storage.getGrants(actualRole, (err, items) => {
+    this.storage.getGrants(actualRole, (err, items = []) => {
       if (err) {
         return cb(err);
       }
-
-      items = items || [];
 
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
@@ -494,7 +486,7 @@ export default class RBAC {
         }
 
         if (cb(null, item) === false) {
-          return;
+          return void 0;
         }
       }
 
@@ -518,7 +510,7 @@ export default class RBAC {
    * @return {RBAC}             Current instance
    */
   can(roleName, action, resource, cb) {
-    this._traverseGrants(roleName, function(err, item) {
+    this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);
@@ -553,7 +545,7 @@ export default class RBAC {
     const permissionNames = RBAC.getPermissionNames(permissions);
 
     // traverse hierarchy
-    this._traverseGrants(roleName, function(err, item) {
+    this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);
@@ -589,7 +581,7 @@ export default class RBAC {
     let foundedCount = 0;
 
     // traverse hierarchy
-    this._traverseGrants(roleName, function(err, item) {
+    this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);
@@ -629,7 +621,7 @@ export default class RBAC {
       return this;
     }
 
-    this._traverseGrants(roleName, function(err, item) {
+    this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);
@@ -661,7 +653,7 @@ export default class RBAC {
     const scope = [];
 
     // traverse hierarchy
-    this._traverseGrants(roleName, function(err, item) {
+    this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);

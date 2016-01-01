@@ -122,7 +122,7 @@ export default class Storage {
    * @return {Storage}       Instance of actual storage
    */
   getRole(name, cb) {
-    this.get(name, function(err, item) {
+    this.get(name, (err, item) => {
       if (err || !item) {
         return cb(err, item);
       }
@@ -148,7 +148,7 @@ export default class Storage {
   getPermission(action, resource, cb) {
     const name = Permission.createName(action, resource);
 
-    this.get(name, function(err, item) {
+    this.get(name, (err, item) => {
       if (err || !item) {
         return cb(err, item);
       }
@@ -171,7 +171,7 @@ export default class Storage {
    * @return {Storage}       Instance of actual storage
    */
   exists(name, cb) {
-    this.get(name, function(err, item) {
+    this.get(name, (err, item) => {
       if (err) {
         return cb(err);
       }
@@ -194,7 +194,7 @@ export default class Storage {
    * @return {Storage}       Instance of actual storage
    */
   existsRole(name, cb) {
-    this.getRole(name, function(err, item) {
+    this.getRole(name, (err, item) => {
       if (err) {
         return cb(err);
       }
@@ -217,7 +217,7 @@ export default class Storage {
    * @return {Storage}       Instance of actual storage
    */
   existsPermission(action, resource, cb) {
-    this.getPermission(action, resource, function(err, item) {
+    this.getPermission(action, resource, (err, item) => {
       if (err) {
         return cb(err);
       }
