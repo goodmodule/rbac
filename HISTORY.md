@@ -1,11 +1,4 @@
-2.2.0 / 2015-01-27
-==================
+# Change/History Log
 
-  * removed mongoose deps
-  * refactored
-
-2.1.7 / 2014-08-15
-==================
-
-  * removed mongoose models
-    - there is new mongoose plugin named mongoose-hrbac for that
+This project adheres to [Semantic Versioning](http://semver.org/).
+Every release, along with the migration instructions, is documented on the Github [Releases](https://github.com/seeden/rbac/releases) page.
