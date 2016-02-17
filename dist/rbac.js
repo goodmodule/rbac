@@ -577,7 +577,7 @@ var RBAC = (function () {
           return cb(err);
         }
 
-        for (var i = 0; i < items.length; i++) {
+        for(var i in items) {
           var item = items[i];
           var _name = item.name;
 
