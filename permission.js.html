@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: permission.js</title>
+    <title>Source: Permission.js</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -282,115 +282,130 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="permission.js.html">Source: permission.js</h1>
+        <h1 class="page-title" data-filename="Permission.js.html">Source: Permission.js</h1>
         
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source "><code>import Base from './base';
+            <pre class="prettyprint source "><code>import Base from './Base';
 
 export const DELIMITER = '_';
 
 export default class Permission extends Base {
-	/**
-	 * Permission constructor
-	 * @constructor Permission
-	 * @extends {Base}
-	 * @param  {RBAC}     rbac       Instance of the RBAC
-	 * @param  {String}   action     Name of the action
-	 * @param  {String}   resource   Name of the resource
-	 * @param  {Boolean}  [add=true] True if you need to save it to storage
-	 * @param  {Function} cb         Callback function after add
-	 */
-	constructor (rbac, action, resource, add, cb) {
-		if(typeof add === 'function') {
-			cb = add;
-			add = true;
-		}
+  /**
+   * Permission constructor
+   * @constructor Permission
+   * @extends {Base}
+   * @param  {RBAC}     rbac       Instance of the RBAC
+   * @param  {String}   action     Name of the action
+   * @param  {String}   resource   Name of the resource
+   * @param  {Boolean}  [add=true] True if you need to save it to storage
+   * @param  {Function} cb         Callback function after add
+   */
+  constructor(rbac, action, resource, add, cb) {
+    if (typeof add === 'function') {
+      cb = add;
+      add = true;
+    }
 
-		if(!action || !resource) {
-			return cb(new Error('One of parameters is undefined'));
-		}
+    if (!action || !resource) {
+      return cb(new Error('One of parameters is undefined'));
+    }
 
-		if(!Permission.isValidName(action) || !Permission.isValidName(resource)) {
-			return cb(new Error('Action or resource has no valid name'));
-		}
+    if (!Permission.isValidName(action) || !Permission.isValidName(resource)) {
+      return cb(new Error('Action or resource has no valid name'));
+    }
 
-		super(rbac, Permission.createName(action, resource), add, cb);	
+    super(rbac, Permission.createName(action, resource), add, cb);
+  }
 
-		this._action = action;
-		this._resource = resource;	
-	}
+  /**
+   * Get action name of actual permission
+   * @member Permission#action {String} Action of permission
+   */
+  get action() {
+    if (!this._action) {
+      const decoded = Permission.decodeName(this.name);
+      if (!decoded) {
+        throw new Error('Action is null');
+      }
 
-	/**
-	 * Get action name of actual permission
-	 * @member Permission#action {String} Action of permission
-	 */
-	get action() {
-		return this._action;
-	}
+      this._action = decoded.action;
+    }
 
-	/**
-	 * Get resource name of actual permission
-	 * @member Permission#resource {String} Resource of permission
-	 */
-	get resource() {
-		return this._resource;
-	}
+    return this._action;
+  }
 
-	/**
-	 * Return true if has same action and resource
-	 * @method Permission#can
-	 * @param  {String}  action   Name of action
-	 * @param  {String}  resource Name of resource
-	 * @return {Boolean}          
-	 */
-	can (action, resource) {
-		return this._action === action &amp;&amp; this._resource === resource;
-	}
+  /**
+   * Get resource name of actual permission
+   * @member Permission#resource {String} Resource of permission
+   */
+  get resource() {
+    if (!this._resource) {
+      const decoded = Permission.decodeName(this.name);
+      if (!decoded) {
+        throw new Error('Resource is null');
+      }
 
-	/**
-	 * Compute name of permission from action and resource
-	 * @function createName
-	 * @memberof Permission
-	 * @param  {String} action   Name of permission
-	 * @param  {String} resource Resource of permission
-	 * @return {String}          Computed name of permission
-	 * @static
-	 */
-	static createName (action, resource) {
-		return action + DELIMITER + resource;
-	}
+      this._resource = decoded.resource;
+    }
 
-	static decodeName (name) {
-		var pos = name.indexOf(DELIMITER);
-		if(pos === -1) {
-			return null;
-		}
+    return this._resource;
+  }
 
-		return {
-			action   : name.substr(0, pos),
-			resource : name.substr(pos+1)
-		};
-	}
+  /**
+   * Return true if has same action and resource
+   * @method Permission#can
+   * @param  {String}  action   Name of action
+   * @param  {String}  resource Name of resource
+   * @return {Boolean}
+   */
+  can(action, resource) {
+    return this.action === action &amp;&amp; this.resource === resource;
+  }
 
-	/**
-	 * Correct name can contain only alphanumeric characters
-	 * @function isValidName
-	 * @memberof Permission
-	 * @param  {String}  name Name
-	 * @return {Boolean}  
-	 * @static    
-	 */
-	static isValidName (name) {
-		if (/^[a-zA-Z0-9]+$/.test(name)) {
-			return true;
-		}
+  /**
+   * Compute name of permission from action and resource
+   * @function createName
+   * @memberof Permission
+   * @param  {String} action   Name of permission
+   * @param  {String} resource Resource of permission
+   * @return {String}          Computed name of permission
+   * @static
+   */
+  static createName(action, resource) {
+    return action + DELIMITER + resource;
+  }
 
-		return false;
-	}	
+  static decodeName(name) {
+    const pos = name.indexOf(DELIMITER);
+    if (pos === -1) {
+      return null;
+    }
+
+    return {
+      action: name.substr(0, pos),
+      resource: name.substr(pos + 1),
+    };
+  }
+
+  /**
+   * Correct name can contain only alphanumeric characters
+   * @function isValidName
+   * @memberof Permission
+   * @param  {String}  name Name
+   * @return {Boolean}
+   * @static
+   */
+  static isValidName(name) {
+    if (/^[a-zA-Z0-9]+$/.test(name)) {
+      return true;
+    }
+
+    return false;
+  }
 }
 </code></pre>
         </article>
@@ -404,7 +419,7 @@ export default class Permission extends Base {
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Jun 25 2015 14:36:56 GMT+1200 (New Zealand Standard Time)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Fri Feb 26 2016 18:08:32 GMT+0100 (CET)
         </footer>
     </div>
 </div>
