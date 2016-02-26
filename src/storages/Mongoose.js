@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import values from 'lodash/values';
 import Storage from './index';
-import Permission from '../permission';
-import Role from '../role';
+import Permission from '../Permission';
+import Role from '../Role';
 import keymirror from 'keymirror';
 
 const Type = keymirror({
@@ -12,7 +12,7 @@ const Type = keymirror({
 function createSchema(Schema) {
   const schema = new Schema({
     name: { type: String, required: true, unique: true },
-    type: { type: String, 'enum': _.values(Type), required: true },
+    type: { type: String, 'enum': values(Type), required: true },
     grants: [String],
   });
 
@@ -222,8 +222,8 @@ export default class MongooseStorage extends Storage {
 
       this.model.find({
         name: {
-          $in: record.grants
-        }
+          $in: record.grants,
+        },
       }, (err2, records) => {
         if (err2) {
           return cb(err2);

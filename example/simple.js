@@ -1,4 +1,4 @@
-var RBAC = require('./../lib/rbac');
+var RBAC = require('./../src/RBAC');
 
 var rbac = new RBAC();
 
@@ -22,4 +22,4 @@ rbac.create(roles, permissions, grants, function(err, data) {
 	if(err) {
 		throw err;
 	}
-});  
+});

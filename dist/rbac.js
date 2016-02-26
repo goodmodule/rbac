@@ -1,34 +1,34 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _isPlainObject = require('lodash/isPlainObject');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
+var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
 var _async = require('async');
 
-var _role = require('./role');
+var _Role = require('./Role');
 
-var _role2 = _interopRequireDefault(_role);
+var _Role2 = _interopRequireDefault(_Role);
 
-var _permission = require('./permission');
+var _Permission = require('./Permission');
 
-var _permission2 = _interopRequireDefault(_permission);
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _storagesMemory = require('./storages/memory');
+var _Memory = require('./storages/Memory');
 
-var _storagesMemory2 = _interopRequireDefault(_storagesMemory);
+var _Memory2 = _interopRequireDefault(_Memory);
 
-var RBAC = (function () {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RBAC = function () {
   /**
    * RBAC constructor
    * @constructor RBAC
@@ -48,7 +48,7 @@ var RBAC = (function () {
 
     _classCallCheck(this, RBAC);
 
-    options.storage = options.storage || new _storagesMemory2['default']();
+    options.storage = options.storage || new _Memory2.default();
 
     this._options = options;
 
@@ -72,8 +72,10 @@ var RBAC = (function () {
    * @member RBAC#options {Object}
    */
 
+
   _createClass(RBAC, [{
     key: 'add',
+
 
     /**
      * Register role or permission to actual RBAC instance
@@ -102,6 +104,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'get',
     value: function get(name, cb) {
@@ -116,6 +119,7 @@ var RBAC = (function () {
      * @param  {Function}        cb   Callback function
      * @return {RBAC}                 Current instance
      */
+
   }, {
     key: 'remove',
     value: function remove(item, cb) {
@@ -138,6 +142,7 @@ var RBAC = (function () {
      * @param  {Function} cb   Callback function
      * @return {RBAC}          Current instance
      */
+
   }, {
     key: 'removeByName',
     value: function removeByName(name, cb) {
@@ -164,6 +169,7 @@ var RBAC = (function () {
      * @param  {Function}        cb    Callback function
      * @return {RBAC}                  Current instance
      */
+
   }, {
     key: 'grant',
     value: function grant(role, child, cb) {
@@ -191,6 +197,7 @@ var RBAC = (function () {
      * @param  {Function}        cb     Callback function
      * @return {RBAC}                   Current instance
      */
+
   }, {
     key: 'revoke',
     value: function revoke(role, child, cb) {
@@ -214,6 +221,7 @@ var RBAC = (function () {
      * @param  {Function} cb        Callback function
      * @return {RBAC}               Current instance
      */
+
   }, {
     key: 'revokeByName',
     value: function revokeByName(roleName, childName, cb) {
@@ -245,6 +253,7 @@ var RBAC = (function () {
      * @param  {Function} cb        Callback function
      * @return {RBAC}               Current instance
      */
+
   }, {
     key: 'grantByName',
     value: function grantByName(roleName, childName, cb) {
@@ -275,10 +284,11 @@ var RBAC = (function () {
      * @param  {Boolean} [add=true]    True if you need to add it to the storage
      * @return {Role}    Instance of the Role
      */
+
   }, {
     key: 'createRole',
     value: function createRole(roleName, add, cb) {
-      return new _role2['default'](this, roleName, add, cb);
+      return new _Role2.default(this, roleName, add, cb);
     }
 
     /**
@@ -290,10 +300,11 @@ var RBAC = (function () {
      * @param  {Function} cb     Callback function
      * @return {Permission}      Instance of the Permission
      */
+
   }, {
     key: 'createPermission',
     value: function createPermission(action, resource, add, cb) {
-      return new _permission2['default'](this, action, resource, add, cb);
+      return new _Permission2.default(this, action, resource, add, cb);
     }
 
     /**
@@ -303,6 +314,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'exists',
     value: function exists(name, cb) {
@@ -317,6 +329,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'existsRole',
     value: function existsRole(name, cb) {
@@ -332,6 +345,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'existsPermission',
     value: function existsPermission(action, resource, cb) {
@@ -346,6 +360,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'getRole',
     value: function getRole(name, cb) {
@@ -359,6 +374,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'getRoles',
     value: function getRoles(cb) {
@@ -374,6 +390,7 @@ var RBAC = (function () {
      * @param  {Function} cb      Callback function
      * @return {RBAC}             Return instance of actual RBAC
      */
+
   }, {
     key: 'getPermission',
     value: function getPermission(action, resource, cb) {
@@ -388,10 +405,11 @@ var RBAC = (function () {
      * @param  {Function} cb      Callback function
      * @return {RBAC}             Return instance of actual RBAC
      */
+
   }, {
     key: 'getPermissionByName',
     value: function getPermissionByName(name, cb) {
-      var data = _permission2['default'].decodeName(name);
+      var data = _Permission2.default.decodeName(name);
       this.storage.getPermission(data.action, data.resource, cb);
       return this;
     }
@@ -402,6 +420,7 @@ var RBAC = (function () {
      * @param  {Function} cb    Callback function
      * @return {RBAC}           Return instance of actual RBAC
      */
+
   }, {
     key: 'getPermissions',
     value: function getPermissions(cb) {
@@ -417,6 +436,7 @@ var RBAC = (function () {
      * @param  {Function} cb          Callbck function
      * @return {RBAC}                 Instance of actual RBAC
      */
+
   }, {
     key: 'createPermissions',
     value: function createPermissions(resources, add, cb) {
@@ -428,13 +448,13 @@ var RBAC = (function () {
 
       var tasks = {};
 
-      if (!_lodash2['default'].isPlainObject(resources)) {
+      if (!(0, _isPlainObject2.default)(resources)) {
         return cb(new Error('Resources is not a plain object'));
       }
 
       Object.keys(resources).forEach(function (resource) {
         resources[resource].forEach(function (action) {
-          var name = _permission2['default'].createName(action, resource);
+          var name = _Permission2.default.createName(action, resource);
           tasks[name] = function (callback) {
             return _this4.createPermission(action, resource, add, callback);
           };
@@ -453,6 +473,7 @@ var RBAC = (function () {
      * @param  {Function} cb         Callback function
      * @return {RBAC}                Current instance
      */
+
   }, {
     key: 'createRoles',
     value: function createRoles(roleNames, add, cb) {
@@ -481,12 +502,13 @@ var RBAC = (function () {
      * @param  {Function} cb  Callback function
      * @return {RBAC}         Current instance
      */
+
   }, {
     key: 'grants',
     value: function grants(roles, cb) {
       var _this6 = this;
 
-      if (!_lodash2['default'].isPlainObject(roles)) {
+      if (!(0, _isPlainObject2.default)(roles)) {
         return cb(new Error('Grants is not a plain object'));
       }
 
@@ -513,6 +535,7 @@ var RBAC = (function () {
      * @param  {Array}   cb              Callback function
      * @return {RBAC}                    Instance of actual RBAC
      */
+
   }, {
     key: 'create',
     value: function create(roleNames, permissionNames, grants, cb) {
@@ -558,14 +581,14 @@ var RBAC = (function () {
      * @return {RBAC}               Return instance of actual RBAC
      * @private
      */
+
   }, {
     key: '_traverseGrants',
-    value: function _traverseGrants(roleName, cb, next) {
+    value: function _traverseGrants(roleName, cb) {
       var _this8 = this;
 
+      var next = arguments.length <= 2 || arguments[2] === undefined ? [roleName] : arguments[2];
       var used = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
-      next = next || [roleName];
 
       var actualRole = next.shift();
       used[actualRole] = true;
@@ -579,11 +602,11 @@ var RBAC = (function () {
 
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
-          var _name = item.name;
+          var name = item.name;
 
-          if (RBAC.isRole(item) && !used[_name]) {
-            used[_name] = true;
-            next.push(_name);
+          if (RBAC.isRole(item) && !used[name]) {
+            used[name] = true;
+            next.push(name);
           }
 
           if (cb(null, item) === false) {
@@ -610,6 +633,7 @@ var RBAC = (function () {
      * @param  {Function} cb        Callback function
      * @return {RBAC}             Current instance
      */
+
   }, {
     key: 'can',
     value: function can(roleName, action, resource, cb) {
@@ -642,6 +666,7 @@ var RBAC = (function () {
      * @param  {Function} cb        Callback function
      * @return {RBAC}                Current instance
      */
+
   }, {
     key: 'canAny',
     value: function canAny(roleName, permissions, cb) {
@@ -678,6 +703,7 @@ var RBAC = (function () {
      * @param  {Function} cb        Callback function
      * @return {RBAC}                Current instance
      */
+
   }, {
     key: 'canAll',
     value: function canAll(roleName, permissions, cb) {
@@ -721,6 +747,7 @@ var RBAC = (function () {
      * @param  {Function} cb              Callback function
      * @return {RBAC}                     Current instance
      */
+
   }, {
     key: 'hasRole',
     value: function hasRole(roleName, roleChildName, cb) {
@@ -757,6 +784,7 @@ var RBAC = (function () {
      * @param  {Function} cb       Callback function
      * @return {RBAC}              Current instance
      */
+
   }, {
     key: 'getScope',
     value: function getScope(roleName, cb) {
@@ -790,6 +818,7 @@ var RBAC = (function () {
      * @return {Array}             List of permission names
      * @static
      */
+
   }, {
     key: 'options',
     get: function get() {
@@ -800,6 +829,7 @@ var RBAC = (function () {
      * The RBAC's storage.
      * @member RBAC#storage {Storage}
      */
+
   }, {
     key: 'storage',
     get: function get() {
@@ -812,7 +842,7 @@ var RBAC = (function () {
 
       for (var i = 0; i < permissions.length; i++) {
         var permission = permissions[i];
-        permissionNames.push(_permission2['default'].createName(permission[0], permission[1]));
+        permissionNames.push(_Permission2.default.createName(permission[0], permission[1]));
       }
 
       return permissionNames;
@@ -820,17 +850,16 @@ var RBAC = (function () {
   }, {
     key: 'isPermission',
     value: function isPermission(item) {
-      return item instanceof _permission2['default'];
+      return item instanceof _Permission2.default;
     }
   }, {
     key: 'isRole',
     value: function isRole(item) {
-      return item instanceof _role2['default'];
+      return item instanceof _Role2.default;
     }
   }]);
 
   return RBAC;
-})();
+}();
 
-exports['default'] = RBAC;
-module.exports = exports['default'];
+exports.default = RBAC;

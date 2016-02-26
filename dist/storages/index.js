@@ -1,24 +1,24 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _Permission = require('../Permission');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _permission = require('../permission');
+var _Role = require('../Role');
 
-var _permission2 = _interopRequireDefault(_permission);
+var _Role2 = _interopRequireDefault(_Role);
 
-var _role = require('../role');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _role2 = _interopRequireDefault(_role);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Storage = (function () {
+var Storage = function () {
   /**
    * Storage constructor
    * @constructor Storage
@@ -35,8 +35,10 @@ var Storage = (function () {
    * @member Storage#rbac {RBAC|null} Instance of RBAC
    */
 
+
   _createClass(Storage, [{
     key: 'add',
+
 
     /**
      * Add permission or role
@@ -56,6 +58,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'remove',
     value: function remove(item, cb) {
@@ -70,6 +73,7 @@ var Storage = (function () {
      * @param  {Function} cb    Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'grant',
     value: function grant(role, child, cb) {
@@ -84,6 +88,7 @@ var Storage = (function () {
      * @param  {Function} cb    Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'revoke',
     value: function revoke(role, child, cb) {
@@ -97,6 +102,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'get',
     value: function get(name, cb) {
@@ -109,6 +115,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'getRoles',
     value: function getRoles(cb) {
@@ -121,6 +128,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'getPermissions',
     value: function getPermissions(cb) {
@@ -134,6 +142,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'getGrants',
     value: function getGrants(role, cb) {
@@ -147,6 +156,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'getRole',
     value: function getRole(name, cb) {
@@ -155,7 +165,7 @@ var Storage = (function () {
           return cb(err, item);
         }
 
-        if (item instanceof _role2['default']) {
+        if (item instanceof _Role2.default) {
           return cb(null, item);
         }
 
@@ -173,17 +183,18 @@ var Storage = (function () {
      * @param  {Function} cb       Callback function
      * @return {Storage}           Instance of actual storage
      */
+
   }, {
     key: 'getPermission',
     value: function getPermission(action, resource, cb) {
-      var name = _permission2['default'].createName(action, resource);
+      var name = _Permission2.default.createName(action, resource);
 
       this.get(name, function (err, item) {
         if (err || !item) {
           return cb(err, item);
         }
 
-        if (item instanceof _permission2['default']) {
+        if (item instanceof _Permission2.default) {
           return cb(null, item);
         }
 
@@ -200,6 +211,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'exists',
     value: function exists(name, cb) {
@@ -225,6 +237,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'existsRole',
     value: function existsRole(name, cb) {
@@ -250,6 +263,7 @@ var Storage = (function () {
      * @param  {Function} cb   Callback function
      * @return {Storage}       Instance of actual storage
      */
+
   }, {
     key: 'existsPermission',
     value: function existsPermission(action, resource, cb) {
@@ -282,7 +296,6 @@ var Storage = (function () {
   }]);
 
   return Storage;
-})();
+}();
 
-exports['default'] = Storage;
-module.exports = exports['default'];
+exports.default = Storage;

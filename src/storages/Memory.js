@@ -1,6 +1,6 @@
 import Storage from './index';
-import Permission from '../permission';
-import Role from '../role';
+import Permission from '../Permission';
+import Role from '../Role';
 
 export default class Memory extends Storage {
   constructor() {

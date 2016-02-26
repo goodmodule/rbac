@@ -1,13 +1,11 @@
-import RBAC from './rbac';
-import Role from './role';
-import Permission from './permission';
-import Storage from './storages/index';
-import MongooseStorage from './storages/mongoose';
+import RBAC from './RBAC';
+import Role from './Role';
+import Permission from './Permission';
+import Storage from './storages';
+import Mongoose from './storages/Mongoose';
+import Memory from './storages/Memory';
 
-Storage.Mongoose = MongooseStorage;
-
-RBAC.Role = Role;
-RBAC.Permission = Permission;
-RBAC.Storage = Storage;
+export { Role, Permission };
+export { Storage, Memory, Mongoose };
 
 export default RBAC;

@@ -1,28 +1,28 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _Base2 = require('./Base');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _Base3 = _interopRequireDefault(_Base2);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+var _Permission = require('./Permission');
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _base = require('./base');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _base2 = _interopRequireDefault(_base);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _permission = require('./permission');
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-var _permission2 = _interopRequireDefault(_permission);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Role = (function (_Base) {
+var Role = function (_Base) {
   _inherits(Role, _Base);
 
   /**
@@ -43,11 +43,13 @@ var Role = (function (_Base) {
       add = true;
     }
 
-    if (!_permission2['default'].isValidName(name)) {
-      return cb(new Error('Role has no valid name'));
+    if (!_Permission2.default.isValidName(name)) {
+      var _ret;
+
+      return _ret = cb(new Error('Role has no valid name')), _possibleConstructorReturn(_this, _ret);
     }
 
-    _get(Object.getPrototypeOf(Role.prototype), 'constructor', this).call(this, rbac, name, add, cb);
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Role).call(this, rbac, name, add, cb));
   }
 
   /**
@@ -57,6 +59,7 @@ var Role = (function (_Base) {
    * @param  {Function} cb          Callback function
    * @return {Role}                 Return current instance of role
    */
+
 
   _createClass(Role, [{
     key: 'grant',
@@ -72,6 +75,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb          Callback function
      * @return {Role}                 Return current instance of role
      */
+
   }, {
     key: 'revoke',
     value: function revoke(item, cb) {
@@ -87,6 +91,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb      Callback function
      * @return {Role}             Return current instance of role
      */
+
   }, {
     key: 'can',
     value: function can(action, resource, cb) {
@@ -101,6 +106,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb      Callback function
      * @return {Role}               Return current instance of role
      */
+
   }, {
     key: 'canAny',
     value: function canAny(permissions, cb) {
@@ -115,6 +121,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb      Callback function
      * @return {Role}               Return current instance of role
      */
+
   }, {
     key: 'canAll',
     value: function canAll(permissions, cb) {
@@ -129,6 +136,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb          Callback function
      * @return {Role}                 Return current instance of role
      */
+
   }, {
     key: 'hasRole',
     value: function hasRole(roleChildName, cb) {
@@ -142,6 +150,7 @@ var Role = (function (_Base) {
      * @param  {Function} cb  Callback function
      * @return {Role}         Return current instance of role
      */
+
   }, {
     key: 'getScope',
     value: function getScope(cb) {
@@ -151,7 +160,6 @@ var Role = (function (_Base) {
   }]);
 
   return Role;
-})(_base2['default']);
+}(_Base3.default);
 
-exports['default'] = Role;
-module.exports = exports['default'];
+exports.default = Role;

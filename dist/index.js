@@ -1,36 +1,39 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Mongoose = exports.Memory = exports.Storage = exports.Permission = exports.Role = undefined;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _RBAC = require('./RBAC');
 
-var _rbac = require('./rbac');
+var _RBAC2 = _interopRequireDefault(_RBAC);
 
-var _rbac2 = _interopRequireDefault(_rbac);
+var _Role = require('./Role');
 
-var _role = require('./role');
+var _Role2 = _interopRequireDefault(_Role);
 
-var _role2 = _interopRequireDefault(_role);
+var _Permission = require('./Permission');
 
-var _permission = require('./permission');
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _permission2 = _interopRequireDefault(_permission);
+var _storages = require('./storages');
 
-var _storagesIndex = require('./storages/index');
+var _storages2 = _interopRequireDefault(_storages);
 
-var _storagesIndex2 = _interopRequireDefault(_storagesIndex);
+var _Mongoose = require('./storages/Mongoose');
 
-var _storagesMongoose = require('./storages/mongoose');
+var _Mongoose2 = _interopRequireDefault(_Mongoose);
 
-var _storagesMongoose2 = _interopRequireDefault(_storagesMongoose);
+var _Memory = require('./storages/Memory');
 
-_storagesIndex2['default'].Mongoose = _storagesMongoose2['default'];
+var _Memory2 = _interopRequireDefault(_Memory);
 
-_rbac2['default'].Role = _role2['default'];
-_rbac2['default'].Permission = _permission2['default'];
-_rbac2['default'].Storage = _storagesIndex2['default'];
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports['default'] = _rbac2['default'];
-module.exports = exports['default'];
+exports.Role = _Role2.default;
+exports.Permission = _Permission2.default;
+exports.Storage = _storages2.default;
+exports.Memory = _Memory2.default;
+exports.Mongoose = _Mongoose2.default;
+exports.default = _RBAC2.default;

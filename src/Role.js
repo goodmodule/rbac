@@ -1,5 +1,5 @@
-import Base from './base';
-import Permission from './permission';
+import Base from './Base';
+import Permission from './Permission';
 
 export default class Role extends Base {
   /**

@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
 import { parallel } from 'async';
-import Role from './role';
-import Permission from './permission';
-import MemoryStorage from './storages/memory';
+import Role from './Role';
+import Permission from './Permission';
+import MemoryStorage from './storages/Memory';
 
 export default class RBAC {
   /**
@@ -355,7 +355,7 @@ export default class RBAC {
 
     const tasks = {};
 
-    if (!_.isPlainObject(resources)) {
+    if (!isPlainObject(resources)) {
       return cb(new Error('Resources is not a plain object'));
     }
 
@@ -402,7 +402,7 @@ export default class RBAC {
    * @return {RBAC}         Current instance
    */
   grants(roles, cb) {
-    if (!_.isPlainObject(roles)) {
+    if (!isPlainObject(roles)) {
       return cb(new Error('Grants is not a plain object'));
     }
 
@@ -465,9 +465,7 @@ export default class RBAC {
    * @return {RBAC}               Return instance of actual RBAC
    * @private
    */
-  _traverseGrants(roleName, cb, next, used = {}) {
-    next = next || [roleName];
-
+  _traverseGrants(roleName, cb, next = [roleName], used = {}) {
     const actualRole = next.shift();
     used[actualRole] = true;
 

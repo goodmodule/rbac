@@ -1,40 +1,41 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _index = require('./index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _permission = require('../permission');
+var _Permission = require('../Permission');
 
-var _permission2 = _interopRequireDefault(_permission);
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _role = require('../role');
+var _Role = require('../Role');
 
-var _role2 = _interopRequireDefault(_role);
+var _Role2 = _interopRequireDefault(_Role);
 
-var Memory = (function (_Storage) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Memory = function (_Storage) {
   _inherits(Memory, _Storage);
 
   function Memory() {
     _classCallCheck(this, Memory);
 
-    _get(Object.getPrototypeOf(Memory.prototype), 'constructor', this).call(this);
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Memory).call(this));
 
-    this._items = {};
+    _this._items = {};
+    return _this;
   }
 
   _createClass(Memory, [{
@@ -93,7 +94,7 @@ var Memory = (function (_Storage) {
         return cb(new Error('Role is not exist'));
       }
 
-      if (!role instanceof _role2['default']) {
+      if (!role instanceof _Role2.default) {
         return cb(new Error('Role is not instance of Role'));
       }
 
@@ -152,14 +153,14 @@ var Memory = (function (_Storage) {
     value: function getRoles(cb) {
       var items = [];
 
-      for (var _name in this._items) {
-        if (!this._items.hasOwnProperty(_name)) {
+      for (var name in this._items) {
+        if (!this._items.hasOwnProperty(name)) {
           continue;
         }
 
-        var item = this._items[_name].instance;
+        var item = this._items[name].instance;
 
-        if (item instanceof _role2['default']) {
+        if (item instanceof _Role2.default) {
           items.push(item);
         }
       }
@@ -172,14 +173,14 @@ var Memory = (function (_Storage) {
     value: function getPermissions(cb) {
       var items = [];
 
-      for (var _name2 in this._items) {
-        if (!this._items.hasOwnProperty(_name2)) {
+      for (var name in this._items) {
+        if (!this._items.hasOwnProperty(name)) {
           continue;
         }
 
-        var item = this._items[_name2].instance;
+        var item = this._items[name].instance;
 
-        if (item instanceof _permission2['default']) {
+        if (item instanceof _Permission2.default) {
           items.push(item);
         }
       }
@@ -213,7 +214,6 @@ var Memory = (function (_Storage) {
   }]);
 
   return Memory;
-})(_index2['default']);
+}(_index2.default);
 
-exports['default'] = Memory;
-module.exports = exports['default'];
+exports.default = Memory;

@@ -1,40 +1,40 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _values = require('lodash/values');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
+var _values2 = _interopRequireDefault(_values);
 
 var _index = require('./index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _permission = require('../permission');
+var _Permission = require('../Permission');
 
-var _permission2 = _interopRequireDefault(_permission);
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _role = require('../role');
+var _Role = require('../Role');
 
-var _role2 = _interopRequireDefault(_role);
+var _Role2 = _interopRequireDefault(_Role);
 
 var _keymirror = require('keymirror');
 
 var _keymirror2 = _interopRequireDefault(_keymirror);
 
-var Type = (0, _keymirror2['default'])({
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Type = (0, _keymirror2.default)({
   PERMISSION: null,
   ROLE: null
 });
@@ -42,7 +42,7 @@ var Type = (0, _keymirror2['default'])({
 function createSchema(Schema) {
   var schema = new Schema({
     name: { type: String, required: true, unique: true },
-    type: { type: String, 'enum': _lodash2['default'].values(Type), required: true },
+    type: { type: String, 'enum': (0, _values2.default)(Type), required: true },
     grants: [String]
   });
 
@@ -50,9 +50,9 @@ function createSchema(Schema) {
 }
 
 function getType(item) {
-  if (item instanceof _role2['default']) {
+  if (item instanceof _Role2.default) {
     return Type.ROLE;
-  } else if (item instanceof _permission2['default']) {
+  } else if (item instanceof _Permission2.default) {
     return Type.PERMISSION;
   }
 
@@ -67,7 +67,7 @@ function convertToInstance(rbac, record) {
   if (record.type === Type.ROLE) {
     return rbac.createRole(record.name, false, function () {});
   } else if (record.type === Type.PERMISSION) {
-    var decoded = _permission2['default'].decodeName(record.name);
+    var decoded = _Permission2.default.decodeName(record.name);
     if (!decoded) {
       throw new Error('Bad permission name');
     }
@@ -78,7 +78,7 @@ function convertToInstance(rbac, record) {
   throw new Error('Type is undefined');
 }
 
-var MongooseStorage = (function (_Storage) {
+var MongooseStorage = function (_Storage) {
   _inherits(MongooseStorage, _Storage);
 
   function MongooseStorage() {
@@ -86,7 +86,7 @@ var MongooseStorage = (function (_Storage) {
 
     _classCallCheck(this, MongooseStorage);
 
-    _get(Object.getPrototypeOf(MongooseStorage.prototype), 'constructor', this).call(this);
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MongooseStorage).call(this));
 
     var connection = options.connection;
     if (!connection) {
@@ -96,9 +96,10 @@ var MongooseStorage = (function (_Storage) {
     options.modelName = options.modelName || 'rbac';
     options.Schema = options.Schema || connection.Schema;
 
-    this._options = options;
+    _this._options = options;
 
-    this._model = connection.model(options.modelName, createSchema(options.Schema));
+    _this._model = connection.model(options.modelName, createSchema(options.Schema));
+    return _this;
   }
 
   _createClass(MongooseStorage, [{
@@ -124,7 +125,7 @@ var MongooseStorage = (function (_Storage) {
   }, {
     key: 'remove',
     value: function remove(item, cb) {
-      var _this = this;
+      var _this2 = this;
 
       var name = item.name;
 
@@ -137,7 +138,7 @@ var MongooseStorage = (function (_Storage) {
           return cb(err);
         }
 
-        _this.model.remove({ name: name }, function (err2) {
+        _this2.model.remove({ name: name }, function (err2) {
           if (err2) {
             return cb(err2);
           }
@@ -154,7 +155,7 @@ var MongooseStorage = (function (_Storage) {
       var name = role.name;
       var childName = child.name;
 
-      if (!role instanceof _role2['default']) {
+      if (!role instanceof _Role2.default) {
         return cb(new Error('Role is not instance of Role'));
       }
 
@@ -252,7 +253,7 @@ var MongooseStorage = (function (_Storage) {
   }, {
     key: 'getGrants',
     value: function getGrants(role, cb) {
-      var _this2 = this;
+      var _this3 = this;
 
       var rbac = this.rbac;
 
@@ -265,7 +266,7 @@ var MongooseStorage = (function (_Storage) {
           return cb(null, []);
         }
 
-        _this2.model.find({
+        _this3.model.find({
           name: {
             $in: record.grants
           }
@@ -297,7 +298,6 @@ var MongooseStorage = (function (_Storage) {
   }]);
 
   return MongooseStorage;
-})(_index2['default']);
+}(_index2.default);
 
-exports['default'] = MongooseStorage;
-module.exports = exports['default'];
+exports.default = MongooseStorage;

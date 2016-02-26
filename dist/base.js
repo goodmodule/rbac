@@ -1,14 +1,14 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Base = (function () {
+var Base = function () {
   /**
    * Base constructor
    * @constructor Base
@@ -44,8 +44,10 @@ var Base = (function () {
    * @member Base#name {String}
    */
 
+
   _createClass(Base, [{
     key: 'remove',
+
 
     /**
      * Remove this from RBAC (storage)
@@ -67,6 +69,7 @@ var Base = (function () {
      * Get instance of RBAC
      * @member Base#rbac {RBAC|null} Instance of RBAC
      */
+
   }, {
     key: 'rbac',
     get: function get() {
@@ -75,7 +78,6 @@ var Base = (function () {
   }]);
 
   return Base;
-})();
+}();
 
-exports['default'] = Base;
-module.exports = exports['default'];
+exports.default = Base;
