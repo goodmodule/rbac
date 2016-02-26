@@ -29,6 +29,7 @@
   },
   "scripts": {
     "prepublish": "npm run build",
+    "coveralls": "babel-node ./node_modules/gulp/bin/gulp.js coveralls",
     "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
     "test": "babel-node ./node_modules/gulp/bin/gulp.js test",
     "build": "babel-node ./node_modules/gulp/bin/gulp.js build",

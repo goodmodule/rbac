@@ -406,4 +406,5 @@ testRBAC(new Memory(), 'Memory');
 const mongooseStorage = new Mongoose({
   connection: mongoose.connect('mongodb://localhost/rbac'),
 });
+
 testRBAC(mongooseStorage, 'Mongoose');
