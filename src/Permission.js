@@ -101,7 +101,7 @@ export default class Permission extends Base {
   }
 
   /**
-   * Correct name can contain only alphanumeric characters
+   * Correct name can not contain whitespace or underscores.
    * @function isValidName
    * @memberof Permission
    * @param  {String}  name Name
@@ -109,10 +109,7 @@ export default class Permission extends Base {
    * @static
    */
   static isValidName(name) {
-    if (/^[a-zA-Z0-9]+$/.test(name)) {
-      return true;
-    }
-
-    return false;
+    const exp = new RegExp(`^[^${DELIMITER}\\s]+$`);
+    return exp.test(name);
   }
 }
