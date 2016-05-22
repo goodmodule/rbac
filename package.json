@@ -57,11 +57,12 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "gulp-coveralls": "^0.1.4",
+    "gulp-jsdoc": "^0.1.5",
     "gulp-jsx-coverage": "^0.3.8",
     "gulp-util": "^3.0.7",
-    "gulp-jsdoc": "^0.1.5",
     "jaguarjs-jsdoc": "^0.0.1",
     "jsdoc": "^3.3.2",
+    "mocha": "^2.4.5",
     "mongoose": "^4.3.4",
     "should": "^8.0.2"
   },
