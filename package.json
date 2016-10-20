@@ -39,7 +39,7 @@
     "async": "^1.5.2",
     "keymirror": "^0.1.1",
     "lodash": "^4.5.1",
-    "web-error": "^3.1.2"
+    "web-error": "^4.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",

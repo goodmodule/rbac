@@ -1,6 +1,6 @@
 'use strict';
 
-var WebError = require('web-error');
+var WebError = require('web-error').default;
 
 /**
  * Return middleware function for permission check
