@@ -28,7 +28,7 @@ Please, if you found any bug or you need custom API, create an issue or pull req
 
 ## Documentation
 
-[Read more about API in documentation](http://seeden.github.io/rbac/RBAC.html)
+[Read more about API in documentation](http://cherryprojects.github.io/rbac/RBAC.html)
 
 # Support us
 
