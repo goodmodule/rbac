@@ -4,16 +4,15 @@
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
-[![Gitter chat](https://badges.gitter.im/seeden/rbac.png)](https://gitter.im/seeden/rbac)
-[![Gittip](https://img.shields.io/gittip/seeden.svg?style=flat)](https://gratipay.com/seeden/)
+[![Gitter chat](https://badges.gitter.im/CherryProjects/rbac.png)](https://gitter.im/seeden/rbac)
 
 [npm-image]: https://img.shields.io/npm/v/rbac.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/rbac
-[travis-image]: https://img.shields.io/travis/seeden/rbac/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/seeden/rbac
-[coveralls-image]: https://img.shields.io/coveralls/seeden/rbac/master.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/seeden/rbac?branch=master
-[github-url]: https://github.com/seeden/rbac
+[travis-image]: https://img.shields.io/travis/CherryProjects/rbac/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/CherryProjects/rbac
+[coveralls-image]: https://img.shields.io/coveralls/CherryProjects/rbac/master.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/CherryProjects/rbac?branch=master
+[github-url]: https://github.com/CherryProjects/rbac
 
 RBAC is the authorization library for NodeJS.
 
