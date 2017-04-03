@@ -31,7 +31,7 @@
     "prepublish": "npm run build",
     "coveralls": "babel-node ./node_modules/gulp/bin/gulp.js coveralls",
     "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
-    "test": "jest --coverage",
+    "test": "jest --coverage --forceExit",
     "build": "babel-node ./node_modules/gulp/bin/gulp.js build",
     "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ."
   },
