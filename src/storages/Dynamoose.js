@@ -1,8 +1,7 @@
-import values from 'lodash/values';
+import keymirror from 'keymirror';
 import Storage from './index';
 import Permission from '../Permission';
 import Role from '../Role';
-import keymirror from 'keymirror';
 
 const Type = keymirror({
   PERMISSION: null,
@@ -12,13 +11,12 @@ const Type = keymirror({
 function createSchema(Schema) {
   const schema = new Schema({
     // name: { type: String, required: true, unique: true },
-    name: { type: String, hashKey: true },
     // type: { type: String, 'enum': values(Type), required: true },
+    name: { type: String, hashKey: true },
     type: String,
-    grants: [String],
-  },
-  {
-    throughput: {read: 15, write: 5}
+    grants: { type: [String], default: [] },
+  }, {
+    throughput: { read: 15, write: 5 },
   });
 
   return schema;
@@ -62,7 +60,7 @@ export default class DynamooseStorage extends Storage {
       throw new Error('Parameter connection is undefined use your current dynamoose connection.');
     }
 
-    options.modelName = options.modelName || 'rbac';
+    options.modelName = options.modelName || 'rbac5';
     options.Schema = options.Schema || connection.Schema;
 
     this._options = options;
@@ -82,9 +80,10 @@ export default class DynamooseStorage extends Storage {
     const newInstance = new this.model({
       name: item.name,
       type: getType(item),
+      grants: [],
     });
 
-    newInstance.save(function (err) {
+    newInstance.save((err) => {
       if (err) {
         return cb(err);
       }
@@ -98,10 +97,19 @@ export default class DynamooseStorage extends Storage {
   remove(item, cb) {
     const name = item.name;
 
-    this.model.update({ grants: name }, { $DELETE: { grants: null } }, (err) => {
+    this.model.scan({ grants: { contains: name } }, (err, records) => {
       if (err) {
         return cb(err);
       }
+
+      records.forEach((r) => {
+        this.model.update({ name: r.name }, { grants: [] }, { allowEmptyArray: true }, (err2) => {
+          if (err2) {
+            return cb(err2);
+          }
+        });
+      });
+
       this.model.delete({ name: name }, (err2) => {
         if (err2) {
           return cb(err2);
@@ -128,12 +136,12 @@ export default class DynamooseStorage extends Storage {
       return cb(new Error('You can grant yourself'));
     }
 
-    this.model.get({ name: role, type: Type.ROLE }, (err, record) => {
+    this.model.get({ name: name, type: Type.ROLE }, (err, record) => {
       if (err) {
         return cb(err);
       }
 
-      if (!record) {
+      if (!record.grants) {
         this.model.update({ name: name, type: Type.ROLE }, { grants: [childName] }, (err) => {
           if (err) {
             return cb(err);
@@ -142,7 +150,7 @@ export default class DynamooseStorage extends Storage {
           cb(null, true);
         })
       } else {
-        this.model.update({ name: name, type: Type.ROLE }, { grants: [...record.grants, childName] }, (err) => {
+        this.model.update({ name: name, type: Type.ROLE }, { grants: record.grants.filter(g => g !== childName).concat([childName]) }, (err) => {
           if (err) {
             return cb(err);
           }
@@ -164,13 +172,18 @@ export default class DynamooseStorage extends Storage {
         return cb(err);
       }
 
-      this.model.update({ name: name, type: Type.ROLE }, { grants: [...record.grants.filter(g => g !== childName)] }, (err) => {
-        if (err) {
-          return cb(err);
-        }
+      this.model.update(
+        { name: name, type: Type.ROLE },
+        { grants: [...record.grants.filter(g => g !== childName)] },
+        { allowEmptyArray: true },
+        (err) => {
+          if (err) {
+            return cb(err);
+          }
 
-        cb(null, true);
-      })
+          cb(null, true);
+        },
+      );
     });
 
     return this;
@@ -179,7 +192,7 @@ export default class DynamooseStorage extends Storage {
   get(name, cb) {
     const rbac = this.rbac;
 
-    this.model.get({ name: name }, (err, record) => {
+    this.model.get(name, (err, record) => {
       if (err) {
         return cb(err);
       }
@@ -197,7 +210,7 @@ export default class DynamooseStorage extends Storage {
   getRoles(cb) {
     const rbac = this.rbac;
 
-    this.model.get({ type: Type.ROLE }, (err, records) => {
+    this.model.query({ type: { eq: Type.ROLE } }, (err, records) => {
       if (err) {
         return cb(err);
       }
@@ -213,7 +226,8 @@ export default class DynamooseStorage extends Storage {
   getPermissions(cb) {
     const rbac = this.rbac;
 
-    this.model.get({ type: Type.PERMISSION }, (err, records) => {
+    // this.model.get({ type: Type.PERMISSION }, (err, records) => {
+    this.model.query({ type: { eq: Type.PERMISSION } }, (err, records) => {
       if (err) {
         return cb(err);
       }
@@ -234,12 +248,11 @@ export default class DynamooseStorage extends Storage {
         return cb(err);
       }
 
-      // if (!record || !record.grants.length) {
       if (!record || !record.grants) {
         return cb(null, []);
       }
 
-      this.model.scan('name').contains(record.grants).exec((err2, records) => {
+      this.model.scan({ name: { in: record.grants } }, (err2, records) => {
         if (err2) {
           return cb(err2);
         }
