@@ -164,7 +164,7 @@ function testRBAC(storage, storageType) {
       });
     });
 
-    it.skip('admin can all create article', (done) => {
+    it('admin can all create article', (done) => {
       const admin = response.roles.admin;
 
       rbac.grants(grants, (err, result) => {
@@ -402,18 +402,18 @@ function testRBAC(storage, storageType) {
   });
 }
 
-// testRBAC(new Memory(), 'Memory');
+testRBAC(new Memory(), 'Memory');
 
-// const mongooseStorage = new Mongoose({
-//   connection: mongoose.connect('mongodb://localhost/rbac'),
-// });
+const mongooseStorage = new Mongoose({
+  connection: mongoose.connect('mongodb://localhost/rbac'),
+});
 
-// testRBAC(mongooseStorage, 'Mongoose');
+testRBAC(mongooseStorage, 'Mongoose');
 
 dynamoose.AWS.config.update({
   accessKeyId: 'AKID',
   secretAccessKey: 'SECRET',
-  region: 'us-west-2',
+  region: 'us-west-1',
 });
 
 dynamoose.local();

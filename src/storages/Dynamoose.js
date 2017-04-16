@@ -10,11 +10,9 @@ const Type = keymirror({
 
 function createSchema(Schema) {
   const schema = new Schema({
-    // name: { type: String, required: true, unique: true },
-    // type: { type: String, 'enum': values(Type), required: true },
     name: { type: String, hashKey: true },
     type: String,
-    grants: { type: [String], default: [] },
+    grants: [String],
   }, {
     throughput: { read: 15, write: 5 },
   });
@@ -60,7 +58,7 @@ export default class DynamooseStorage extends Storage {
       throw new Error('Parameter connection is undefined use your current dynamoose connection.');
     }
 
-    options.modelName = options.modelName || 'rbac5';
+    options.modelName = options.modelName || 'rbac';
     options.Schema = options.Schema || connection.Schema;
 
     this._options = options;
@@ -80,7 +78,6 @@ export default class DynamooseStorage extends Storage {
     const newInstance = new this.model({
       name: item.name,
       type: getType(item),
-      grants: [],
     });
 
     newInstance.save((err) => {
@@ -102,20 +99,48 @@ export default class DynamooseStorage extends Storage {
         return cb(err);
       }
 
+      const promises = [];
+
       records.forEach((r) => {
-        this.model.update({ name: r.name }, { grants: [] }, { allowEmptyArray: true }, (err2) => {
+        let asyncFunc = null;
+
+        if (r.grants.length <= 1) {
+          asyncFunc = (resolve, reject) => {
+            this.model.update({ name: r.name }, { $DELETE: { grants: null } }, (e) => {
+              if (e) {
+                reject(e);
+              }
+              resolve();
+            });
+          };
+        } else {
+          asyncFunc = (resolve, reject) => {
+            this.model.update(
+              { name: r.name },
+              { $PUT: { grants: r.grants.filter(g => g != name) } },
+              (e) => {
+                if (e) {
+                  reject(e);
+                }
+                resolve();
+              },
+            );
+          };
+        }
+
+        promises.push(new Promise(asyncFunc));
+      });
+
+      Promise.all(promises)
+      .catch(e => cb(e))
+      .then(() => {
+        this.model.delete({ name: name }, (err2) => {
           if (err2) {
             return cb(err2);
           }
+
+          cb(null, true);
         });
-      });
-
-      this.model.delete({ name: name }, (err2) => {
-        if (err2) {
-          return cb(err2);
-        }
-
-        cb(null, true);
       });
     });
 
@@ -123,8 +148,6 @@ export default class DynamooseStorage extends Storage {
   }
 
   grant(role, child, cb) {
-    const rbac = this.rbac;
-
     const name = role.name;
     const childName = child.name;
 
@@ -136,7 +159,7 @@ export default class DynamooseStorage extends Storage {
       return cb(new Error('You can grant yourself'));
     }
 
-    this.model.get({ name: name, type: Type.ROLE }, (err, record) => {
+    this.model.queryOne({ name: { eq: name }, type: { eq: Type.ROLE } }, (err, record) => {
       if (err) {
         return cb(err);
       }
@@ -148,15 +171,20 @@ export default class DynamooseStorage extends Storage {
           }
 
           cb(null, true);
-        })
+        });
       } else {
-        this.model.update({ name: name, type: Type.ROLE }, { grants: record.grants.filter(g => g !== childName).concat([childName]) }, (err) => {
-          if (err) {
-            return cb(err);
+        this.model.update({
+          name: name,
+          type: Type.ROLE,
+        }, {
+          grants: record.grants.filter(g => g != childName).concat([childName]),
+        }, (err2) => {
+          if (err2) {
+            return cb(err2);
           }
 
           cb(null, true);
-        })
+        });
       }
     });
 
@@ -167,18 +195,18 @@ export default class DynamooseStorage extends Storage {
     const name = role.name;
     const childName = child.name;
 
-    this.model.get({ name: name, type: Type.ROLE }, (err, record) => {
+    this.model.queryOne({ name: { eq: name }, type: { eq: Type.ROLE } }, (err, record) => {
       if (err) {
         return cb(err);
       }
 
       this.model.update(
         { name: name, type: Type.ROLE },
-        { grants: [...record.grants.filter(g => g !== childName)] },
+        { grants: record.grants.filter(g => g != childName) },
         { allowEmptyArray: true },
-        (err) => {
-          if (err) {
-            return cb(err);
+        (err2) => {
+          if (err2) {
+            return cb(err2);
           }
 
           cb(null, true);
@@ -192,7 +220,7 @@ export default class DynamooseStorage extends Storage {
   get(name, cb) {
     const rbac = this.rbac;
 
-    this.model.get(name, (err, record) => {
+    this.model.queryOne({ name: { eq: name } }, (err, record) => {
       if (err) {
         return cb(err);
       }
@@ -215,7 +243,7 @@ export default class DynamooseStorage extends Storage {
         return cb(err);
       }
 
-      const instances = records.map((r) => convertToInstance(rbac, r));
+      const instances = records.map(r => convertToInstance(rbac, r));
 
       cb(null, instances);
     });
@@ -226,13 +254,12 @@ export default class DynamooseStorage extends Storage {
   getPermissions(cb) {
     const rbac = this.rbac;
 
-    // this.model.get({ type: Type.PERMISSION }, (err, records) => {
     this.model.query({ type: { eq: Type.PERMISSION } }, (err, records) => {
       if (err) {
         return cb(err);
       }
 
-      const instances = records.map((r) => convertToInstance(rbac, r));
+      const instances = records.map(r => convertToInstance(rbac, r));
 
       cb(null, instances);
     });
@@ -243,7 +270,7 @@ export default class DynamooseStorage extends Storage {
   getGrants(role, cb) {
     const rbac = this.rbac;
 
-    this.model.get({ name: role, type: Type.ROLE }, (err, record) => {
+    this.model.queryOne({ name: { eq: role }, type: { eq: Type.ROLE } }, (err, record) => {
       if (err) {
         return cb(err);
       }
@@ -257,7 +284,7 @@ export default class DynamooseStorage extends Storage {
           return cb(err2);
         }
 
-        const instances = records.map((r) => convertToInstance(rbac, r));
+        const instances = records.map(r => convertToInstance(rbac, r));
 
         cb(null, instances);
       });
