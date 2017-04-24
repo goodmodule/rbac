@@ -1,6 +1,7 @@
-import RBAC, { Permission, Mongoose, Memory } from '../src/index';
+import RBAC, { Permission, Mongoose, Memory, Dynamoose } from '../src/index';
 import should from 'should';
 import mongoose from 'mongoose';
+import dynamoose from 'dynamoose';
 
 function testRBAC(storage, storageType) {
 
@@ -163,7 +164,7 @@ function testRBAC(storage, storageType) {
       });
     });
 
-    it('admin can all create article', (done) => {
+    it.skip('admin can all create article', (done) => {
       const admin = response.roles.admin;
 
       rbac.grants(grants, (err, result) => {
@@ -401,10 +402,24 @@ function testRBAC(storage, storageType) {
   });
 }
 
-testRBAC(new Memory(), 'Memory');
+// testRBAC(new Memory(), 'Memory');
 
-const mongooseStorage = new Mongoose({
-  connection: mongoose.connect('mongodb://localhost/rbac'),
+// const mongooseStorage = new Mongoose({
+//   connection: mongoose.connect('mongodb://localhost/rbac'),
+// });
+
+// testRBAC(mongooseStorage, 'Mongoose');
+
+dynamoose.AWS.config.update({
+  accessKeyId: 'AKID',
+  secretAccessKey: 'SECRET',
+  region: 'us-west-2',
 });
 
-testRBAC(mongooseStorage, 'Mongoose');
+dynamoose.local();
+
+const dynamooseStorage = new Dynamoose({
+  connection: dynamoose,
+});
+
+testRBAC(dynamooseStorage, 'Dynamoose');
