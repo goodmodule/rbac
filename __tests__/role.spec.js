@@ -402,24 +402,24 @@ function testRBAC(storage, storageType) {
   });
 }
 
-// testRBAC(new Memory(), 'Memory');
+testRBAC(new Memory(), 'Memory');
 
-// const mongooseStorage = new Mongoose({
-//   connection: mongoose.connect('mongodb://localhost/rbac'),
+const mongooseStorage = new Mongoose({
+  connection: mongoose.connect('mongodb://localhost/rbac'),
+});
+
+testRBAC(mongooseStorage, 'Mongoose');
+
+// dynamoose.AWS.config.update({
+//   accessKeyId: 'AKID',
+//   secretAccessKey: 'SECRET',
+//   region: 'us-west-2',
 // });
-
-// testRBAC(mongooseStorage, 'Mongoose');
-
-dynamoose.AWS.config.update({
-  accessKeyId: 'AKID',
-  secretAccessKey: 'SECRET',
-  region: 'us-west-2',
-});
-
-dynamoose.local();
-
-const dynamooseStorage = new Dynamoose({
-  connection: dynamoose,
-});
-
-testRBAC(dynamooseStorage, 'Dynamoose');
+//
+// dynamoose.local();
+//
+// const dynamooseStorage = new Dynamoose({
+//   connection: dynamoose,
+// });
+//
+// testRBAC(dynamooseStorage, 'Dynamoose');
