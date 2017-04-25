@@ -410,16 +410,16 @@ const mongooseStorage = new Mongoose({
 
 testRBAC(mongooseStorage, 'Mongoose');
 
-dynamoose.AWS.config.update({
-  accessKeyId: 'AKID',
-  secretAccessKey: 'SECRET',
-  region: 'us-west-1',
-});
-
-dynamoose.local();
-
-const dynamooseStorage = new Dynamoose({
-  connection: dynamoose,
-});
-
-testRBAC(dynamooseStorage, 'Dynamoose');
+// dynamoose.AWS.config.update({
+//   accessKeyId: 'AKID',
+//   secretAccessKey: 'SECRET',
+//   region: 'us-west-2',
+// });
+//
+// dynamoose.local();
+//
+// const dynamooseStorage = new Dynamoose({
+//   connection: dynamoose,
+// });
+//
+// testRBAC(dynamooseStorage, 'Dynamoose');

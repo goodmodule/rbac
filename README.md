@@ -16,6 +16,8 @@
 
 RBAC is the authorization library for NodeJS.
 
+:tada: We have supported DynamoDB storage now by implementation of [dynamoose](https://github.com/automategreen/dynamoose).
+
 ## Motivation
 
 I needed hierarchical role based access control for my projects based on ExpressJS.
