@@ -164,7 +164,7 @@ function testRBAC(storage, storageType) {
       });
     });
 
-    it.skip('admin can all create article', (done) => {
+    it('admin can all create article', (done) => {
       const admin = response.roles.admin;
 
       rbac.grants(grants, (err, result) => {
