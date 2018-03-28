@@ -68,7 +68,11 @@
     "mongoose": "^4.9.3",
     "should": "^11.2.1",
     "jest": "^19.0.2",
-    "jest-cli": "^19.0.2"
+    "jest-cli": "^19.0.2",
+    "rbac": "^4.0.2"
+  },
+  "peerDependencies": {
+    "rbac": "4.x"
   },
   "bugs": {
     "url": "https://github.com/seeden/rbac/issues"
