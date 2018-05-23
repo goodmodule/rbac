@@ -1,4 +1,4 @@
-var RBAC = require('./../src/RBAC');
+var RBAC = require('./../src/RBAC').default;
 
 var rbac = new RBAC();
 
