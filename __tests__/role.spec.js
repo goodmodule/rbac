@@ -413,7 +413,7 @@ testRBAC(mongooseStorage, 'Mongoose');
 
 const mysqlStorage = new MySql({
   username: 'root',
-  password: 'root'
+  password: ''
 });
 
 testRBAC(mysqlStorage, 'MySql');

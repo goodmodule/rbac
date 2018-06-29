@@ -11,3 +11,6 @@ notifications:
         on_failure: always
 services:
   - mongodb
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS rbac;'
