@@ -40,6 +40,8 @@
     "dynamoose": "^0.7.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.38.0",
     "web-error": "^4.0.1"
   },
   "devDependencies": {

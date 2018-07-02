@@ -1,4 +1,4 @@
-import RBAC, { Permission, Mongoose, Memory, Dynamoose } from '../src/index';
+import RBAC, { Permission, Mongoose, Memory, Dynamoose, MySql } from '../src/index';
 import should from 'should';
 import mongoose from 'mongoose';
 import dynamoose from 'dynamoose';
@@ -409,6 +409,14 @@ const mongooseStorage = new Mongoose({
 });
 
 testRBAC(mongooseStorage, 'Mongoose');
+
+
+const mysqlStorage = new MySql({
+  username: 'root',
+  password: ''
+});
+
+testRBAC(mysqlStorage, 'MySql');
 
 // dynamoose.AWS.config.update({
 //   accessKeyId: 'AKID',

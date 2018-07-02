@@ -1,3 +1,5 @@
+sudo: required
+dist: precise
 language: node_js
 node_js:
     - "6"
@@ -11,3 +13,6 @@ notifications:
         on_failure: always
 services:
   - mongodb
+  - mysql
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS rbac;'
