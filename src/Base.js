@@ -1,3 +1,5 @@
+import { createPromiseCallback } from "./Util";
+
 export default class Base {
   /**
    * Base constructor
@@ -41,11 +43,12 @@ export default class Base {
   /**
    * Remove this from RBAC (storage)
    * @method Base#remove
-   * @param  {Function} cb Callback function
-   * @return {Base}
+   * @param  {Function}         [callback]  Callback function
+   * @return {Promise|undefined}            Return  Promise if callback is not provided,otherwise return undefined
    */
   remove(cb) {
+    cb = cb || createPromiseCallback();
     this.rbac.remove(this, cb);
-    return this;
+    return cb.promise;
   }
 }
