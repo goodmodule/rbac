@@ -68,7 +68,7 @@ export default class MySqlStorage extends Storage {
     });
 
     this.Grant = this.sequelize.define(grantModel, {
-      grant: { type: Sequelize.STRING }
+      grant: { type: Sequelize.STRING, unique:true }
     });
 
     this.Grant.belongsToMany(this.NameType, {through: 'NameGrant'});
@@ -152,8 +152,8 @@ export default class MySqlStorage extends Storage {
 
         // Create grant
         this.Grant
-          .create({ grant: childName})
-          .then(grant => {
+          .findOrCreate({where:{ grant: childName}})
+          .spread((grant,created) => {
             if (!grant) {
               return cb(new Error('Grant is undefined'));
             }
