@@ -1,12 +1,14 @@
 import RBAC, { Permission, Mongoose, Memory, MySql } from '../src/index';
 import should from 'should';
 import mongoose from 'mongoose';
+import Sequelize from 'sequelize';
 
-function testRBAC(storage, storageType) {
+function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
 
   describe(`RBAC ${storageType}`, () => {
     let rbac = null
     let response = null;
+    let storage = null;
 
     const permissions = [
       ['create', 'article'],
@@ -25,6 +27,17 @@ function testRBAC(storage, storageType) {
       article: ['create', 'update'],
       user: ['delete'],
     };
+
+    beforeAll(()=>{
+        let promise = beforeFn();
+        if(promise && typeof(promise.then) === 'function'){
+            promise.then(()=>{
+                storage = createStorage();
+            })
+        }else{
+            storage = createStorage();
+        }
+    });
 
     it('decode permission', () => {
       const decoded = Permission.decodeName('create_article');
@@ -412,17 +425,31 @@ function testRBAC(storage, storageType) {
   });
 }
 
-testRBAC(new Memory(), 'Memory');
 
-const mongooseStorage = new Mongoose({
-  connection: mongoose.connect('mongodb://localhost/rbac'),
+
+function clearMySqlTables() {
+    //drop all mysql table
+    const sequelize = new Sequelize('mysql://root:@localhost:3306/rbac');
+    const drop_tables = ['namegrant','nametypes','grants'].map(value => (
+        sequelize.query(`DROP TABLE IF EXISTS ${value};`)
+    ));
+    return Promise.all(drop_tables).catch(err=>{
+        throw err;
+    });
+}
+
+testRBAC('Memory',()=>{return new Memory();});
+
+testRBAC('Mongoose',()=>{
+    return new Mongoose({
+        connection: mongoose.connect('mongodb://localhost/rbac'),
+    });
 });
 
-testRBAC(mongooseStorage, 'Mongoose');
 
-const mysqlStorage = new MySql({
-  username: 'root',
-  password: ''
-});
-
-testRBAC(mysqlStorage, 'MySql');
+testRBAC('MySql', ()=>{
+    return new MySql({
+        username: 'root',
+        password: ''
+    });
+},clearMySqlTables);
