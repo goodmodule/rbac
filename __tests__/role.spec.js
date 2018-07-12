@@ -4,9 +4,8 @@ import mongoose from 'mongoose';
 import dynamoose from 'dynamoose';
 import Sequelize from 'sequelize';
 
-function testRBAC(storageType,createStorage) {
+function testRBAC(storage,storageType) {
   let response = null;
-  let storage = createStorage();
   let rbac = new RBAC({ storage });
 
   const permissions = [
@@ -792,33 +791,23 @@ function testRBAC(storageType,createStorage) {
 
 }
 
-function clearMySqlTables() {
-    //drop all mysql table
-    const sequelize = new Sequelize('mysql://root:@localhost:3306/rbac');
-    const drop_tables = ['namegrant','nametypes','grants'].map(value => (
-        sequelize.query(`DROP TABLE IF EXISTS ${value};`)
-    ));
-    return Promise.all(drop_tables).catch(err=>{
-        throw err;
-    });
-}
 
-testRBAC('Memory',()=>{return new Memory();});
 
-testRBAC('Mongoose',()=>{
-    return new Mongoose({
-      connection: mongoose.connect('mongodb://localhost/rbac'),
-    });
+testRBAC(new Memory(), 'Memory');
+
+const mongooseStorage = new Mongoose({
+  connection: mongoose.connect('mongodb://localhost/rbac'),
 });
 
+testRBAC(mongooseStorage, 'Mongoose');
 
-testRBAC('MySql', ()=>{
-    return new MySql({
-        username: 'root',
-        password: ''
-    });
+
+const mysqlStorage = new MySql({
+  username: 'root',
+  password: ''
 });
 
+testRBAC(mysqlStorage, 'MySql');
 
 //
 // testMysqlStorage();
