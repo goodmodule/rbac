@@ -4,10 +4,10 @@ import mongoose from 'mongoose';
 import dynamoose from 'dynamoose';
 import Sequelize from 'sequelize';
 
-function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
-  let rbac = null
+function testRBAC(storageType,createStorage) {
   let response = null;
-  let storage = null;
+  let storage = createStorage();
+  let rbac = new RBAC({ storage });
 
   const permissions = [
     ['create', 'article'],
@@ -28,16 +28,6 @@ function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
   };
 
   describe(`RBAC ${storageType}`, () => {
-    beforeAll(()=>{
-      let promise = beforeFn();
-      if(promise && typeof(promise.then) === 'function'){
-        promise.then(()=>{
-            storage = createStorage();
-        })
-      }else{
-        storage = createStorage();
-      }
-    });
 
     it('decode permission', () => {
       const decoded = Permission.decodeName('create_article');
@@ -49,7 +39,7 @@ function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
     });
 
     it('should be able to create roles and permissions', (done) => {
-      rbac = new RBAC({ storage });
+
 
       rbac.create(roles, permissionsAsObject, (err, data) => {
         if (err) throw err;
@@ -416,17 +406,6 @@ function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
 
   describe(`RBAC(promise) ${storageType}`, () => {
 
-    beforeAll(()=>{
-        let promise = beforeFn();
-        if(promise && typeof(promise.then) === 'function'){
-            promise.then(()=>{
-                storage = createStorage();
-            })
-        }else{
-            storage = createStorage();
-        }
-    });
-
     it('decode permission', () => {
       const decoded = Permission.decodeName('create_article');
 
@@ -437,7 +416,6 @@ function testRBAC(storageType,createStorage,beforeFn = ()=>{}) {
     });
 
     it('should be able to create roles and permissions',async () => {
-      rbac = new RBAC({ storage });
       try{
         response = await rbac.create(roles,permissionsAsObject);
        
@@ -828,9 +806,9 @@ function clearMySqlTables() {
 testRBAC('Memory',()=>{return new Memory();});
 
 testRBAC('Mongoose',()=>{
-  return new Mongoose({
+    return new Mongoose({
       connection: mongoose.connect('mongodb://localhost/rbac'),
-  });
+    });
 });
 
 
@@ -839,7 +817,7 @@ testRBAC('MySql', ()=>{
         username: 'root',
         password: ''
     });
-},clearMySqlTables);
+});
 
 
 //
