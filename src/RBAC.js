@@ -3,6 +3,7 @@ import { parallel } from 'async';
 import Role from './Role';
 import Permission from './Permission';
 import MemoryStorage from './storages/Memory';
+import { createPromiseCallback } from './Util';
 
 export default class RBAC {
   /**
@@ -54,11 +55,12 @@ export default class RBAC {
   /**
    * Register role or permission to actual RBAC instance
    * @method RBAC#add
-   * @param  {Role|Permission}     item Instance of Base
-   * @param  {Function} cb   Callback function
-   * @return {RBAC}          Return actual instance
+   * @param  {Role|Permission}           item Instance of Base
+   * @param  {Function} [callback]               Callback function
+   * @return {Promise|undefined}         Return  Promise if callback is not provided,otherwise return undefined
    */
   add(item, cb) {
+    cb = cb || createPromiseCallback();
     if (!item) {
       return cb(new Error('Item is undefined'));
     }
@@ -68,29 +70,31 @@ export default class RBAC {
     }
 
     this.storage.add(item, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Get instance of Role or Permission by his name
    * @method RBAC#get
-   * @param  {String}   name  Name of item
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {String}               name         Name of item
+   * @param  {Function}            [callback]    Callback function
+   * @return {Promise|undefined}                 Return  Promise if  callback is not provided,otherwise return undefined
    */
   get(name, cb) {
+    cb = cb || createPromiseCallback();
     this.storage.get(name, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Remove role or permission from RBAC
    * @method RBAC#remove
-   * @param  {Role|Permission} item Instance of role or permission
-   * @param  {Function}        cb   Callback function
-   * @return {RBAC}                 Current instance
+   * @param  {Role|Permission}  item           Instance of role or permission
+   * @param  {Function}         [callback]     Callback function
+   * @return {Promise|undefined}               Return  Promise if callback is not provided,otherwise return undefined
    */
   remove(item, cb) {
+    cb = cb || createPromiseCallback();
     if (!item) {
       return cb(new Error('Item is undefined'));
     }
@@ -100,17 +104,19 @@ export default class RBAC {
     }
 
     this.storage.remove(item, cb);
-    return this;
+
+    return cb.promise;
   }
 
   /**
    * Remove role or permission from RBAC
    * @method RBAC#removeByName
-   * @param  {String}   name Name of role or permission
-   * @param  {Function} cb   Callback function
-   * @return {RBAC}          Current instance
+   * @param  {String}   name              Name of role or permission
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   removeByName(name, cb) {
+    cb = cb || createPromiseCallback();
     this.get(name, (err, item) => {
       if (err) {
         return cb(err);
@@ -123,18 +129,19 @@ export default class RBAC {
       item.remove(cb);
     });
 
-    return this;
+     return cb.promise;
   }
 
   /**
    * Grant permission or role to the role
    * @method RBAC#grant
-   * @param  {Role}            role  Instance of the role
-   * @param  {Role|Permission} child Instance of the role or permission
-   * @param  {Function}        cb    Callback function
-   * @return {RBAC}                  Current instance
+   * @param  {Role}                 role          Instance of the role
+   * @param  {Role|Permission}      child         Instance of the role or permission
+   * @param  {Function}             [callback]    Callback function
+   * @return {Promise|undefined}                  Return  Promise if callback is not provided,otherwise return undefined
    */
   grant(role, child, cb) {
+    cb = cb || createPromiseCallback();
     if (!role || !child) {
       return cb(new Error('One of item is undefined'));
     }
@@ -148,18 +155,19 @@ export default class RBAC {
     }
 
     this.storage.grant(role, child, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Revoke permission or role from the role
    * @method RBAC#revoke
-   * @param  {Role}            role   Instance of the role
-   * @param  {Role|Permission} child  Instance of the role or permission
-   * @param  {Function}        cb     Callback function
-   * @return {RBAC}                   Current instance
+   * @param  {Role}               role            Instance of the role
+   * @param  {Role|Permission}    child           Instance of the role or permission
+   * @param  {Function}           [callback]      Callback function
+   * @return {Promise|undefined}                  Return  Promise if callback is not provided,otherwise return undefined
    */
   revoke(role, child, cb) {
+    cb = cb || createPromiseCallback();
     if (!role || !child) {
       return cb(new Error('One of item is undefined'));
     }
@@ -169,18 +177,19 @@ export default class RBAC {
     }
 
     this.storage.revoke(role, child, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Revoke permission or role from the role by names
    * @method RBAC#revokeByName
-   * @param  {String}   roleName  Instance of the role
-   * @param  {String}   childName Instance of the role or permission
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}               Current instance
+   * @param  {String}   roleName          Instance of the role
+   * @param  {String}   childName         Instance of the role or permission
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   revokeByName(roleName, childName, cb) {
+    cb = cb || createPromiseCallback();
     parallel({
       role: (callback) => this.get(roleName, callback),
       child: (callback) => this.get(childName, callback),
@@ -192,18 +201,19 @@ export default class RBAC {
       this.revoke(results.role, results.child, cb);
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Grant permission or role from the role by names
    * @method RBAC#grantByName
-   * @param  {String}   roleName  Instance of the role
-   * @param  {String}   childName Instance of the role or permission
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}               Current instance
+   * @param  {String}   roleName          Instance of the role
+   * @param  {String}   childName         Instance of the role or permission
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   grantByName(roleName, childName, cb) {
+    cb = cb || createPromiseCallback();
     parallel({
       role: (callback) => this.get(roleName, callback),
       child: (callback) => this.get(childName, callback),
@@ -215,15 +225,16 @@ export default class RBAC {
       this.grant(results.role, results.child, cb);
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Create a new role assigned to actual instance of RBAC
    * @method RBAC#createRole
-   * @param  {String}  roleName Name of new Role
-   * @param  {Boolean} [add=true]    True if you need to add it to the storage
-   * @return {Role}    Instance of the Role
+   * @param  {String}  roleName          Name of new Role
+   * @param  {Boolean} [add=true]        True if you need to add it to the storage
+   * @param  {Function} [callback]       Callback function
+   * @return {Promise|undefined}         Return  Promise if callback is not provided,otherwise return undefined
    */
   createRole(roleName, add, cb) {
     return new Role(this, roleName, add, cb);
@@ -232,11 +243,11 @@ export default class RBAC {
   /**
    * Create a new permission assigned to actual instance of RBAC
    * @method RBAC#createPermission
-   * @param  {String} action   Name of action
-   * @param  {String} resource Name of resource
-   * @param  {Boolean} [add=true]   True if you need to add it to the storage
-   * @param  {Function} cb     Callback function
-   * @return {Permission}      Instance of the Permission
+   * @param  {String} action           Name of action
+   * @param  {String} resource         Name of resource
+   * @param  {Boolean} [add=true]      True if you need to add it to the storage
+   * @param  {Function} [callback]     Callback function
+   * @return {Permission}              Instance of the Permission
    */
   createPermission(action, resource, add, cb) {
     return new Permission(this, action, resource, add, cb);
@@ -245,110 +256,119 @@ export default class RBAC {
   /**
    * Callback returns true if role or permission exists
    * @method RBAC#exists
-   * @param  {String}   name  Name of item
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {String}   name              Name of item
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   exists(name, cb) {
+    cb = cb || createPromiseCallback();
     this.storage.exists(name, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Callback returns true if role exists
    * @method RBAC#existsRole
-   * @param  {String}   name  Name of item
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {String}   name              Name of item
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   existsRole(name, cb) {
+    cb = cb || createPromiseCallback(); 
     this.storage.existsRole(name, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Callback returns true if permission exists
    * @method RBAC#existsPermission
-   * @param  {String}   action  Name of action
-   * @param  {String}   resource  Name of resource
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {String}   action            Name of action
+   * @param  {String}   resource          Name of resource
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   existsPermission(action, resource, cb) {
+    cb = cb || createPromiseCallback();
     this.storage.existsPermission(action, resource, cb);
-    return this;
+    return cb.promise;
   }
 
 
   /**
    * Return instance of Role by his name
    * @method RBAC#getRole
-   * @param  {String}   name  Name of role
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {String}   name              Name of role
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   getRole(name, cb) {
+    cb = cb || createPromiseCallback();
     this.storage.getRole(name, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return all instances of Role
    * @method RBAC#getRoles
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   getRoles(cb) {
+    cb = cb || createPromiseCallback();
     this.storage.getRoles(cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return instance of Permission by his action and resource
    * @method RBAC#getPermission
-   * @param  {String} action    Name of action
-   * @param  {String} resource  Name of resource
-   * @param  {Function} cb      Callback function
-   * @return {RBAC}             Return instance of actual RBAC
+   * @param  {String} action              Name of action
+   * @param  {String} resource            Name of resource
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   getPermission(action, resource, cb) {
+    cb = cb || createPromiseCallback();
     this.storage.getPermission(action, resource, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return instance of Permission by his name
    * @method RBAC#getPermission
-   * @param  {String} name      Name of permission
-   * @param  {Function} cb      Callback function
-   * @return {RBAC}             Return instance of actual RBAC
+   * @param  {String} name                Name of permission
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   getPermissionByName(name, cb) {
+    cb = cb || createPromiseCallback();
     const data = Permission.decodeName(name);
     this.storage.getPermission(data.action, data.resource, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return all instances of Permission
    * @method RBAC#getPermissions
-   * @param  {Function} cb    Callback function
-   * @return {RBAC}           Return instance of actual RBAC
+   * @param  {Function} [callback]    Callback function
+   * @return {Promise|undefined}      Return  Promise if callback is not provided,otherwise return undefined
    */
   getPermissions(cb) {
+    cb = cb || createPromiseCallback();
     this.storage.getPermissions(cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Create multiple permissions in one step
    * @method RBAC#createPermissions
-   * @param  {Object}   permissions Object of permissions
-   * @param  {Boolean} [add=true]   True if you need to add it to the storage
-   * @param  {Function} cb          Callbck function
-   * @return {RBAC}                 Instance of actual RBAC
+   * @param  {Object}   permissions         Object of permissions
+   * @param  {Boolean} [add=true]           True if you need to add it to the storage
+   * @param  {Function} [callback]          Callbck function
+   * @return {Promise|undefined}            Return  Promise if callback is not provided,otherwise return undefined
    */
   createPermissions(resources, add, cb) {
+    cb = cb || createPromiseCallback();
     if (typeof add === 'function') {
       return this.createPermissions(resources, true, add);
     }
@@ -367,18 +387,19 @@ export default class RBAC {
     }, this);
 
     parallel(tasks, cb);
-    return this;
+    return cb.promise;
   }
 
   /**
    * Create multiple roles in one step assigned to actual instance of RBAC
    * @method RBAC#createRoles
-   * @param  {Array}    roleNames  Array of role names
-   * @param  {Boolean} [add=true]   True if you need to add it to the storage
-   * @param  {Function} cb         Callback function
-   * @return {RBAC}                Current instance
+   * @param  {Array}    roleNames         Array of role names
+   * @param  {Boolean} [add=true]         True if you need to add it to the storage
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   createRoles(roleNames, add, cb) {
+    cb = cb || createPromiseCallback();
     if (typeof add === 'function') {
       return this.createRoles(roleNames, true, add);
     }
@@ -390,18 +411,19 @@ export default class RBAC {
     }, this);
 
     parallel(tasks, cb);
-    return this;
+    return cb.promise;
   }
 
 
   /**
    * Grant multiple items in one function
    * @method RBAC#grants
-   * @param  {Object}       List of roles
-   * @param  {Function} cb  Callback function
-   * @return {RBAC}         Current instance
+   * @param  {Object}                     List of roles
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   grants(roles, cb) {
+    cb = cb || createPromiseCallback();
     if (!isPlainObject(roles)) {
       return cb(new Error('Grants is not a plain object'));
     }
@@ -415,20 +437,21 @@ export default class RBAC {
     }, this);
 
     parallel(tasks, cb);
-    return this;
+    return cb.promise;
   }
 
 
   /**
    * Create multiple permissions and roles in one step
    * @method RBAC#create
-   * @param  {Array}   roleNames       List of role names
-   * @param  {Object}  permissionNames List of permission names
-   * @param  {Object}  [grants]        List of grants
-   * @param  {Array}   cb              Callback function
-   * @return {RBAC}                    Instance of actual RBAC
+   * @param  {Array}   roleNames                  List of role names
+   * @param  {Object}  permissionNames            List of permission names
+   * @param  {Object}  [grants]                   List of grants
+   * @param  {Array}   [callback]                 Callback function
+   * @return {Promise|undefined}                  Return  Promise if callback is not provided,otherwise return undefined
    */
   create(roleNames, permissionNames, grants, cb) {
+    cb = cb || createPromiseCallback();
     if (typeof grants === 'function') {
       return this.create(roleNames, permissionNames, null, grants);
     }
@@ -453,16 +476,16 @@ export default class RBAC {
       });
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Traverse hierarchy of roles.
    * Callback function returns as second parameter item from hierarchy or null if we are on the end of hierarchy.
    * @method RBAC#_traverseGrants
-   * @param  {String}   roleName  Name of role
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}               Return instance of actual RBAC
+   * @param  {String}   roleName          Name of role
+   * @param  {Function} callback        Callback function
+   * @return {RBAC}           
    * @private
    */
   _traverseGrants(roleName, cb, next = [roleName], used = {}) {
@@ -501,13 +524,14 @@ export default class RBAC {
   /**
    * Return true if role has allowed permission
    * @method RBAC#can
-   * @param  {String}  roleName Name of role
-   * @param  {String}  action   Name of action
-   * @param  {String}  resource Name of resource
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}             Current instance
+   * @param  {String}  roleName           Name of role
+   * @param  {String}  action             Name of action
+   * @param  {String}  resource           Name of resource
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   can(roleName, action, resource, cb) {
+    cb = cb || createPromiseCallback();
     this._traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
@@ -526,19 +550,20 @@ export default class RBAC {
       }
     });
 
-    return this;
+    return cb.promise;
   }
 
 
   /**
    * Check if the role has any of the given permissions.
    * @method RBAC#canAny
-   * @param  {String} roleName     Name of role
-   * @param  {Array}  permissions  Array (String action, String resource)
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}                Current instance
+   * @param  {String} roleName             Name of role
+   * @param  {Array}  permissions          Array (String action, String resource)
+   * @param  {Function} [callback]         Callback function
+   * @return {Promise|undefined}           Return  Promise if callback is not provided,otherwise return undefined
    */
   canAny(roleName, permissions, cb) {
+    cb = cb || createPromiseCallback();
     // prepare the names of permissions
     const permissionNames = RBAC.getPermissionNames(permissions);
 
@@ -561,18 +586,19 @@ export default class RBAC {
       }
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Check if the model has all of the given permissions.
    * @method RBAC#canAll
-   * @param  {String} roleName     Name of role
-   * @param  {Array}  permissions  Array (String action, String resource)
-   * @param  {Function} cb        Callback function
-   * @return {RBAC}                Current instance
+   * @param  {String} roleName            Name of role
+   * @param  {Array}  permissions         Array (String action, String resource)
+   * @param  {Function} [callback]        Callback function
+   * @return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   canAll(roleName, permissions, cb) {
+    cb = cb || createPromiseCallback();
     // prepare the names of permissions
     const permissionNames = RBAC.getPermissionNames(permissions);
     const founded = {};
@@ -602,18 +628,19 @@ export default class RBAC {
       }
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return true if role has allowed permission
    * @method RBAC#hasRole
-   * @param  {String}   roleName        Name of role
-   * @param  {String}   roleChildName   Name of child role
-   * @param  {Function} cb              Callback function
-   * @return {RBAC}                     Current instance
+   * @param  {String}   roleName                Name of role
+   * @param  {String}   roleChildName           Name of child role
+   * @param  {Function} [callback]              Callback function
+   * @return {Promise|undefined}                Return  Promise if callback is not provided,otherwise return undefined
    */
   hasRole(roleName, roleChildName, cb) {
+    cb = cb || createPromiseCallback();
     if (roleName === roleChildName) {
       cb(null, true);
       return this;
@@ -637,17 +664,18 @@ export default class RBAC {
       }
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**
    * Return array of all permission assigned to role of RBAC
    * @method RBAC#getScope
-   * @param  {String} roleName   Name of role
-   * @param  {Function} cb       Callback function
-   * @return {RBAC}              Current instance
+   * @param  {String} roleName           Name of role
+   * @param  {Function} [callback]       Callback function
+   *@return {Promise|undefined}          Return  Promise if callback is not provided,otherwise return undefined
    */
   getScope(roleName, cb) {
+    cb = cb || createPromiseCallback();
     const scope = [];
 
     // traverse hierarchy
@@ -667,7 +695,7 @@ export default class RBAC {
       }
     });
 
-    return this;
+    return cb.promise;
   }
 
   /**

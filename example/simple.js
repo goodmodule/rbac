@@ -18,8 +18,26 @@ var grants = {
 	superadmin: ['admin']
 };
 
+//callback function
 rbac.create(roles, permissions, grants, function(err, data) {
 	if(err) {
 		throw err;
 	}
 });
+
+//promise
+rbac.create(roles, permissions, grants).then(data=>{
+	//do something
+}).catch(err=>{
+	throw err;
+});
+
+//async/await
+(async function() {
+	try{
+		let data = await rbac.create(roles, permissions, grants);
+		//do something
+	} catch(err){
+		throw err;
+	}
+})();
