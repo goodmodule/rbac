@@ -11,3 +11,4 @@ test/coverage/
 coverage
 documentation
 dist
+package-lock.json
