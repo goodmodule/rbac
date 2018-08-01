@@ -33,10 +33,12 @@
     "test:coverage": "jest --coverage ./src/",
     "test:watch": "jest --watch ./src/",
     "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
+    "docs:build": "documentation build src/** -f html -o docs",
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
     "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ."
   },
   "dependencies": {
+    "documentation": "^8.0.2",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.10"
   },
@@ -65,10 +67,12 @@
     "@babel/plugin-proposal-throw-expressions": "^7.0.0-beta.55",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.55",
     "@babel/plugin-syntax-import-meta": "^7.0.0-beta.55",
+    "babelify": "git+https://github.com/ylemkimon/babelify.git#master",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0-beta.0",
+    "documentation": "^8.0.2",
     "eslint": "^5.2.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-loader": "^2.1.0",
