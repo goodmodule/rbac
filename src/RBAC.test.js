@@ -191,108 +191,75 @@ function testRBAC(storage, storageType) {
       expect(removed).toBe(true);
     });
 
-    it('should not be able to get removed permission', (done) => {
-      rbac.get('create_article', (err, permission) => {
-        if (err) throw err;
-        should(permission).equal(null);
-        done();
-      });
+    it('should not be able to get removed permission', async () => {
+      const permission = await rbac.get('create_article');
+      expect(permission).toBe(undefined);
     });
 
-    it('should be able to remove role', (done) => {
-      rbac.remove(response.roles.guest, (err, removed) => {
-        if (err) throw err;
-        removed.should.equal(true);
-        done();
-      });
+    it('should be able to remove role', async () => {
+      const removed = await rbac.remove(response.roles.guest);
+      expect(removed).toBe(true);
     });
 
-    it('should not be able to get removed role', (done) => {
-      rbac.get('guest', (err, role) => {
-        if (err) throw err;
-        should(role).equal(null);
-        done();
-      });
+    it('should not be able to get removed role', async () => {
+      const role = await rbac.get('guest');
+      expect(role).toBeUndefined();
     });
 
-    it('should be able to remove permission by name', (done) => {
-      rbac.removeByName('delete_user', (err, removed) => {
-        if (err) throw err;
-        removed.should.equal(true);
-        done();
-      });
+    it('should be able to remove permission by name', async () => {
+      const removed = await rbac.removeByName('delete_user');
+      expect(removed).toBe(true);
     });
 
-    it('should not be able to get removed permission', (done) => {
-      rbac.get('delete_user', (err, permission) => {
-        if (err) throw err;
-        should(permission).equal(null);
-        done();
-      });
+    it('should not be able to get removed permission', async () => {
+      const permission = await rbac.get('delete_user');
+      expect(permission).toBeUndefined(null);
     });
 
-    it('should able to check existance of role', (done) => {
-      rbac.exists('admin', (err, exists) => {
-        if (err) throw err;
-        exists.should.equal(true);
-        done();
-      });
+    it('should able to check existance of role', async () => {
+      const exists = await rbac.exists('admin');
+      expect(exists).toBe(true);
     });
 
-    it('should able to check existance of non exist role', (done) => {
-      rbac.exists('adminooooo', (err, exists) => {
-        if (err) throw err;
-        exists.should.equal(false);
-        done();
-      });
+    it('should able to check existance of non exist role', async () => {
+      const exists = await rbac.exists('adminooooo');
+      expect(exists).toBe(false);
     });
 
-    it('should able to check existance of role', (done) => {
-      rbac.existsRole('admin', (err, exists) => {
-        if (err) throw err;
-        exists.should.equal(true);
-        done();
-      });
+    it('should able to check existance of role', async () => {
+      const exists = await rbac.existsRole('admin');
+      expect(exists).toBe(true);
     });
 
-    it('should able to check existance of permission', (done) => {
-      rbac.existsPermission('update', 'article', (err, exists) => {
-        if (err) throw err;
-        exists.should.equal(true);
-        done();
-      });
+    it('should able to check existance of permission', async () => {
+      const exists = await rbac.existsPermission('update', 'article');
+      expect(exists).toBe(true);
     });
 
-    it('should be able to create roles and permissions with constructor', (done) => {
+    it('should be able to create roles and permissions with constructor', async () => {
       const localrbac = new RBAC({
         roles,
         permissions : permissionsAsObject,
         grants,
-      }, (err, rbacInstance) => {
-        if (err) throw err;
-        rbac = rbacInstance;
-        done();
       });
+
+      await localrbac.init();
+
+      expect(localrbac).toBeDefined();
     });
 
-    it('should be able to get scope for admin', (done) => {
-      rbac.getScope('admin', (err, scope) => {
-        if (err) throw err;
-        scope.should.containDeep(['delete_user', 'create_article', 'update_article']);
-        done();
-      });
+    it('should be able to get scope for admin', async () => {
+      const scope = await rbac.getScope('admin');
+      scope.should.containDeep(['delete_user', 'create_article', 'update_article']);
     });
 
-    it('should be able to get scope for user', (done) => {
-      rbac.getScope('user', (err, scope) => {
-        if (err) throw err;
-        scope.should.containDeep(['create_article', 'update_article']);
-        done();
-      });
+    it('should be able to get scope for user', async () => {
+      const scope = await rbac.getScope('user');
+      scope.should.containDeep(['create_article', 'update_article']);
     });
 
-    it('should be able to get scope for more complex object', (done) => {
-      const rbac = new RBAC({
+    it('should be able to get scope for more complex object', async () => {
+      const localRBAC = new RBAC({
         roles: ['superadmin', 'admin', 'user', 'guest'],
         permissions: {
           user: ['create', 'delete'],
@@ -306,15 +273,12 @@ function testRBAC(storage, storageType) {
           admin: ['user', 'delete_user', 'update_rbac', 'create_article'],
           superadmin: ['admin'],
         },
-      }, (err, instance) => {
-        if (err) throw err;
-
-        instance.getScope('admin', (err, scope) => {
-          if (err) throw err;
-          scope.should.containDeep(['delete_user', 'update_rbac', 'create_article', 'change_password']);
-          done();
-        });
       });
+
+      await localRBAC.init();
+
+      const scope = await localRBAC.getScope('admin');
+      scope.should.containDeep(['delete_user', 'update_rbac', 'create_article', 'change_password']);
     });
   });
 }
