@@ -1,5 +1,5 @@
 // @flow
-import RBAC from './RBAC';
+import type RBAC from './RBAC';
 
 export default class Base {
   /**
@@ -21,9 +21,9 @@ export default class Base {
   /**
    * Add this to RBAC (storage)
    * @method Base#remove
-   * @return {Base}
+   * @return {boolean}
    */
-  async add(): void {
+  async add(): boolean {
     const { rbac } = this;
     return rbac.add(this);
   }
@@ -31,9 +31,9 @@ export default class Base {
   /**
    * Remove this from RBAC (storage)
    * @method Base#remove
-   * @return {Base}
+   * @return {boolean}
    */
-  async remove(): void {
+  async remove(): boolean {
     const { rbac } = this;
     return rbac.remove(this);
   }

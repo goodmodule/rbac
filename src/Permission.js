@@ -8,12 +8,32 @@ export default class Permission extends Base {
    * @memberof Permission
    * @param {String} action Name of permission
    * @param {String} resource Resource of permission
-   * @param {String} delimeter Delimeter
+   * @param {String} delimiter delimiter
    * @return {String} Computed name of permission
    * @static
    */
-  static createName(action: string, resource: string, delimeter: string): string {
-    return `${action}${delimeter}${resource}`;
+  static createName(action: string, resource: string, delimiter: string): string {
+    return `${action}${delimiter}${resource}`;
+  }
+
+  static decodeName(name: string, delimiter: string): Object {
+    if (!delimiter) {
+      throw new Error('delimiter is required');
+    }
+
+    if (!name) {
+      throw new Error('Name is required');
+    }
+
+    const pos = name.indexOf(delimiter);
+    if (pos === -1) {
+      throw new Error('Wrong name');
+    }
+
+    return {
+      action: name.substr(0, pos),
+      resource: name.substr(pos + 1),
+    };
   }
 
   /**
@@ -29,7 +49,7 @@ export default class Permission extends Base {
       throw new Error('One of parameters is undefined');
     }
 
-    if (!Permission.isValidName(action) || !Permission.isValidName(resource)) {
+    if (!Permission.isValidName(action, rbac.options.delimiter) || !Permission.isValidName(resource, rbac.options.delimiter)) {
       throw new Error('Action or resource has no valid name');
     }
 
@@ -41,16 +61,16 @@ export default class Permission extends Base {
    * @member Permission#action {String} Action of permission
    */
   get action(): string {
-    if (!this.#action) {
-      const decoded = Permission.decodeName(this.name);
+    if (!this._action) {
+      const decoded = Permission.decodeName(this.name, this.rbac.options.delimiter);
       if (!decoded) {
         throw new Error('Action is null');
       }
 
-      this.#action = decoded.action;
+      this._action = decoded.action;
     }
 
-    return this.#action;
+    return this._action;
   }
 
   /**
@@ -58,16 +78,16 @@ export default class Permission extends Base {
    * @member Permission#resource {String} Resource of permission
    */
   get resource(): string {
-    if (!this.#resource) {
-      const decoded = Permission.decodeName(this.name);
+    if (!this._resource) {
+      const decoded = Permission.decodeName(this.name, this.rbac.options.delimiter);
       if (!decoded) {
         throw new Error('Resource is null');
       }
 
-      this.#resource = decoded.resource;
+      this._resource = decoded.resource;
     }
 
-    return this.#resource;
+    return this._resource;
   }
 
   /**
@@ -81,19 +101,6 @@ export default class Permission extends Base {
     return this.action === action && this.resource === resource;
   }
 
-  decodeName(): Object {
-    const { name, rbac } = this;
-    const pos = name.indexOf(rbac.options.delimiter);
-    if (pos === -1) {
-      throw new Error('Wrong name');
-    }
-
-    return {
-      action: name.substr(0, pos),
-      resource: name.substr(pos + 1),
-    };
-  }
-
   /**
    * Correct name can not contain whitespace or underscores.
    * @function isValidName
@@ -104,6 +111,10 @@ export default class Permission extends Base {
    * @static
    */
   static isValidName(name: string, delimiter: string): boolean {
+    if (!delimiter) {
+      throw new Error('Delimeter is not defined');
+    }
+
     const exp = new RegExp(`^[^${delimiter}\\s]+$`);
     return exp.test(name);
   }

@@ -7,7 +7,7 @@ import Base from './Base';
 export default class Memory extends Storage {
   items: Object[] = {};
 
-  async add(item: Base): void {
+  async add(item: Base): boolean {
     const { name } = item;
     if (this.items[name]) {
       throw new Error(`Item ${name} already exists`);
@@ -17,30 +17,38 @@ export default class Memory extends Storage {
       instance: item,
       grants: [],
     };
+
+    return true;
   }
 
-  async remove(item: Base): void {
+  async remove(item: Base): boolean {
+    const { items } = this;
     const { name } = item;
-    if (!this.items[name]) {
+    if (!items[name]) {
       throw new Error(`Item ${name} is not presented in storage`);
     }
 
     // revoke from all instances
-    this.items = this.items.map(({ grants, instance }) => ({
-      instance,
-      grants: grants.filter(grant => grant !== name),
-    }));
+    Object.keys(items).forEach((itemName: string) => {
+      const { grants } = items[itemName];
+      items[itemName].grants = grants.filter(grant => grant !== name);
+    });
 
     // delete from items
     delete this.items[name];
+    return true;
   }
 
-  async grant(role: Role, child: Base): void {
+  async grant(role: Role, child: Base): boolean {
     const { name } = role;
     const { name: childName } = child;
 
-    if (!this.items[name] || !this.items[childName]) {
-      throw new Error('Role is not exist');
+    if (!this.items[name]) {
+      throw new Error(`Role ${name} is not exist`);
+    }
+
+    if (!this.items[childName]) {
+      throw new Error(`Base ${childName} is not exist`);
     }
 
     if (!(role instanceof Role)) {
@@ -48,18 +56,18 @@ export default class Memory extends Storage {
     }
 
     if (name === childName) {
-      throw new Error('You can grant yourself');
+      throw new Error(`You can grant yourself ${name}`);
     }
 
     const { grants } = this.items[name];
-    if (grants.includes(childName)) {
-      throw new Error('Grant is already associated');
+    if (!grants.includes(childName)) {
+      grants.push(childName);
     }
 
-    grants.push(childName);
+    return true;
   }
 
-  async revoke(role: Role, child: Base): void {
+  async revoke(role: Role, child: Base): boolean {
     const { name } = role;
     const { name: childName } = child;
 
@@ -73,6 +81,8 @@ export default class Memory extends Storage {
     }
 
     this.items[name].grants = grants.filter(grant => grant !== childName);
+
+    return true;
   }
 
   async get(name: string): ?Base {
@@ -85,23 +95,27 @@ export default class Memory extends Storage {
 
   async getRoles(): Role[] {
     return this.items
-      .reduce((filtered: Role[], item: Object): void => {
+      .reduce((filtered: Role[], item: Object) => {
         const { instance } = item;
 
         if (instance instanceof Role) {
           filtered.push(instance);
         }
+
+        return filtered;
       }, []);
   }
 
   async getPermissions(): Permission[] {
     return this.items
-      .reduce((filtered: Permission[], item: Object): void => {
+      .reduce((filtered: Permission[], item: Object) => {
         const { instance } = item;
 
         if (instance instanceof Permission) {
           filtered.push(instance);
         }
+
+        return filtered;
       }, []);
   }
 
@@ -109,11 +123,13 @@ export default class Memory extends Storage {
     if (role && this.items[role]) {
       const currentGrants = this.items[role].grants;
 
-      return currentGrants.reduce((filtered: Object[], grantName: string): void => {
+      return currentGrants.reduce((filtered: Object[], grantName: string) => {
         const grant = this.items[grantName];
         if (grant) {
           filtered.push(grant.instance);
         }
+
+        return filtered;
       }, []);
     }
 

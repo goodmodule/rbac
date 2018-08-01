@@ -10,5 +10,10 @@
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     }
+  },
+  "globals": {
+    "it": true,
+    "describe": true,
+    "expect": true
   }
 }

@@ -11,7 +11,7 @@ export default class Role extends Base {
    * @param {String} name Name of the role
    */
   constructor(rbac: RBAC, name: string) {
-    if (!Permission.isValidName(name)) {
+    if (!Permission.isValidName(name, rbac.options.delimiter)) {
       throw new Error('Role has no valid name');
     }
 

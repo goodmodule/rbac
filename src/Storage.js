@@ -2,7 +2,7 @@
 import Permission from './Permission';
 import Role from './Role';
 import Base from './Base';
-import RBAC from './RBAC';
+import type RBAC from './RBAC';
 
 export default class Storage {
   useRBAC(rbac: RBAC): void {
@@ -18,7 +18,7 @@ export default class Storage {
    * @method Storage#add
    * @param {Base} item Instance of role or permission
    */
-  async add(item: Base): void {
+  async add(item: Base): boolean {
     throw new Error('Storage method add is not implemented');
   }
 
@@ -27,7 +27,7 @@ export default class Storage {
    * @method Storage#remove
    * @param {Base} item Instance of role or permission
    */
-  async remove(item: Base): void {
+  async remove(item: Base): boolean {
     throw new Error('Storage method remove is not implemented');
   }
 
@@ -37,7 +37,7 @@ export default class Storage {
    * @param  {Role} role  Instance of role
    * @param  {Base} child Instance of role or permission
    */
-  async grant(role: Role, child: Base): void {
+  async grant(role: Role, child: Base): boolean {
     throw new Error('Storage method grant is not implemented');
   }
 
@@ -47,7 +47,7 @@ export default class Storage {
    * @param  {Role} role  Instance of role
    * @param  {Base} child Instance of role or permission
    */
-  async revoke(role: Role, child: Base): void {
+  async revoke(role: Role, child: Base): boolean {
     throw new Error('Storage method revoke is not implemented');
   }
 

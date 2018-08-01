@@ -1,10 +1,10 @@
 // @flow
 import isPlainObject from 'lodash/isPlainObject';
-import { parallel } from 'async';
+import Base from './Base';
 import Role from './Role';
 import Permission from './Permission';
-import MemoryStorage from './storages/Memory';
-import { BaselineDescription } from '../node_modules/aws-sdk/clients/ssm';
+import Storage from './Storage';
+import MemoryStorage from './Memory';
 
 const DEFAULT_OPTIONS = {
   permissions: {},
@@ -14,6 +14,21 @@ const DEFAULT_OPTIONS = {
 };
 
 export default class RBAC {
+  /**
+   * Convert Array of permissions to permission name
+   * @function getPermissionNames
+   * @memberof RBAC
+   * @param  {Array} permissions List of array items of permission names. It contan action and resource
+   * @param  {string} delimiter
+   * @return {string[]}
+   * @static
+   */
+  static getPermissionNames(permissions, delimiter: string): string[] {
+    return permissions.map(
+      permission => Permission.createName(permission[0], permission[1], delimiter),
+    );
+  }
+
   /**
    * RBAC constructor
    * @constructor RBAC
@@ -40,14 +55,6 @@ export default class RBAC {
   }
 
   /**
-   * The RBAC's storage.
-   * @member RBAC#storage {Storage}
-   */
-  get storage(): Storage {
-    return this.options.storage;
-  }
-
-  /**
    * Get instance of Role or Permission by his name
    * @method RBAC#get
    * @param {String} name Name of item
@@ -61,7 +68,7 @@ export default class RBAC {
    * @method RBAC#add
    * @param {Base} item Instance of Base
    */
-  async add(item: Base): void {
+  async add(item: Base): boolean {
     if (!item) {
       throw new Error('Item is undefined');
     }
@@ -78,7 +85,7 @@ export default class RBAC {
    * @method RBAC#remove
    * @param {Base} item Instance of role or permission
    */
-  async remove(item: Base): void {
+  async remove(item: Base): boolean {
     if (!item) {
       throw new Error('Item is undefined');
     }
@@ -95,10 +102,10 @@ export default class RBAC {
    * @method RBAC#removeByName
    * @param {String} name Name of role or permission
    */
-  async removeByName(name: string): void {
+  async removeByName(name: string): boolean {
     const item = await this.get(name);
     if (!item) {
-      return;
+      return true;
     }
 
     return item.remove();
@@ -110,7 +117,7 @@ export default class RBAC {
    * @param {Role} role Instance of the role
    * @param {Base} child Instance of the role or permission
    */
-  async grant(role: Role, child: Base): void {
+  async grant(role: Role, child: Base): boolean {
     if (!role || !child) {
       throw new Error('One of item is undefined');
     }
@@ -132,7 +139,7 @@ export default class RBAC {
    * @param {Role} role Instance of the role
    * @param {Base} child Instance of the role or permission
    */
-  async revoke(role: Role, child: Base): void {
+  async revoke(role: Role, child: Base): boolean {
     if (!role || !child) {
       throw new Error('One of item is undefined');
     }
@@ -268,7 +275,7 @@ export default class RBAC {
    * @param {String} name Name of permission
    */
   async getPermissionByName(name: string): ?Permission {
-    const data = Permission.decodeName(name);
+    const data = Permission.decodeName(name, this.options.delimiter);
     return this.storage.getPermission(data.action, data.resource);
   }
 
@@ -276,7 +283,7 @@ export default class RBAC {
    * Return all instances of Permission
    * @method RBAC#getPermissions
    */
-  async getPermissions(): Permissions[] {
+  async getPermissions(): Permission[] {
     return this.storage.getPermissions();
   }
 
@@ -286,21 +293,23 @@ export default class RBAC {
    * @param {Object} permissions Object of permissions
    * @param {Boolean} [add=true] True if you need to add it to the storage
    */
-  async createPermissions(resources: Object, add?: boolean): Permission[] {
-    const tasks = {};
-
+  async createPermissions(resources: Object, add?: boolean = true): Permission[] {
     if (!isPlainObject(resources)) {
       throw new Error('Resources is not a plain object');
     }
 
-    return Promise.all(Object.keys(resources).map(async (resource) => {
+    const permissions = {};
+
+    await Promise.all(Object.keys(resources).map(async (resource) => {
       const actions = resources[resource];
 
-      return Promise.all(actions.map(action) => {
-        return this.createPermission(action, resource, add);
-        const name = Permission.createName(action, resource);
-      })
+      await Promise.all(actions.map(async (action) => {
+        const permission = await this.createPermission(action, resource, add);
+        permissions[permission.name] = permission;
+      }));
     }));
+
+    return permissions;
   }
 
   /**
@@ -309,8 +318,15 @@ export default class RBAC {
    * @param {Array} roleNames Array of role names
    * @param {Boolean} [add=true] True if you need to add it to the storage
    */
-  async createRoles(roleNames: string[], add?: boolean): Role[] {
-    return Promise.all(roleNames.map(roleName => this.createRole(roleName, add)));
+  async createRoles(roleNames: string[], add?: boolean = true): Role[] {
+    const roles = {};
+    await Promise.all(roleNames.map(async (roleName) => {
+      const role = await this.createRole(roleName, add);
+
+      roles[role.name] = role;
+    }));
+
+    return roles;
   }
 
   /**
@@ -318,21 +334,18 @@ export default class RBAC {
    * @method RBAC#grants
    * @param {Object} List of roles
    */
-  grants(roles, cb) {
+  async grants(roles: Object) {
     if (!isPlainObject(roles)) {
-      return cb(new Error('Grants is not a plain object'));
+      throw new Error('Grants is not a plain object');
     }
 
-    const tasks = [];
+    await Promise.all(Object.keys(roles).map(async (roleName) => {
+      const grants = roles[roleName];
 
-    Object.keys(roles).forEach((role) => {
-      roles[role].forEach((grant) => {
-        tasks.push((callback) => this.grantByName(role, grant, callback));
-      }, this);
-    }, this);
-
-    parallel(tasks, cb);
-    return this;
+      await Promise.all(grants.map(async (grant) => {
+        await this.grantByName(roleName, grant);
+      }));
+    }));
   }
 
   /**
@@ -348,12 +361,14 @@ export default class RBAC {
       this.createRoles(roleNames),
     ]);
 
-    const grants = await this.grants(grantsData);
+
+    if (grantsData) {
+      await this.grants(grantsData);
+    }
 
     return {
       permissions,
       roles,
-      grants,
     };
   }
 
@@ -365,12 +380,12 @@ export default class RBAC {
    * @param {Function} cb Callback function
    * @private
    */
-  async #traverseGrants(roleName: string, cb: Function, next: String[] = [roleName], used: Object = {}): void {
+  async traverseGrants(roleName: string, cb: Function, next: String[] = [roleName], used: Object = {}): any {
     const actualRole = next.shift();
     used[actualRole] = true;
 
     const grants = await this.storage.getGrants(actualRole);
-    for (let i = 0; i < grants.length; i++) {
+    for (let i = 0; i < grants.length; i += 1) {
       const item = grants[i];
       const { name } = item;
 
@@ -386,7 +401,7 @@ export default class RBAC {
     }
 
     if (next.length) {
-      return this.#traverseGrants(null, cb, next, used);
+      return this.traverseGrants(null, cb, next, used);
     }
   }
 
@@ -399,7 +414,7 @@ export default class RBAC {
    * @return {boolean}
    */
   async can(roleName: string, action: string, resource: string): boolean {
-    const can = await this.#traverseGrants(roleName, (item) => {
+    const can = await this.traverseGrants(roleName, (item) => {
       if (item instanceof Permission && item.can(action, resource)) {
         return true;
       }
@@ -418,13 +433,15 @@ export default class RBAC {
    */
   async canAny(roleName: string, permissions: Object[]): boolean {
     // prepare the names of permissions
-    const permissionNames = RBAC.getPermissionNames(permissions);
+    const permissionNames = RBAC.getPermissionNames(permissions, this.options.delimiter);
 
     // traverse hierarchy
-    const can = await this.#traverseGrants(roleName, (item) => {
+    const can = await this.traverseGrants(roleName, (item) => {
       if (item instanceof Permission && permissionNames.includes(item.name)) {
         return true;
       }
+
+      return undefined;
     });
 
     return can || false;
@@ -445,7 +462,7 @@ export default class RBAC {
     let foundedCount = 0;
 
     // traverse hierarchy
-    this._traverseGrants(roleName, (err, item) => {
+    this.traverseGrants(roleName, (err, item) => {
       // if there is a error
       if (err) {
         return cb(err);
@@ -483,10 +500,12 @@ export default class RBAC {
       return true;
     }
 
-    const has = await this.#traverseGrants(roleName, (item) => {
+    const has = await this.traverseGrants(roleName, (item) => {
       if (item instanceof Role && item.name === roleChildName) {
         return true;
       }
+
+      return undefined;
     });
 
     return has || false;
@@ -502,24 +521,12 @@ export default class RBAC {
     const scope = [];
 
     // traverse hierarchy
-    await this.#traverseGrants(roleName, (item) => {
+    await this.traverseGrants(roleName, (item) => {
       if (item instanceof Permission && !scope.includes(item.name)) {
         scope.push(item.name);
       }
     });
 
     return scope;
-  }
-
-  /**
-   * Convert Array of permissions to permission name
-   * @function getPermissionNames
-   * @memberof RBAC
-   * @param  {Array} permissions List of array items of permission names. It contan action and resource
-   * @return {String[]}
-   * @static
-   */
-  static getPermissionNames(permissions, delimiter: string): string[] {
-    return permissions.map(permission => Permission.createName(permission[0], permission[1], delimiter));
   }
 }

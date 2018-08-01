@@ -37,7 +37,7 @@ function convertToInstance(rbac, record) {
   if (record.type === Type.ROLE) {
     return rbac.createRole(record.name, false, () => {});
   } else if (record.type === Type.PERMISSION) {
-    const decoded = Permission.decodeName(record.name);
+    const decoded = Permission.decodeName(record.name, rbac.options.delimiter);
     if (!decoded) {
       throw new Error('Bad permission name');
     }

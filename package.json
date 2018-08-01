@@ -29,31 +29,48 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "coveralls": "babel-node ./node_modules/gulp/bin/gulp.js coveralls",
+    "test": "jest ./src/",
+    "test:coverage": "jest --coverage ./src/",
+    "test:watch": "jest --watch ./src/",
     "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
-    "test": "jest --coverage --forceExit",
-    "build": "babel-node ./node_modules/gulp/bin/gulp.js build",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ."
+    "build": "babel-node ./src --out-dir ./dist --source-maps --copy-files",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ."
   },
   "dependencies": {
-    "async": "^2.6.1",
-    "dynamoose": "^0.8.7",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.10",
     "mysql2": "^1.5.3",
     "sequelize": "^4.38.0",
-    "web-error": "^4.0.1"
+    "dynamoose": "^0.8.7"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "@babel/core": "7.0.0-beta.55",
+    "@babel/node": "7.0.0-beta.55",
+    "@babel/plugin-transform-flow-strip-types": "7.0.0-beta.55",
+    "@babel/polyfill": "7.0.0-beta.55",
+    "@babel/preset-env": "7.0.0-beta.55",
+    "@babel/preset-react": "7.0.0-beta.55",
+    "@babel/preset-stage-1": "7.0.0-beta.55",
+    "@babel/register": "7.0.0-beta.55",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.55",
+    "@babel/plugin-proposal-decorators": "7.0.0-beta.55",
+    "@babel/plugin-proposal-do-expressions": "7.0.0-beta.55",
+    "@babel/plugin-proposal-export-default-from": "7.0.0-beta.55",
+    "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.55",
+    "@babel/plugin-proposal-function-sent": "7.0.0-beta.55",
+    "@babel/plugin-proposal-json-strings": "7.0.0-beta.55",
+    "@babel/plugin-proposal-logical-assignment-operators": "7.0.0-beta.55",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.0.0-beta.55",
+    "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.55",
+    "@babel/plugin-proposal-optional-chaining": "7.0.0-beta.55",
+    "@babel/plugin-proposal-pipeline-operator": "7.0.0-beta.55",
+    "@babel/plugin-proposal-throw-expressions": "7.0.0-beta.55",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.55",
+    "@babel/plugin-syntax-import-meta": "7.0.0-beta.55",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0-beta.0",
     "eslint": "^5.2.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-loader": "^2.1.0",
@@ -78,5 +95,8 @@
   },
   "bugs": {
     "url": "https://github.com/seeden/rbac/issues"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
