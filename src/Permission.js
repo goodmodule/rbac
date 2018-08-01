@@ -13,6 +13,18 @@ export default class Permission extends Base {
    * @static
    */
   static createName(action: string, resource: string, delimiter: string): string {
+    if (!delimiter) {
+      throw new Error('Delimiter is not defined');
+    }
+
+    if (!action) {
+      throw new Error('Action is not defined');
+    }
+
+    if (!resource) {
+      throw new Error('Resource is not defined');
+    }
+
     return `${action}${delimiter}${resource}`;
   }
 

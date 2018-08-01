@@ -24,6 +24,10 @@ export default class RBAC {
    * @static
    */
   static getPermissionNames(permissions, delimiter: string): string[] {
+    if (!delimiter) {
+      throw new Error('Delimiter is not defined');
+    }
+
     return permissions.map(
       permission => Permission.createName(permission[0], permission[1], delimiter),
     );
@@ -450,42 +454,33 @@ export default class RBAC {
   /**
    * Check if the model has all of the given permissions.
    * @method RBAC#canAll
-   * @param  {String} roleName     Name of role
-   * @param  {Array}  permissions  Array (String action, String resource)
-   * @param  {Function} cb        Callback function
-   * @return {boolean}                Current instance
+   * @param {string} roleName Name of role
+   * @param {Object[]} permissions Array (String action, String resource)
+   * @return {boolean} Current instance
    */
-  canAll(roleName, permissions, cb) {
+  async canAll(roleName: string, permissions: Object[]) {
     // prepare the names of permissions
-    const permissionNames = RBAC.getPermissionNames(permissions);
+    const permissionNames = RBAC.getPermissionNames(permissions, this.options.delimiter);
     const founded = {};
     let foundedCount = 0;
 
     // traverse hierarchy
-    this.traverseGrants(roleName, (err, item) => {
-      // if there is a error
-      if (err) {
-        return cb(err);
-      }
-
-      // this is last item
-      if (!item) {
-        return cb(null, false);
-      }
-
-      if (item instanceof Permission && permissionNames.indexOf(item.name) !== -1 && !founded[item.name]) {
+    await this.traverseGrants(roleName, (item) => {
+      if (item instanceof Permission && permissionNames.includes(item.name) && !founded[item.name]) {
         founded[item.name] = true;
-        foundedCount++;
+        foundedCount += 1;
 
         if (foundedCount === permissionNames.length) {
-          cb(null, true);
-          // end up actual traversing
-          return false;
+          return true;
         }
       }
+
+      return undefined;
     });
 
-    return this;
+    console.log('OMG', permissionNames, permissionNames.length, foundedCount);
+
+    return foundedCount === permissionNames.length;
   }
 
   /**

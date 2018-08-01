@@ -112,7 +112,7 @@ export default class Storage {
    * @return {Permission}           Instance of actual storage
    */
   async getPermission(action: string, resource: string): ?Permission {
-    const name = Permission.createName(action, resource);
+    const name = Permission.createName(action, resource, this.rbac.options.delimiter);
     const item = await this.get(name);
     if (item && item instanceof Permission) {
       return item;

@@ -38,7 +38,7 @@ function testRBAC(storage, storageType) {
     it('should be able to create roles and permissions', async () => {
       rbac = new RBAC({ storage });
       const data = await rbac.create(roles, permissionsAsObject);
-      expect(data).toBeDefined(undefined);
+      expect(data).toBeDefined();
 
       response = data;
       response.should.have.properties(['roles', 'permissions']);
@@ -139,7 +139,7 @@ function testRBAC(storage, storageType) {
 
     it('should not be able to get permission through getRole', async () => {
       const permission = await rbac.getRole('create_article');
-      expect(permission).toBe(undefined);
+      expect(permission).toBeUndefined();
     });
 
     it('should be able to get permission', async () => {
@@ -149,7 +149,7 @@ function testRBAC(storage, storageType) {
 
     it('should not be able to get role through getPermission', async () => {
       const admin = await rbac.getPermission('admin', '');
-      expect(admin).toBe(undefined);
+      expect(admin).toBeUndefined();
     });
 
     it('should able to revoke permission', async () => {
@@ -193,7 +193,7 @@ function testRBAC(storage, storageType) {
 
     it('should not be able to get removed permission', async () => {
       const permission = await rbac.get('create_article');
-      expect(permission).toBe(undefined);
+      expect(permission).toBeUndefined();
     });
 
     it('should be able to remove role', async () => {
@@ -213,7 +213,7 @@ function testRBAC(storage, storageType) {
 
     it('should not be able to get removed permission', async () => {
       const permission = await rbac.get('delete_user');
-      expect(permission).toBeUndefined(null);
+      expect(permission).toBeUndefined();
     });
 
     it('should able to check existance of role', async () => {
