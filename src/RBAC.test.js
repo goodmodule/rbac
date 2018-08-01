@@ -148,8 +148,7 @@ function testRBAC(storage, storageType) {
     });
 
     it('should not be able to get role through getPermission', async () => {
-      const admin = await rbac.getPermission('admin', '');
-      expect(admin).toBeUndefined();
+      await expect(rbac.getPermission('admin', '')).rejects.toEqual(new Error('Resource is not defined'));
     });
 
     it('should able to revoke permission', async () => {
@@ -239,11 +238,13 @@ function testRBAC(storage, storageType) {
     it('should be able to create roles and permissions with constructor', async () => {
       const localrbac = new RBAC({
         roles,
-        permissions : permissionsAsObject,
+        permissions: permissionsAsObject,
         grants,
       });
 
       await localrbac.init();
+
+      rbac = localrbac;
 
       expect(localrbac).toBeDefined();
     });

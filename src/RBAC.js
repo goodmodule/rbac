@@ -478,8 +478,6 @@ export default class RBAC {
       return undefined;
     });
 
-    console.log('OMG', permissionNames, permissionNames.length, foundedCount);
-
     return foundedCount === permissionNames.length;
   }
 

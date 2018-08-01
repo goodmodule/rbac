@@ -8,9 +8,3 @@ gulp.task('doc', (cb) => {
     .pipe(babel())
     .pipe(jsdoc(config, cb));
 });
-
-gulp.task('build', () => {
-  return gulp.src('./src/**/*.{js,jsx}')
-    .pipe(babel())
-    .pipe(gulp.dest('./dist'));
-});

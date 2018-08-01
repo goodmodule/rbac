@@ -25,7 +25,7 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 6.1.0"
   },
   "scripts": {
     "prepublish": "npm run build",
@@ -38,10 +38,7 @@
   },
   "dependencies": {
     "keymirror": "^0.1.1",
-    "lodash": "^4.17.10",
-    "mysql2": "^1.5.3",
-    "sequelize": "^4.38.0",
-    "dynamoose": "^0.8.7"
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.55",
@@ -84,14 +81,9 @@
     "gulp-util": "^3.0.8",
     "jaguarjs-jsdoc": "^1.1.0",
     "jsdoc": "^3.5.5",
-    "mongoose": "^5.2.6",
     "should": "^13.2.3",
     "jest": "^23.4.2",
-    "jest-cli": "^23.4.2",
-    "rbac": "^4.0.2"
-  },
-  "peerDependencies": {
-    "rbac": "4.x"
+    "jest-cli": "^23.4.2"
   },
   "bugs": {
     "url": "https://github.com/seeden/rbac/issues"

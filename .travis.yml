@@ -6,15 +6,11 @@ node_js:
     - "7"
     - "8"
     - "9"
+    - "10"
 script: npm test
 notifications:
     email:
         recipients:
-            - zlatkofedor@cherrysro.com
+            - zlatkofedor@cherryprojects.com
         on_success: change
         on_failure: always
-services:
-  - mongodb
-  - mysql
-before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS rbac;'

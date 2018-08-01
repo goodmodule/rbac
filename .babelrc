@@ -2,7 +2,7 @@
   "presets": [
     ["@babel/env", {
       "targets": {
-        "node": true
+        "node": "6.10"
       },
       "useBuiltIns": "entry",
       "loose": true
