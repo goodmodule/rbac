@@ -94,7 +94,7 @@ export default class Memory extends Storage {
   }
 
   async getRoles(): Role[] {
-    return this.items
+    return Object.values(this.items)
       .reduce((filtered: Role[], item: Object) => {
         const { instance } = item;
 
@@ -107,7 +107,7 @@ export default class Memory extends Storage {
   }
 
   async getPermissions(): Permission[] {
-    return this.items
+    return Object.values(this.items)
       .reduce((filtered: Permission[], item: Object) => {
         const { instance } = item;
 
