@@ -1,6 +1,7 @@
 // @flow
 import Base from './Base';
 import Permission from './Permission';
+import type RBAC from './RBAC';
 
 export default class Role extends Base {
   /**
@@ -49,7 +50,7 @@ export default class Role extends Base {
   /**
    * Check if the role has any of the given permissions
    * @method Role#canAny
-   * @param {Array} permissions  List of permissions. Each has structure (String action, String resource)
+   * @param {Array} permissions List of permissions. Each has structure (String action, String resource)
    */
   async canAny(permissions): boolean {
     return this.rbac.canAny(this.name, permissions);
