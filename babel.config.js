@@ -5,7 +5,10 @@ module.exports = function (api) {
     "presets": [
       ["@babel/env", {
         "targets": {
-          "node": "6.10"
+          "node": "6.10",
+          "browsers": [
+            "> 1%"
+          ]
         },
         "useBuiltIns": "entry",
         "loose": true
