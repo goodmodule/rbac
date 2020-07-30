@@ -28,18 +28,20 @@
     "node": ">= 6.1.0"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run snyk-protect && npm run build",
     "test": "jest ./src/",
     "test:coverage": "jest --coverage ./src/",
     "test:watch": "jest --watch ./src/",
     "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
     "docs:build": "documentation build src/** -f html -o docs",
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ."
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js .",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "keymirror": "^0.1.1",
-    "lodash": "^4.17.14"
+    "lodash": "^4.17.14",
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
@@ -94,5 +96,6 @@
   },
   "jest": {
     "testEnvironment": "node"
-  }
+  },
+  "snyk": true
 }
