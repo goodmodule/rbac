@@ -5,7 +5,7 @@ import Role from './Role';
 import Base from './Base';
 
 export default class Memory extends Storage {
-  items: Object[] = {};
+  items: Object = {};
 
   async add(item: Base): boolean {
     const { name } = item;
@@ -94,9 +94,10 @@ export default class Memory extends Storage {
   }
 
   async getRoles(): Role[] {
-    return this.items
-      .reduce((filtered: Role[], item: Object) => {
-        const { instance } = item;
+    const { items } = this;
+    return Object.keys(items)
+      .reduce((filtered: Role[], itemKey: String) => {
+        const { instance } = items[itemKey];
 
         if (instance instanceof Role) {
           filtered.push(instance);
@@ -107,9 +108,10 @@ export default class Memory extends Storage {
   }
 
   async getPermissions(): Permission[] {
-    return this.items
-      .reduce((filtered: Permission[], item: Object) => {
-        const { instance } = item;
+    const { items } = this;
+    return Object.keys(items)
+      .reduce((filtered: Permission[], itemKey: String) => {
+        const { instance } = items[itemKey];
 
         if (instance instanceof Permission) {
           filtered.push(instance);
