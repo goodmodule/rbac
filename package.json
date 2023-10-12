@@ -1,98 +1,109 @@
 {
-  "name": "rbac",
-  "version": "6.0.0",
+  "name": "hrbac",
+  "version": "1.0.0",
   "description": "Hierarchical Role Based Access Control",
-  "author": {
-    "name": "Zlatko Fedor",
-    "email": "info@goodmodule.com",
-    "url": "http://www.goodmodule.com/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/seeden/rbac.git"
-  },
   "keywords": [
     "role",
     "permission",
     "access",
     "RBAC",
     "hierarchical",
-    "privacy",
-    "mongoose",
-    "passport"
+    "privacy"
   ],
   "private": false,
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "typings": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./build/index.js",
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts",
+      "typings": "./build/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "/build",
+    "README.md",
+    "package.json"
+  ],
   "engines": {
-    "node": ">= 6.1.0"
+    "node": ">= 16.19.0"
   },
   "scripts": {
-    "prepublish": "npm run build",
-    "test": "jest ./src/",
+    "build": "node ./builder",
+    "lint:check": "eslint \"src/**/*.ts\" --cache",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "pretty:check": "pretty-quick --pattern 'src/**/*.ts' --staged",
+    "lint:fix": "yarn run pretty-quick && yarn run lint --fix",
+    "ts:check": "tsc -p ./tsconfig.json --noEmit",
+    "ci:check": "yarn ts:check && yarn lint:check && yarn prettier-format",
+    "test": "jest ./src/ --forceExit --detectOpenHandles",
     "test:coverage": "jest --coverage ./src/",
     "test:watch": "jest --watch ./src/",
-    "doc": "babel-node ./node_modules/gulp/bin/gulp.js doc",
-    "docs:build": "documentation build src/** -f html -o docs",
-    "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ."
+    "git-add": "git add ."
   },
   "dependencies": {
-    "keymirror": "^0.1.1",
-    "lodash": "^4.17.14"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/node": "^7.5.0",
-    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-stage-1": "^7.0.0",
-    "@babel/register": "^7.4.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-proposal-do-expressions": "^7.5.0",
-    "@babel/plugin-proposal-export-default-from": "^7.5.2",
-    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
-    "@babel/plugin-proposal-function-sent": "^7.5.0",
-    "@babel/plugin-proposal-json-strings": "^7.2.0",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.2.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
-    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
-    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-syntax-import-meta": "^7.2.0",
-    "babelify": "git+https://github.com/ylemkimon/babelify.git#master",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.8.0",
-    "babel-loader": "^8.0.6",
-    "documentation": "^12.0.1",
-    "eslint": "^6.0.1",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-loader": "^2.2.1",
-    "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-flowtype": "^3.11.1",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-jsdoc3": "^2.0.0",
-    "gulp-util": "^3.0.8",
-    "jaguarjs-jsdoc": "^1.1.0",
-    "jsdoc": "^3.6.3",
-    "should": "^13.2.3",
-    "jest": "^24.8.0",
-    "jest-cli": "^24.8.0"
-  },
-  "bugs": {
-    "url": "https://github.com/seeden/rbac/issues"
+    "@babel/core": "7.23.2",
+    "@babel/plugin-proposal-class-properties": "7.18.6",
+    "@babel/plugin-proposal-decorators": "7.23.2",
+    "@babel/preset-env": "7.23.2",
+    "@babel/preset-typescript": "7.23.2",
+    "@esbuild-plugins/tsconfig-paths": "0.1.2",
+    "@types/jest": "29.5.5",
+    "@types/lodash": "4.14.199",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
+    "@typescript-eslint/parser": "6.7.5",
+    "babel-jest": "29.7.0",
+    "babel-loader": "9.1.3",
+    "esbuild": "0.19.4",
+    "esbuild-node-externals": "1.9.0",
+    "esbuild-plugin-d.ts": "1.1.0",
+    "esbuild-plugin-tsc": "0.4.0",
+    "eslint": "8.51.0",
+    "eslint-config-node": "4.1.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-import": "2.28.1",
+    "eslint-plugin-import-helpers": "1.3.1",
+    "eslint-plugin-jest": "27.4.2",
+    "eslint-plugin-prettier": "5.0.1",
+    "jest": "29.7.0",
+    "jsdoc": "4.0.2",
+    "pre-commit": "1.2.2",
+    "prettier": "3.0.3",
+    "pretty-quick": "3.1.3",
+    "ts-jest": "29.1.1",
+    "ts-loader": "9.5.0",
+    "typescript": "5.2.2"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "verbose": true,
+    "testMatch": [
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "modulePathIgnorePatterns": [
+      "dist"
+    ],
+    "transform": {
+      ".+\\.(ts|tsx)$": "ts-jest"
+    },
+    "coveragePathIgnorePatterns": [
+      "node_modules"
+    ]
+  },
+  "pre-commit": {
+    "run": [
+      "lint:check",
+      "ts:check",
+      "git-add"
+    ]
   }
 }

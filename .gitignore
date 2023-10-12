@@ -1,14 +1,8 @@
 .DS_Store
-.nodemonignore
-.sass-cache/
-.bower-cache/
-.bower-registry/
-.bower-tmp/
+
 node_modules/
-public/lib
-public/release
 test/coverage/
 coverage
-documentation
-dist
+/dist
+/build
 /package-lock.json
