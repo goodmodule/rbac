@@ -6,3 +6,5 @@ coverage
 /dist
 /build
 /package-lock.json
+
+/.idea
