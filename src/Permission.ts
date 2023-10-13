@@ -1,4 +1,5 @@
 import Base from './Base';
+import { GRAND_DELIMITER } from './config/default';
 import { RBAC } from './RBAC';
 import { ActionType, DecodeNamePermissionType, DelimiterType, GrandType, ResourceType } from './types';
 
@@ -23,7 +24,7 @@ export class Permission extends Base {
     return `${action}${delimiter}${resource}`;
   }
 
-  static decodeName(name: string, delimiter: DelimiterType): DecodeNamePermissionType {
+  static decodeName(name: string, delimiter: DelimiterType = GRAND_DELIMITER): DecodeNamePermissionType {
     if (!delimiter) {
       throw new Error('delimiter is required');
     }

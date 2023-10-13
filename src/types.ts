@@ -1,7 +1,7 @@
 import Base from './Base';
 import { Permission } from './Permission';
 import { Role } from './Role';
-import { Storage } from './Storage';
+import Storage from './storages';
 
 export type DecodeNamePermissionType = {
   action: ActionType;

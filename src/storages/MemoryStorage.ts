@@ -1,11 +1,11 @@
-import Base from './Base';
-import { Permission } from './Permission';
-import { Role } from './Role';
-import { Storage } from './Storage';
+import Base from '../Base';
+import { Permission } from '../Permission';
+import { Role } from '../Role';
+import Storage from './index';
 
 type ItemType = { instance: Base; grants: string[] };
 
-export class Memory extends Storage {
+export class MemoryStorage extends Storage {
   items: Record<string, ItemType> = {};
 
   async add(item: Base): Promise<boolean> {

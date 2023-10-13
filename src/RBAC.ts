@@ -1,10 +1,11 @@
 import isPlainObject from 'lodash/isPlainObject';
 
 import Base from './Base';
-import { Memory as MemoryStorage } from './Memory';
+import { RBAC_DEFAULT_OPTIONS } from './config/default';
 import { Permission } from './Permission';
 import { Role } from './Role';
-import { Storage } from './Storage';
+import Storage from './storages';
+import { MemoryStorage as MemoryStorage } from './storages/MemoryStorage';
 import {
   ActionType,
   GrandsType,
@@ -16,13 +17,6 @@ import {
   RoleType,
   TraverseGrantsParams,
 } from './types';
-
-const DEFAULT_OPTIONS: RBACOptionsType = {
-  permissions: {},
-  roles: [],
-  grants: {},
-  delimiter: '_',
-};
 
 export class RBAC {
   public options: RBACOptionsType;
@@ -43,7 +37,7 @@ export class RBAC {
 
   constructor(options: Partial<RBACOptionsType>) {
     this.options = {
-      ...DEFAULT_OPTIONS,
+      ...RBAC_DEFAULT_OPTIONS,
       ...options,
     };
 

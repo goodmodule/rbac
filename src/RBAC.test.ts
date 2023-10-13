@@ -1,13 +1,13 @@
-import { Memory } from './Memory';
 import { Permission } from './Permission';
 import { RBAC } from './RBAC';
-import { Storage } from './Storage';
+import Storage from './storages';
+import { MemoryStorage } from './storages/MemoryStorage';
 import { ActionType, GrandsType, RBACType, ResourceType, RoleType } from './types';
 
 describe(`RBAC memory storage`, () => {
   let rbac: RBAC;
   let response: RBACType;
-  const storage: Storage = new Memory();
+  const storage: Storage = new MemoryStorage();
 
   const permissions: Array<[ActionType, ResourceType]> = [
     ['create', 'article'],

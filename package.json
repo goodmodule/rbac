@@ -1,6 +1,6 @@
 {
   "name": "hrbac",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Hierarchical Role Based Access Control",
   "keywords": [
     "role",
@@ -46,6 +46,9 @@
     "test:watch": "jest --watch ./src/",
     "git-add": "git add ."
   },
+  "peerDependencies": {
+    "mongoose": "*"
+  },
   "dependencies": {
     "lodash": "4.17.21"
   },
@@ -58,6 +61,7 @@
     "@esbuild-plugins/tsconfig-paths": "0.1.2",
     "@types/jest": "29.5.5",
     "@types/lodash": "4.14.199",
+    "@types/mongoose": "^5.11.97",
     "@typescript-eslint/eslint-plugin": "6.7.5",
     "@typescript-eslint/parser": "6.7.5",
     "babel-jest": "29.7.0",

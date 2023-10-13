@@ -1,10 +1,10 @@
-import Base from './Base';
-import { Permission } from './Permission';
-import type { RBAC } from './RBAC';
-import { Role } from './Role';
-import { ActionType, ResourceType, RoleType } from './types';
+import Base from '../Base';
+import { Permission } from '../Permission';
+import type { RBAC } from '../RBAC';
+import { Role } from '../Role';
+import { ActionType, ResourceType, RoleType } from '../types';
 
-export class Storage {
+export default class Storage {
   public rbac: RBAC | null = null;
 
   useRBAC(rbac: RBAC): void {
